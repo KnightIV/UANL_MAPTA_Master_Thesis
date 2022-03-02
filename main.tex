@@ -3,9 +3,13 @@
 \usepackage{biblatex}
 \addbibresource{ref.bib}
 
-\begin{document}
-	\tableofcontents
+\usepackage[pagestyles]{titlesec}
+\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
+\newpagestyle{mystyle}
+{\sethead[\thepage][][\chaptertitle]{}{}{\thepage}}
+\pagestyle{mystyle}
 
+\begin{document}
 	\include{Introduccion/Introduccion.tex}
 
 	\printbibliography
