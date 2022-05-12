@@ -50,6 +50,8 @@
 \DeclareCaptionFont{myblue}{\color{SubSectionBlue}}
 \captionsetup{labelfont={myblue,bf}}
 \setcitestyle{authoryear, open={(},close={)}}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
 %------------------------------------------------------------------------------------
 \newcommand{\myboldverb}[1]{{\color{MyDarkBlue}\bfseries{#1}}} % per enfasi in grassetto 
 \newcommand{\myverb}[1]{{\color{MyDarkBlue}\texttt{#1}}} % in evidenza
@@ -59,6 +61,7 @@
 \newcommand{\quotesubsubsection}[1]{{\color{SubSubSectionBlue}\textbf{Sezione \ref{#1}}}}
 \newcommand{\quotefigure}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
 \newcommand{\quotetable}[1]{{\color{MyDarkGreen}\textbf{Tabella \ref{#1}}}}
+\newcommand{\textapproxtilde}{\raisebox{-0.55ex}{\textasciitilde}}
 %------------------------------------------------------------------------------------
 \geometry{
 	paper=a4paper, % Change to letterpaper for US letter
@@ -140,7 +143,9 @@
 % \end{abstract}
 %-------------------------------------INDEX
 \setcounter{page}{1}
-\tableofcontents{}
+\tableofcontents
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 %\vspace*{2cm}
 %\setcounter{page}{1}
 \pagenumbering{arabic}
@@ -151,13 +156,16 @@
 
 
 %-------------------------------------REFERENCES
-\bibliography{ref}
-% TODO: fix formatting for text
+\chapter*{Agradecimientos}
+\thispagestyle{empty}
 This work has made use of data from the European Space Agency (ESA) mission
 {\it Gaia} (\url{https://www.cosmos.esa.int/gaia}), processed by the {\it Gaia}
 Data Processing and Analysis Consortium (DPAC,
 \url{https://www.cosmos.esa.int/web/gaia/dpac/consortium}). Funding for the DPAC
 has been provided by national institutions, in particular the institutions
 participating in the {\it Gaia} Multilateral Agreement.
+\clearpage
+
+\bibliography{ref}
 
 \end{document}
