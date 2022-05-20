@@ -9,9 +9,10 @@
 \usepackage[]{xcolor}
 \usepackage{booktabs, multirow}
 \usepackage[normalem]{ulem}
-\usepackage[colorlinks,linkcolor=black,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage[colorlinks,linkcolor=MyGray,urlcolor=blue,citecolor=blue]{hyperref}
 \usepackage{natbib}
 \bibliographystyle{apalike}
+\usepackage[nottoc]{tocbibind}
 \usepackage{url}
 \usepackage[spanish]{babel}
 
@@ -89,48 +90,45 @@
 \begin{titlepage}
     \begin{center}
         \vspace*{0.2cm}
-        {\fontsize{19pt}{20pt}\selectfont \textbf{Facultad de Ciencias Físico Matemático - Universidad Autónoma de Nuevo León}\par}
-    
+        {\fontsize{19pt}{20pt}\selectfont \textbf{Universidad Autónoma de Nuevo León}\par}
+
         \noindent
         \hrulefill
         \vspace{0.8cm}
-        
-        \Large
-        
-        Dipartimento di Fisica e Astronomia
-        
-        Corso di Laurea in Astronomia
 
         \Large
+        Facultad de Ciencias Físico Matemático
+        \Large
+
         \vspace{5cm}
         {\fontsize{22.5pt}{22.5}\textcolor{MyDarkBlue}{\textbf{Estudio Fotométrico de Variables Cataclísmicas}}}
 
-        
         \vspace{1cm}
-        {\fontsize{16pt}{16pt}Tesis de Maestría}
-        
+        {\fontsize{16pt}{16pt}Tesis de Maestría en Astrofísica Planetaria y 
+        Tecnologías Afines}
+
         \vspace{4.5cm}
         \begin{minipage}[t]{0.34\textwidth}
-        \begin{flushleft}
-        {\fontsize{16pt}{16pt}Presentada por: \\ \textbf{\textcolor{MyDarkBlue}{Ramón Caballero Villegas}}}
-        \end{flushleft}
+            \begin{flushleft}
+                {\fontsize{16pt}{16pt}Presentada por: \\ \textbf{\textcolor{MyDarkBlue}{Ramón Caballero Villegas}}}
+            \end{flushleft}
         \end{minipage}
-        \begin{minipage}[t]{0.64\textwidth}
-        \begin{flushright} \Large
-        Asesor: \\
-        \textbf{\textcolor{MyDarkBlue}{Chiar.mo Prof.}} 
-		\\\textbf{\textcolor{MyDarkBlue}{Dr. Andres Alberto Aviles Alvarado}} 
-        \end{flushright}
+        \begin{minipage}[t]{0.44\textwidth}
+            \begin{flushright} \Large
+                Asesor: \\
+                % \textbf{\textcolor{MyDarkBlue}{Chiar.mo Prof.}} \\
+                \textbf{\textcolor{MyDarkBlue}{Dr. Andrés Alberto Avilés Alvarado}}
+            \end{flushright}
         \end{minipage}\\
-        
+
         \vfill
         \noindent\hrulefill
         \vspace{0.3cm}
         \Large
-        
-        Apelación {\textcolor{MyDarkBlue} {I}} 
-        
-        Año Académico {\textcolor{MyDarkBlue} {2021-2023}}
+
+        Apelación {\textcolor{MyDarkBlue} {I}}
+
+        Año Académico {\textcolor{MyDarkBlue} {2022-2023}}
     \end{center}
 \end{titlepage}
 % ------------------------------------DEDICATION
@@ -167,7 +165,7 @@
 %-------------------------------------REFERENCES
 \chapter*{Agradecimientos}
 This work has made use of data from the European Space Agency (ESA) mission
-{\it Gaia} (\url{https://www.cosmos.esa.int/gaia}), processed by the {\it Gaia}
+    {\it Gaia} (\url{https://www.cosmos.esa.int/gaia}), processed by the {\it Gaia}
 Data Processing and Analysis Consortium (DPAC,
 \url{https://www.cosmos.esa.int/web/gaia/dpac/consortium}). Funding for the DPAC
 has been provided by national institutions, in particular the institutions
