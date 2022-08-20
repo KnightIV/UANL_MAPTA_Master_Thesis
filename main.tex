@@ -16,6 +16,49 @@
 \usepackage{url}
 \usepackage[spanish]{babel}
 
+% SQL formatting code
+    % Taken from https://tex.stackexchange.com/questions/455993/formatting-sql-code
+\usepackage{xcolor,listings}
+\usepackage{textcomp}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0, 0.2, 0.8}
+\definecolor{backcolour}{rgb}{0.97, 0.97, 0.97}
+\definecolor{bookColor}{cmyk}{0, 0, 0, 0.90}  
+\color{bookColor}
+
+\lstset{upquote=true}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    numberstyle=\numberstyle,
+    stringstyle=\color{codeblue},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    % breaklines=false,
+    captionpos=b,
+    keepspaces=true,
+    % numbers=left,
+    % numbersep=10pt,
+    % numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+}
+\lstset{style=mystyle}
+
+\newcommand\numberstyle[1]{%
+    \footnotesize
+    \color{codegray}%
+    \ttfamily
+    \ifnum#1<10 0\fi#1 |%
+}
+
 %------------------------------------------------------------------------------------
 \newcommand{\eg}{\`e}
 \newcommand{\ea}{\'e}
@@ -164,6 +207,9 @@
 \include{Introduccion/Introduccion.tex}
 \include{Muestra/Muestra.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix
+\appendix
+\include{Apendice/GaiaADQL.tex}
 %-------------------------------------REFERENCES
 \chapter*{Agradecimientos}
 This work has made use of data from the European Space Agency (ESA) mission
