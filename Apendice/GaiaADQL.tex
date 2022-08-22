@@ -9,23 +9,23 @@
 	framexleftmargin=8pt,
 	frame=tb,
 	framerule=0pt ]
-SELECT *,
-	sdss_transform.g_sdss - sdss_transform.r_sdss AS g_r_sdss_color,
-	sdss_transform.r_sdss - sdss_transform.i_sdss AS r_i_sdss_color
+SELECT *, sdss_transform.g_sdss - sdss_transform.r_sdss AS g_r_sdss_color, sdss_transform.r_sdss - sdss_transform.i_sdss AS r_i_sdss_color
 FROM (
-	SELECT *,
-		-0.13518 + 0.46245 * bp_rp + 0.2517 * Power(bp_rp, 2) - 0.021349 * Power(bp_rp, 3) + phot_g_mean_mag
-			AS g_sdss,
-		0.29676 - 0.64728 * bp_rp + 0.10174 * Power(bp_rp, 2) + phot_g_mean_mag
-			AS i_sdss,
-		0.12879 - 0.24662 * bp_rp + 0.027464 * Power(bp_rp, 2) + 0.049465 * Power(bp_rp, 3) + phot_g_mean_mag
-			AS r_sdss
-	FROM gaiadr2.gaia_source
-	WHERE source_id IN (
-		SELECT source_id
-		FROM user_rcabal01.gaiaonly_distance
-	)
+	SELECT source_id,
+		-0.13518 + 0.46245 * bp_rp + 0.2517 * Power(bp_rp , 2) - 0.021349 * Power(bp_rp , 3) + phot_g_mean_mag AS g_sdss,
+		0.29676 - 0.64728 * bp_rp + 0.10174 * Power(bp_rp , 2) + phot_g_mean_mag AS i_sdss,
+		0.12879 - 0.24662 * bp_rp + 0.027464 * Power(bp_rp , 2) +	0.049465 * Power (bp_rp , 3) + phot_g_mean_mag	AS r_sdss
+	FROM gaiadr2.gaia_source as gdr2
+	WHERE
+		gdr2.phot_variable_flag = 'VARIABLE'
+		AND gdr2.source_id IN (
+			SELECT source_id
+			FROM external.gaiadr2_geometric_distance
+		)
+		AND gdr2.source_id NOT IN (
+			SELECT source_id
+			FROM gaiadr2.sdssdr9_best_neighbour
+		)
 ) AS sdss_transform
-INNER JOIN EXTERNAL.gaiadr2_geometric_distance gdist
-	ON sdss_transform.source_id = gdist.source_id 
+WHERE sdss_transform.g_sdss - sdss_transform.r_sdss < 0.7 AND sdss_transform.r_sdss - sdss_transform.i_sdss > 0.30
 \end{lstlisting}
