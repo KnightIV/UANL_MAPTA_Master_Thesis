@@ -9,13 +9,29 @@
 	framexleftmargin=8pt,
 	frame=tb,
 	framerule=0pt ]
-SELECT *, sdss_transform.g_sdss - sdss_transform.r_sdss AS g_r_sdss_color, sdss_transform.r_sdss - sdss_transform.i_sdss AS r_i_sdss_color
+SELECT *, 
+	array_element(a0, 1) AS J2000_ra_prop,
+	array_element(a0, 2) AS J2000_dec_prop,
+	array_element(a0, 3) AS J2000_parallax_prop,
+	array_element(a0, 4) AS J2000_pmra_prop,
+	array_element(a0, 5) AS J2000_pmdec_prop,
+	array_element(a0, 6) AS J2000_rv_prop, sdss_transform.g_sdss - sdss_transform.r_sdss AS g_r_sdss_color, sdss_transform.r_sdss - sdss_transform.i_sdss AS r_i_sdss_color
 FROM (
-	SELECT source_id,
+	SELECT *,
 		-0.13518 + 0.46245 * bp_rp + 0.2517 * Power(bp_rp , 2) - 0.021349 * Power(bp_rp , 3) + phot_g_mean_mag AS g_sdss,
 		0.29676 - 0.64728 * bp_rp + 0.10174 * Power(bp_rp , 2) + phot_g_mean_mag AS i_sdss,
 		0.12879 - 0.24662 * bp_rp + 0.027464 * Power(bp_rp , 2) +	0.049465 * Power (bp_rp , 3) + phot_g_mean_mag	AS r_sdss
-	FROM gaiadr2.gaia_source as gdr2
+	FROM (
+		SELECT source_id, phot_variable_flag, bp_rp, phot_g_mean_mag,
+			ra,
+			dec,
+			parallax,
+			pmra,
+			pmdec,
+			radial_velocity AS rv,
+			EPOCH_PROP(ra, dec, parallax, pmra, pmdec, radial_velocity, ref_epoch, 2000) AS a0
+		FROM gaiadr2.gaia_source
+	) as gdr2
 	WHERE
 		gdr2.phot_variable_flag = 'VARIABLE'
 		AND gdr2.source_id IN (

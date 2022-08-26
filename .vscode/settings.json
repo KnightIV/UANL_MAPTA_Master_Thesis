@@ -6,6 +6,8 @@
 	"cSpell.useGitignore": true,
 	"cSpell.enabled": true,
 	"cSpell.words": [
+		"Astropy",
+		"SDSS",
 		"SIMBAD",
 		"Szkody"
 	]
