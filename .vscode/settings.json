@@ -7,8 +7,12 @@
 	"cSpell.enabled": true,
 	"cSpell.words": [
 		"Astropy",
+		"Chrétien",
+		"Ritchey",
+		"sdss",
 		"SDSS",
 		"SIMBAD",
 		"Szkody"
-	]
+	],
+	"todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^|%|\\\\)\\s*($TAGS)\\{*|^\\s*- \\[ \\])",
 }
