@@ -146,7 +146,7 @@
         \Large
 
         \vspace{5cm}
-        {\fontsize{22.5pt}{22.5}\textcolor{MyDarkBlue}{\textbf{Estudio Fotométrico de Variables Cataclísmicas}}}
+        {\fontsize{25pt}{25}\textcolor{MyDarkBlue}{\textbf{Búsqueda y Estudio Fotométrico de Variables Cataclísmicas}}}
 
         \vspace{1cm}
         {\fontsize{16pt}{16pt}Tesis de Maestría en Astrofísica Planetaria y 
@@ -171,7 +171,7 @@
         \vspace{0.3cm}
         \Large
 
-        Apelación {\textcolor{MyDarkBlue} {I}}
+        % Apelación {\textcolor{MyDarkBlue} {I}}
 
         Año Académico {\textcolor{MyDarkBlue} {2022-2023}}
     \end{center}
@@ -187,12 +187,40 @@
 % ------------------------------------
 %\newpage
 %-------------------------------------ABSTRACT
-% \thispagestyle{empty}
-% \vspace*{5cm}
-% \renewcommand{\abstractname}{\color{MyDarkBlue}{Abstract}} 
-% \begin{abstract}
-% 	TODO: abstract
-% \end{abstract}
+\thispagestyle{empty}
+\vspace*{5cm}
+\renewcommand{\abstractname}{\color{MyDarkBlue}{Resumen}} 
+\begin{abstract}
+	Las \textit{variables cataclísmicas} son un tipo de sistemas binarios con un
+    comportamiento particular. Estas están compuestas comúnmente de una estrella
+    \textit{enana blanca} y una de \textit{secuencia principal}, donde material
+    fluye de la secuencia principal hacia la enana blanca, por lo cual se les
+    llama sistemas en contacto. De esto surge el fenómeno de las explosiones
+    \textit{nova}, en donde el material acrecido es lanzado de manera violenta
+    al medio interestelar, causando un aumento en el brillo del sistema. Este
+    abrillantamiento es una de las características más llamativas de las
+    variables cataclísmicas, siendo un comportamiento volátil y periódico cuyo
+    mecanismo no ha sido completamente explorado. 
+    \\\newline
+    \noindent A pesar de ser objetos de interés son relativamente pocas los
+    sistemas identificados como VCs en la literatura. Hasta recientemente solo
+    se han podido encontrar poco más de 1,000 VCs; esto limita posibles
+    observaciones a una parte pequeña de la población en la Galaxia, lo cual
+    causa un desacuerdo en los mecanismos en juego en la evolución de estos
+    mismos. Cada nuevo sistema observado provee datos útiles que ayudan a
+    desarrollar un modelo general no solo para las VCs, si no que también para
+    la estructura y evolución de estrellas solas como nuestro Sol. 
+    \\\newline
+    \noindent Esta tesis tiene de objetivo encontrar candidatas a VCs dentro del
+    catálogo de \gaiaNoSpace, implementando una búsqueda fotométrica basado en
+    filtros de colores de las bandas del \textit{Sloan Digital Sky Survey}, con
+    énfasis en encontrar sistemas previamente no observados. De los sistemas
+    candidatos se llevo a cabo un estudio fotométrico desde el Observatorio
+    Astronómico Universitario de la Universidad Autónoma de Nuevo León, ubicado
+    en el Municipio de Iturbide Nuevo León. Como resultado final de este trabajo
+    se presenta las curvas de luz de cada objeto, obteniendo de estas varios
+    parámetros efemérides de los sistemas.
+\end{abstract}
 %-------------------------------------INDEX
 \setcounter{page}{1}
 \tableofcontents
@@ -201,7 +229,6 @@
 %\vspace*{2cm}
 %\setcounter{page}{1}
 \pagenumbering{arabic}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapters
 \include{Introduccion/Introduccion.tex}
@@ -219,7 +246,8 @@ Data Processing and Analysis Consortium (DPAC,
 has been provided by national institutions, in particular the institutions
 participating in the {\it Gaia} Multilateral Agreement.
 
-This research made use of Astropy,\footnote{\url{http://www.astropy.org}} a community-developed core Python package for Astronomy \citet*{astropy}.
+This research made use of Astropy,\footnote{\url{http://www.astropy.org}} a
+community-developed core Python package for Astronomy \citet*{astropy}.
 \clearpage
 
 \bibliography{ref}
