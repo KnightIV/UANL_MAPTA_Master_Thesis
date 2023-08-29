@@ -1,6 +1,12 @@
 \documentclass[12pt,a4paper]{report}
 
 \usepackage{geometry}
+
+\usepackage{makecell}
+% \usepackage[T1]{fontenc}
+\renewcommand\theadfont{\bfseries\sffamily}
+
+\usepackage{fixltx2e}
 \usepackage{float}
 \usepackage{titlesec}
 \usepackage{amssymb,amsmath,mathtools}
@@ -72,8 +78,12 @@
 \newcommand{\Fortran}{\textsf{Fortran}}
 \newcommand{\comment}[1]{}
 \newcommand{\gaiaNoSpace}{\textit{Gaia}}
+\newcommand{\atoObjIdNoSpace}{ATO J339.9469+45.1464}
+\newcommand{\atoObjId}{\atoObjIdNoSpace \space}
 \newcommand{\gaia}{\gaiaNoSpace \space}
 \newcommand{\quotes}[1]{``#1''}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\brakcite}[1]{[\citet{#1}]}
 %------------------------------------------------------------------------------------
 \definecolor{MyGray}{rgb}{0.30,0.31,0.32} % definizione grigio
 \definecolor{MyDarkBlue}{rgb}{0.,0.08,0.5} % blu scuro
@@ -163,7 +173,6 @@
         \begin{minipage}[t]{0.44\textwidth}
             \begin{flushright} \Large
                 Asesor: \\
-                % \textbf{\textcolor{MyDarkBlue}{Chiar.mo Prof.}} \\
                 \textbf{\textcolor{MyDarkBlue}{Dr. Andrés Alberto Avilés Alvarado}}
             \end{flushright}
         \end{minipage}\\
@@ -235,6 +244,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapters
 \include{Introduccion/Introduccion.tex}
 \include{Muestra/Muestra.tex}
+\include{Metodologia/Metodologia.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix
 \appendix

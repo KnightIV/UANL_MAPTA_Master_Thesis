@@ -1,0 +1,49 @@
+\section{Modelo Computacional} \label{metodologia:modelocomputacional}
+
+Usando todas las curvas de luz disponible para el sistema \atoObjId --- tanto de
+Gaia como los datos recabados de Iturbide --- se puede generar un modelo
+computacional cuyas propiedades físicas pueden adecuadamente explicar los datos
+observacionales. Este método al final daría como resultado una \textit{solución
+fotométrica} del sistema. En el mejor de los casos, esta solución muestra un
+valor satisfactorio de ajuste a los datos observacionales. A continuación se
+plasma el proceso que se llevó a cabo para llegar a una solución fotométrica del
+sistema \atoObjIdNoSpace; esta solución no es única en el sentido que otra
+combinación de parámetros podría llegar a las mismas conclusiones.
+
+\subsection{Estimaciones Iniciales} \label{metodologia:modelocomputacional:estimacionesiniciales}
+
+Una vez determinado el periodo orbital del sistema se puede empezar un estudio
+de la morfología de las curvas de luz en fase. PHOEBE para facilitar esto ofrece
+distintos métodos para generar los las primeras estimaciones de parámetros
+físicos del sistema. El estimador \textbf{EBAI-KNN} para estimar los siguientes
+parámetros: el \textit{tiempo de conjunción superior} (\code{t0\_supconj}), la
+\textit{razón de temperaturas} (\code{teffratio}), la \textit{inclinación
+orbital} (\code{incl@binary}), el \textit{factor de relleno}
+(\quotes{\textit{fillout factor}}, \code{fillout\_factor}), y la \textit{razón
+de masas} (\code{q}). A pesar que dentro de PHOEBE estén implementados
+estimadores adicionales, solo se puede aplicar el \textbf{EBAI-KNN} estimador;
+esto se debe a que el modelo del sistema inicial corresponde al de una binaria
+en contacto (indicado por su morfología).
+
+Dentro del Jupyter Notebook
+\href{https://github.com/KnightIV/UANL_MAPTA_PlanObservaciones/blob/main/analisis/phoebe_model/estimations/ebai-default.ipynb}{\code{ebai-default.ipynb}}
+se puede encontrar el código con el que se llevaron a cabo las pruebas de
+estimación de parámetros. El estimador \textbf{EBAI-KNN} puede obtener
+diferentes soluciones dependiendo de la curva de luz utilizada; por lo cual se
+esperaba que obtuviera diferentes resultados dependiendo de la curva de entrada.
+
+% \begin{table}
+% 	\centering
+% 	\begin{tabular}{|l|l|l|l|l|l|l|}
+% 		\hline
+% 		  & \code{t0\_supconj} & \code{teffratio} & \code{incl@binary} & \code{fillout\_factor} & \code{q} \\ \hline
+% 		\thead{Iturbide}               & 1 & 2 \\ \hline
+% 		\thead{Iturbide (Normalizada)} & 3 & 4 \\ \hline
+% 		\thead{Gaia G}                       &  & 5 \\ \hline
+% 		\thead{Gaia G (Normalizada)} \\ \hline
+% 		\thead{Gaia G\textsubscript{RP}} &  6 & \\ \hline
+% 		\thead{Gai G\textsubscript{RP} (Normalizada)} \\ \hline
+
+% 	\end{tabular}
+% 	\caption{EBAI KNN Estimaciones}
+% \end{table}
