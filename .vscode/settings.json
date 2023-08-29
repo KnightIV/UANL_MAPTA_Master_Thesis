@@ -12,6 +12,9 @@
 		"astrométricas",
 		"Astropy",
 		"Chrétien",
+		"EBAI",
+		"eclipsante",
+		"fillout",
 		"Iturbide",
 		"protoestrella",
 		"radiativa",
@@ -19,6 +22,7 @@
 		"sdss",
 		"SDSS",
 		"SIMBAD",
+		"superconjunción",
 		"Szkody"
 	],
 	"todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^|%|\\\\)\\s*($TAGS)\\{*|^\\s*- \\[ \\])",
