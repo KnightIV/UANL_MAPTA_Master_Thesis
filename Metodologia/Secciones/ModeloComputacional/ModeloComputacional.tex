@@ -10,27 +10,7 @@ plasma el proceso que se llevó a cabo para llegar a una solución fotométrica 
 sistema \atoObjIdNoSpace; esta solución no es única en el sentido que otra
 combinación de parámetros podría llegar a las mismas conclusiones.
 
-\subsection{Estimaciones Iniciales} \label{metodologia:modelocomputacional:estimacionesiniciales}
-
-Una vez determinado el periodo orbital del sistema se puede empezar un estudio
-de la morfología de las curvas de luz en fase. PHOEBE para facilitar esto ofrece
-distintos métodos para generar los las primeras estimaciones de parámetros
-físicos del sistema. El estimador \textbf{EBAI-KNN} para estimar los siguientes
-parámetros: el \textit{tiempo de conjunción superior} (\code{t0\_supconj}), la
-\textit{razón de temperaturas} (\code{teffratio}), la \textit{inclinación
-orbital} (\code{incl@binary}), el \textit{factor de relleno}
-(\quotes{\textit{fillout factor}}, \code{fillout\_factor}), y la \textit{razón
-de masas} (\code{q}). A pesar que dentro de PHOEBE estén implementados
-estimadores adicionales, solo se puede aplicar el \textbf{EBAI-KNN} estimador;
-esto se debe a que el modelo del sistema inicial corresponde al de una binaria
-en contacto (indicado por su morfología).
-
-Dentro del Jupyter Notebook
-\href{https://github.com/KnightIV/UANL_MAPTA_PlanObservaciones/blob/main/analisis/phoebe_model/estimations/ebai-default.ipynb}{\code{ebai-default.ipynb}}
-se puede encontrar el código con el que se llevaron a cabo las pruebas de
-estimación de parámetros. El estimador \textbf{EBAI-KNN} puede obtener
-diferentes soluciones dependiendo de la curva de luz utilizada; por lo cual se
-esperaba que obtuviera diferentes resultados dependiendo de la curva de entrada.
+\input{Metodologia/Secciones/ModeloComputacional/Subsecciones/Estimadores/EstimacionesIniciales}
 
 % \begin{table}
 % 	\centering
