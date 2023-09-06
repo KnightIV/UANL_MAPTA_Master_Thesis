@@ -17,16 +17,16 @@ del sistema. El espectro de frecuencias se encuentra en la figura
 en el Notebook
 \href{https://github.com/KnightIV/UANL_MAPTA_PlanObservaciones/blob/0b571b7377a76e0360d5e142924cc964194ace8b/analisis/phoebe_model/estimations/periodogram.ipynb}{\code{periodogram.ipynb}}.
 
-% TODO: Iturbide LC en fase
-
-\begin{figure}[!ht]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.55]{Metodologia/Secciones/AnalisisPeriodo/Figures/LS Power Spectrum.png}
 	
 	\caption{Espectro de frecuencias de las curvas de luz fotométricas de
 	\atoObjIdNoSpace, usando los datos recabados de Iturbide y de Gaia. Esta fue
 	generada usando el periodograma dentro de los estimadores de PHOEBE, el cual
-	utiliza el periodograma Lomb-Scargle en Astropy.} 
+	utiliza el periodograma Lomb-Scargle en Astropy. El pico de más alta
+	potencia está ubicado en el periodo de 0.16677069137624234 d [4.002496593
+	h]} 
 	\label{periodogramaLSFrecs}
 \end{figure}
 
@@ -39,13 +39,20 @@ modelar la curva de luz en fase como una Gaussiana doble, el modelo aceptado
 para una binaria eclipsante. %TODO: agrega bibliografía
 Utilizando la segunda armónica de la frecuencia de más alta potencia se puede
 ver esta forma esperada de la curva de luz, como se puede ver en la figura
-\ref{gaiaIturbidePhaseFold}. El periodo orbital encontrado es de 8.0049 horas.
+\ref{gaiaIturbidePhaseFold}. El periodo orbital encontrado es de 8.0049931 horas.
 
-\begin{figure}[!ht]
+\begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{Metodologia/Secciones/AnalisisPeriodo/Figures/Gaia Phase-Folded.png}
-	\includegraphics[scale=0.8]{Metodologia/Secciones/AnalisisPeriodo/Figures/Iturbide Phase-Folded.png}
+	\includegraphics[scale=0.72]{Metodologia/Secciones/AnalisisPeriodo/Figures/Gaia Phase-Folded.png}
+	\includegraphics[scale=0.72]{Metodologia/Secciones/AnalisisPeriodo/Figures/Iturbide Phase-Folded.png}
 
-	\caption{Curvas de luz de Gaia e Iturbide en espacio fase dado un periodo orbital de 8.0049 horas.}
+	\caption{Curvas de luz de Gaia e Iturbide en espacio fase dado un periodo
+		orbital de 8.0049 horas. En este momento las curvas de luz de Gaia
+		muestran un comportamiento desordenado debido a que el tiempo de
+		conjunción superior del sistema no ha sido bien definido, y actualmente
+		se encuentra en su valor inicial de $0.0$, el cual no es correcto para
+		este sistema. Tanto el periodo orbital como el tiempo de conjunción
+		superior son corregidos en los siguientes pasos de afinación del modelo
+		de PHOEBE.}
 	\label{gaiaIturbidePhaseFold}
 \end{figure}
