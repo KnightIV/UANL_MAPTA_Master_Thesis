@@ -24,6 +24,11 @@
 \usepackage[spanish]{babel}
 \usepackage[group-digits=true,group-minimum-digits=4]{siunitx}
 
+\sisetup{
+    text-series-to-math = true ,
+    propagate-math-font = true
+}
+
 % SQL formatting code
     % Taken from https://tex.stackexchange.com/questions/455993/formatting-sql-code
 \usepackage{xcolor,listings}
@@ -203,35 +208,37 @@
 \vspace*{5cm}
 \renewcommand{\abstractname}{\color{MyDarkBlue}{Resumen}} 
 \begin{abstract}
-	Las \textit{variables cataclísmicas} son un tipo de sistemas binarios con un
-    comportamiento particular. Estas están compuestas comúnmente de una estrella
-    \textit{enana blanca} y una de \textit{secuencia principal}, donde material
-    fluye de la secuencia principal hacia la enana blanca, por lo cual se les
-    llama sistemas en contacto. De esto surge el fenómeno de las explosiones
-    \textit{nova}, en donde el material acrecido es lanzado de manera violenta
-    al medio interestelar, causando un aumento en el brillo del sistema. Este
-    abrillantamiento es una de las características más llamativas de las
-    variables cataclísmicas, siendo un comportamiento volátil y periódico cuyo
-    mecanismo no ha sido completamente explorado. 
-    \\\newline
-    \noindent A pesar de ser objetos de interés son relativamente pocas los
-    sistemas identificados como VCs en la literatura. Hasta recientemente solo
-    se han podido encontrar poco más de 1,000 VCs; esto limita posibles
-    observaciones a una parte pequeña de la población en la Galaxia, lo cual
-    causa un desacuerdo en los mecanismos en juego en la evolución de estos
-    mismos. Cada nuevo sistema observado provee datos útiles que ayudan a
-    desarrollar un modelo general no solo para las VCs, si no que también para
-    la estructura y evolución de estrellas solas como nuestro Sol. 
-    \\\newline
-    \noindent Esta tesis tiene de objetivo encontrar candidatas a VCs dentro del
-    catálogo de \gaiaNoSpace, implementando una búsqueda fotométrica basado en
-    filtros de colores de las bandas del \textit{Sloan Digital Sky Survey}, con
-    énfasis en encontrar sistemas previamente no observados. De los sistemas
-    candidatos se llevo a cabo un estudio fotométrico desde el Observatorio
-    Astronómico Universitario de la Universidad Autónoma de Nuevo León, ubicado
-    en el Municipio de Iturbide Nuevo León. Como resultado final de este trabajo
-    se presenta las curvas de luz de cada objeto, obteniendo de estas varios
-    parámetros efemérides de los sistemas.
+    % TODO: new abstract about contact binaries
+
+	% Las \textit{variables cataclísmicas} son un tipo de sistemas binarios con un
+    % comportamiento particular. Estas están compuestas comúnmente de una estrella
+    % \textit{enana blanca} y una de \textit{secuencia principal}, donde material
+    % fluye de la secuencia principal hacia la enana blanca, por lo cual se les
+    % llama sistemas en contacto. De esto surge el fenómeno de las explosiones
+    % \textit{nova}, en donde el material acrecido es lanzado de manera violenta
+    % al medio interestelar, causando un aumento en el brillo del sistema. Este
+    % abrillantamiento es una de las características más llamativas de las
+    % variables cataclísmicas, siendo un comportamiento volátil y periódico cuyo
+    % mecanismo no ha sido completamente explorado. 
+    % \\\newline
+    % \noindent A pesar de ser objetos de interés son relativamente pocas los
+    % sistemas identificados como VCs en la literatura. Hasta recientemente solo
+    % se han podido encontrar poco más de 1,000 VCs; esto limita posibles
+    % observaciones a una parte pequeña de la población en la Galaxia, lo cual
+    % causa un desacuerdo en los mecanismos en juego en la evolución de estos
+    % mismos. Cada nuevo sistema observado provee datos útiles que ayudan a
+    % desarrollar un modelo general no solo para las VCs, si no que también para
+    % la estructura y evolución de estrellas solas como nuestro Sol. 
+    % \\\newline
+    % \noindent Esta tesis tiene de objetivo encontrar candidatas a VCs dentro del
+    % catálogo de \gaiaNoSpace, implementando una búsqueda fotométrica basado en
+    % filtros de colores de las bandas del \textit{Sloan Digital Sky Survey}, con
+    % énfasis en encontrar sistemas previamente no observados. De los sistemas
+    % candidatos se llevo a cabo un estudio fotométrico desde el Observatorio
+    % Astronómico Universitario de la Universidad Autónoma de Nuevo León, ubicado
+    % en el Municipio de Iturbide Nuevo León. Como resultado final de este trabajo
+    % se presenta las curvas de luz de cada objeto, obteniendo de estas varios
+    % parámetros efemérides de los sistemas.
 \end{abstract}
 %-------------------------------------INDEX
 \setcounter{page}{1}
@@ -245,6 +252,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapters
 \include{Introduccion/Introduccion.tex}
 \include{Muestra/Muestra.tex}
+\include{Observaciones/Observaciones}
 \include{Metodologia/Metodologia.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix
