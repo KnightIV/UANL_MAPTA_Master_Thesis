@@ -1,17 +1,5 @@
 \section{Criterios de Selección} \label{muestra:crit_seleccion}
 
-% Para identificar estas candidatas a variables cataclísmicas utilizamos el
-% catálogo de \hyperref[muestra:sec:gaia]{\gaia} para obtener una amplia muestra
-% fotométrica de estrellas dentro de la Galaxia. Gracias a la alta precisión y
-% sensibilidad de los instrumentos de \gaia es posible observar estrellas que no
-% han sido bien documentadas en la literatura. Para esto utilizamos la base de
-% datos dinámica de SIMBAD\footnote{\url{http://simbad.cds.unistra.fr/simbad/}}
-% para identificar estrellas cuya clasificación sea de interés para nuestra
-% investigación. Estas las priorizamos en base a la cantidad de datos disponibles
-% en la literatura; aquellos sistemas con la menor cantidad de referencias en la
-% literatura (obtenidas de SIMBAD) tienen una mayor prioridad que aquellos
-% objetos con varios estudios publicados. 
-
 Este trabajo tiene como objetivo realizar una campaña de observación para un
 sistema pobremente estudiado, con el propósito de confirmar su estatus como
 variable cataclísmica o como una binaria eclipsante, dependiendo del sistema.
@@ -41,7 +29,7 @@ se pueden aplicar a la muestra de Gaia; no están definidas transformaciones par
 las bandas $u$ ni $z$ de SDSS, ya que estas abarcan longitudes de onda más
 extremas que las observadas por Gaia. El query de ADQL ejecutada se puede
 encontrar en el apéndice \ref{apendice:gaiaAdql}. Se obtuvieron en total más de
-\num{3630000} fuentes, el cual representa un 0.2\% de los 1,811,709,771 objetos
+\num{3630000} fuentes, el cual representa un 0.2\% de los \num{1811709771} objetos
 reportados en el DR3 de Gaia. Un query similar fue ejecutado en la base de datos
 de Gaia para el segundo Data Release (DR2) (apéndice \ref{apendice:gaiaAdql:dr2}). 
 
@@ -76,16 +64,18 @@ Gaia. El código responsable se encuentra en el archivo
 % TODO: pregunta como referir al trabajo (presente o pasado? o hasta futuro?)
 Una vez obtenidos los objetos de interés de la selección de objetos visibles se
 utilizó la base de datos de
-SIMBAD\footnote{\url{http://simbad.cds.unistra.fr/simbad/}} para restringir los
-objetos de interés a un tamaño manejable, con el objetivo de obtener un sistema
-clasificado como variable cataclísmica, binaria eclipsante, o candidata a alguna
-de estas clasificaciones. Este sistema será estudiado desde el
-\textbf{Observatorio Astronómico Universitario} en Iturbide, Nuevo León. Por lo
-tanto, un requisito para este trabajo de maestría es que este sistema sea uno
-con una cantidad minima de estudios antecedentes; el estudio del sistema
-dependerá en gran parte de la curva de luz obtenida de las observaciones. Esta
-búsqueda śe llevó a cabo utilizando el API de SIMBAD, el cual acepta mensajes y
-encuestas por HTTP. El código relevante a esta búsqueda se encuentra en
+SIMBAD\footnote{\url{http://simbad.cds.unistra.fr/simbad/}}
+\citet{simbadDatabase} para restringir los objetos de interés a un tamaño
+manejable, con el objetivo de obtener un sistema clasificado como variable
+cataclísmica, binaria eclipsante, o candidata a alguna de estas clasificaciones.
+Uno de los objetivos de este trabajo de tesis fue realizar una campaña de
+observación al sistema elegido, con finalidad de obtener una curva de luz
+fotométrica; por lo tanto, un requisito para este trabajo de maestría es que
+este sistema sea uno con una cantidad minima de estudios antecedentes; el
+estudio del sistema dependerá en gran parte de la curva de luz obtenida de las
+observaciones. Esta búsqueda śe llevó a cabo utilizando el API de SIMBAD, el
+cual acepta mensajes y encuestas por HTTP. El código relevante a esta búsqueda
+se encuentra en
 \href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/obsrv_plan/simbad/retrieve_vots.py}{\code{retrieve\_vots.py}}.
 A pesar de no haber obtenido una muestra significativa de candidatas a binarias
 eclipsante se identificó un sistema de interés.
