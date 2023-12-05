@@ -21,8 +21,85 @@
 \bibliographystyle{apalike}
 \usepackage[nottoc]{tocbibind}
 \usepackage{url}
-\usepackage[spanish]{babel}
+\usepackage[spanish,es-nodecimaldot]{babel}
 \usepackage[group-digits=true,group-minimum-digits=4]{siunitx}
+\usepackage{xcoffins}
+
+\ExplSyntaxOn
+\NewCoffin\imagecoffin
+\NewCoffin\labelcoffin
+
+%region Labeled individual graphs https://tex.stackexchange.com/questions/454660/adding-a-label-on-top-of-figure
+\keys_define:nn { miguel/label }
+ {
+  label   .tl_set:N = \l_miguel_label_tl,
+  labelbox .bool_set:N = \l_miguel_label_box_bool,
+  labelbox .default:n = true,
+  fontsize .tl_set:N = \l_miguel_label_size_tl,
+  fontsize .initial:n = \footnotesize,
+  pos .choice:,
+  pos/nw .code:n = \tl_set:Nn \l_miguel_label_pos_tl { left,up },
+  pos/ne .code:n = \tl_set:Nn \l_miguel_label_pos_tl { right,up },
+  pos/sw .code:n = \tl_set:Nn \l_miguel_label_pos_tl { left,down },
+  pos/se .code:n = \tl_set:Nn \l_miguel_label_pos_tl { right,down },
+  pos/n .code:n = \tl_set:Nn \l_miguel_label_pos_tl { hc,up },
+  pos/w .code:n = \tl_set:Nn \l_miguel_label_pos_tl { left,vc },
+  pos/s .code:n = \tl_set:Nn \l_miguel_label_pos_tl { hc,down },
+  pos/e .code:n = \tl_set:Nn \l_miguel_label_pos_tl { right,vc },
+  pos .initial:n = nw,
+  unknown .code:n   = \clist_put_right:Nx \l_miguel_label_clist
+                       { \l_keys_key_tl = \exp_not:n { #1 } }
+ }
+\clist_new:N \l_miguel_label_clist
+\box_new:N \l_miguel_label_box
+\box_new:N \l_miguel_label_image_box
+
+\NewDocumentCommand{\xincludegraphics}{O{}m}
+ {
+  \group_begin:
+  \tl_clear:N \l_miguel_label_tl
+  \clist_clear:N \l_miguel_label_clist
+  \keys_set:nn { miguel/label } { #1 }
+  \tl_if_empty:NTF \l_miguel_label_tl
+   {
+    \miguel_includegraphics:Vn \l_miguel_label_clist { #2 }
+   }
+   {
+    \SetHorizontalCoffin\imagecoffin
+     {
+      \miguel_includegraphics:Vn \l_miguel_label_clist { #2 }
+     }
+    \SetHorizontalCoffin\labelcoffin
+     {
+      \raisebox{\depth}
+       {
+        \bool_if:NTF \l_miguel_label_box_bool
+         { \fcolorbox{white}{white}{\l_miguel_label_size_tl\l_miguel_label_tl} }
+         { \l_miguel_label_size_tl\l_miguel_label_tl }
+       }
+     }
+    \SetVerticalPole\imagecoffin{left}{3pt+\CoffinWidth\labelcoffin/2}
+    \SetVerticalPole\imagecoffin{right}{\Width-3pt-\CoffinWidth\labelcoffin/2}
+    \SetHorizontalPole\imagecoffin{up}{\Height-3pt-\CoffinHeight\labelcoffin/2}
+    \SetHorizontalPole\imagecoffin{down}{3pt+\CoffinHeight\labelcoffin/2}
+    \use:x{\JoinCoffins\imagecoffin[\l_miguel_label_pos_tl]\labelcoffin[vc,hc]} 
+    \TypesetCoffin\imagecoffin
+   }
+   \group_end:
+ }
+\NewDocumentCommand{\setlabel}{m}
+ {
+  \keys_set:nn { miguel/label } { #1 }
+ }
+
+\cs_new_protected:Nn \miguel_includegraphics:nn
+ {
+  \includegraphics[#1]{#2}
+ }
+\cs_generate_variant:Nn \miguel_includegraphics:nn { V }
+%endregion
+
+\ExplSyntaxOff
 
 \sisetup{
     text-series-to-math = true ,
@@ -86,6 +163,8 @@
 \newcommand{\gaiaNoSpace}{\textit{Gaia}}
 \newcommand{\atoObjIdNoSpace}{ATO J339.9469+45.1464}
 \newcommand{\atoObjId}{\atoObjIdNoSpace \space}
+\newcommand{\compstarIdNoSpace}{TYC 3620-332-1}
+\newcommand{\compstarId}{\compstarIdNoSpace \space}
 \newcommand{\gaia}{\gaiaNoSpace \space}
 \newcommand{\quotes}[1]{``#1''}
 \newcommand{\code}[1]{\texttt{#1}}
@@ -124,7 +203,7 @@
 \newcommand{\quotesubsection}[1]{{\color{SubSectionBlue}\textbf{Sezione \ref{#1}}}}
 \newcommand{\quotesubsubsection}[1]{{\color{SubSubSectionBlue}\textbf{Sezione \ref{#1}}}}
 \newcommand{\quotefigure}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
-\newcommand{\quotetable}[1]{{\color{MyDarkGreen}\textbf{Tabella \ref{#1}}}}
+\newcommand{\quotetable}[1]{{\color{MyDarkGreen}\textbf{Tabla \ref{#1}}}}
 \newcommand{\textapproxtilde}{\raisebox{-0.55ex}{\textasciitilde}}
 %------------------------------------------------------------------------------------
 \geometry{
@@ -136,7 +215,24 @@
 	bottom=3cm, % Bottom margin
 	%showframe, % Uncomment to show how the type block is set on the page
 }
+%---------------------------------------------------------------------------------------
+% Equation float for captions: https://stackoverflow.com/questions/149479/adding-a-caption-to-an-equation-in-latex#149677
+\usepackage{float}
+\usepackage{aliascnt}
+\newaliascnt{eqfloat}{equation}
+\newfloat{eqfloat}{h}{eqflts}
+\floatname{eqfloat}{Ecuación}
 
+\newcommand*{\ORGeqfloat}{}
+\let\ORGeqfloat\eqfloat
+\def\eqfloat{%
+  \let\ORIGINALcaption\caption
+  \def\caption{%
+    \addtocounter{equation}{-1}%
+    \ORIGINALcaption
+  }%
+  \ORGeqfloat
+}
 
 %------------------------------------------------------------------------------------
 %------------------------------ HERE WE GO ------------------------------------------
@@ -167,8 +263,8 @@
         {\fontsize{25pt}{25}\textcolor{MyDarkBlue}{\textbf{Búsqueda y Estudio Fotométrico de Variables Cataclísmicas}}}
 
         \vspace{1cm}
-        {\fontsize{16pt}{16pt}Tesis de Maestría en Astrofísica Planetaria y 
-        Tecnologías Afines}
+        {\fontsize{16pt}{16pt}Tesis de Maestría en Astrofísica Planetaria y
+            Tecnologías Afines}
 
         \vspace{4.5cm}
         \begin{minipage}[t]{0.34\textwidth}
@@ -206,11 +302,11 @@
 %-------------------------------------ABSTRACT
 \thispagestyle{empty}
 \vspace*{5cm}
-\renewcommand{\abstractname}{\color{MyDarkBlue}{Resumen}} 
+\renewcommand{\abstractname}{\color{MyDarkBlue}{Resumen}}
 \begin{abstract}
     % TODO: new abstract about contact binaries
 
-	% Las \textit{variables cataclísmicas} son un tipo de sistemas binarios con un
+    % Las \textit{variables cataclísmicas} son un tipo de sistemas binarios con un
     % comportamiento particular. Estas están compuestas comúnmente de una estrella
     % \textit{enana blanca} y una de \textit{secuencia principal}, donde material
     % fluye de la secuencia principal hacia la enana blanca, por lo cual se les
@@ -260,9 +356,9 @@
 \include{Apendice/GaiaADQL.tex}
 %-------------------------------------REFERENCES
 \chapter*{Agradecimientos}
-This work has made use of data from the European Space Agency (ESA) mission
-    {\it Gaia} (\url{https://www.cosmos.esa.int/gaia}), processed by the {\it Gaia}
-Data Processing and Analysis Consortium (DPAC,
+This work has made use of data from the European Space Agency (ESA) mission {\it
+        Gaia} (\url{https://www.cosmos.esa.int/gaia}), processed by the Gaia Data
+Processing and Analysis Consortium (DPAC,
 \url{https://www.cosmos.esa.int/web/gaia/dpac/consortium}). Funding for the DPAC
 has been provided by national institutions, in particular the institutions
 participating in the {\it Gaia} Multilateral Agreement.
@@ -271,6 +367,9 @@ This research made use of Astropy,\footnote{\url{http://www.astropy.org}} a
 community-developed core Python package for Astronomy \citet{astropy}.
 
 This research has made use of the SIMBAD database, operated at CDS, Strasbourg, France.
+
+This research made use of ccdproc, an Astropy package for
+image reduction \citet{ccdproc241}.
 \clearpage
 
 \bibliography{ref}
