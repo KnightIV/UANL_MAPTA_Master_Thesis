@@ -6,6 +6,7 @@
 	"cSpell.useGitignore": true,
 	"cSpell.enabled": true,
 	"cSpell.words": [
+		"AAVSO",
 		"abrillantamiento",
 		"acreción",
 		"ADQL",
@@ -20,6 +21,7 @@
 		"eclipsantes",
 		"fillout",
 		"Heinze",
+		"IRAF",
 		"Iturbide",
 		"Kirkham",
 		"Krisciunas",
@@ -35,7 +37,8 @@
 		"SIMBAD",
 		"subsección",
 		"superconjunción",
-		"Szkody"
+		"Szkody",
+		"visualizador"
 	],
 	"todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^|%|\\\\)\\s*($TAGS)\\{*|^\\s*- \\[ \\])",
 }
