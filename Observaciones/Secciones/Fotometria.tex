@@ -132,16 +132,16 @@ Para obtener una magnitud diferencial de \atoObjId se necesita de una estrella
 de referencia cuya magnitud en el visible es conocida y bien estudiada.
 \compstarId ha sido observada por varios sondeos, por lo cual se ha medido su
 magnitud en el visible de 11.57. Utilizando esta estrella conocida podemos
-calcular la magnitud diferencial de \atoObjId con la ecuación
-\ref{observaciones:fotometriadiferencial:magdiferencialec}. Una gran ventaja de
+calcular la magnitud diferencial de \atoObjId con la \quoteequation{observaciones:fotometriadiferencial:magdiferencialec}. Una gran ventaja de
 la fotometría diferencial a comparación de magnitudes absolutas es que llega a
 minimizar los efectos causados por obstrucciones del cielo, como nubes
 intermitentes o celdas turbulentas en la atmósfera. Los resultados para un día
-de observación se encuentra en la figura \ref{differentialMagDec7}, donde se
+de observación se encuentra en la \quotefigure{differentialMagDec7}, donde se
 puede apreciar la variabilidad de \atoObjId comparado con ambas estrellas de
 referencia. Este proceso se repite para cada noche de observación, al final
 obteniendo una curva de luz del sistema visto en la
-\quotefigure{iturbideAtoLightCurve}. El código completo se encuentra en \href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/iraf/qphot_sigma_clip.ipynb}{\code{qphot\_sigma\_clip.ipynb}}.
+\quotefigure{iturbideAtoLightCurve}. El código completo se encuentra en
+\href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/iraf/qphot_sigma_clip.ipynb}{\code{qphot\_sigma\_clip.ipynb}}.
 
 % Aquí se calcula el
 % error en las magnitudes instrumentales con la diferencia entre la magnitud
@@ -164,7 +164,8 @@ obteniendo una curva de luz del sistema visto en la
 \end{eqfloat}
 	
 \begin{figure}[!ht] 
-	\includegraphics[scale=0.55]{Observaciones/Secciones/Figures/Differential Magnitude 12-07.png}
+	\centering
+	\includegraphics[scale=0.5]{Observaciones/Secciones/Figures/Differential Magnitude 12-07.png}
 	\caption{Magnitud diferencial para \atoObjId junto a las magnitudes de TYC
 	3620-332-1 y TYC 3620-254-1. Esta segunda estrella fue utilizada como
 	estrella de campo, para corroborar que la resta descrita en la ecuación
@@ -174,8 +175,9 @@ obteniendo una curva de luz del sistema visto en la
 \end{figure}
 
 \begin{figure}[!ht]
-	\xincludegraphics[scale=0.44, label=\textbf{a)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Full LC.png}
-	\xincludegraphics[scale=0.45, label=\textbf{b)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Hour Sync LC.png}
+	\centering
+	\xincludegraphics[scale=0.4, label=\textbf{(a)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Full LC.png}
+	\xincludegraphics[scale=0.4, label=\textbf{(b)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Hour Sync LC.png}
 	\caption{Magnitud diferencial de \atoObjIdNoSpace. Ambas gráficas muestran
 	los errores de medición, las cuales fueron más altas de lo ideal debido a
 	las condiciones del sitio. \textbf{a)} Curva de luz completa, con cada día
