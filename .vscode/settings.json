@@ -39,7 +39,8 @@
 		"subsección",
 		"superconjunción",
 		"Szkody",
-		"visualizador"
+		"visualizador",
+		"ZAMS"
 	],
 	"todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^|%|\\\\)\\s*($TAGS)\\{*|^\\s*- \\[ \\])",
 }

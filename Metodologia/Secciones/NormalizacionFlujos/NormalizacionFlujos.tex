@@ -34,17 +34,16 @@ color por diferencia de magnitud se determina un solo valor de $m_0$ con el cual
 convertir las magnitudes; este $m_0$ corresponde a la magnitud en 0.25 de fase
 del pasa bandas más tenue del sistema. PHOEBE tablas de coeficientes que
 relacionan la temperatura efectiva del sistema binario con la diferencia de
-flujos. \brakcite{phoebeScientificReference}
+flujos. \brakcite{phoebeScientificReference} 
 
 En este trabajo se dividieron las curvas de luz de \atoObjId basado en su
 fuente: las de Gaia ($G, G_{BP}, G_{RP}$), las de ZTF ($ZTF:G, ZTF:R$), y la de
 Iturbide. Podemos determinar 2 diferentes colores del sistema, entre la
 diferencia de color en Gaia y ZTF (como solo se observó a \atoObjId con un solo
-filtro en Iturbide no contamos con datos de color). Para Gaia se tomó la
-magnitud en cuarto de fase para el pasa bandas $G_{BP}$, y para ZTF se tomó la
-magnitud de $ZTF:G$. Las curvas de luz en fase normalizadas se pueden ver en la
-\quotefigure{normFlujosCurvas}, donde se puede apreciar como preserva la
-diferencia de magnitud vista en \quotefigure{gaiaIturbideZtfPhaseFold}. El
+filtro en Iturbide no contamos con datos de color). Para ZTF se tomó la
+magnitud de $ZTF:G$. Las curvas de luz en fase se pueden ver en la
+\reffigure{normFlujosCurvas}, donde se puede apreciar como preserva la
+diferencia de magnitud vista en \reffigure{gaiaIturbideZtfPhaseFold}. El
 código responsable de esta reducción se encuentra en
 \href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/gaia/light_curves.ipynb}{\code{light\_curves.ipynb}}
 para Gaia,
@@ -56,9 +55,12 @@ para Iturbide.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[scale=0.3]{Metodologia/Secciones/NormalizacionFlujos/Figures/ZTF Normalized Flux.png}
-	\includegraphics[scale=0.31]{Metodologia/Secciones/NormalizacionFlujos/Figures/GDR3 Normalized Flux.png}
+	\includegraphics[scale=0.3]{Metodologia/Secciones/NormalizacionFlujos/Figures/GDR3 Flux.png}
 	\includegraphics[scale=0.4]{Metodologia/Secciones/NormalizacionFlujos/Figures/Iturbide Normalized Flux.png}
 
-	\caption{Flujo normalizado en fase de cada curva de luz utilizada. }
+	\caption{Flujo en fase de cada curva de luz utilizada. El catálogo de Gaia
+		DR3 ya tiene reportado el flujo del sistema, por lo cual este se utilizó
+		para el modelo en vez de obtener un flujo normalizado partiendo de las
+		magnitudes.}
 	\label{normFlujosCurvas}
 \end{figure}
