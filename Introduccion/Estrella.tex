@@ -22,13 +22,6 @@ para describir la estructura de una estrella al igual que su evolución,
 empezando con la formación de una \textit{protoestrella}, la cual a lo largo del
 tiempo se transforma en una estrella.
 
-% El equilibrio termodinámico local es caracterizado por el comportamiento
-% promedio de las partículas del plasma estelar. Esto se ve en las escalas del
-% tiempo y el espacio de colisiones en el plasma estelar---descritos por el
-% \textit{tiempo libre medio} y el \textit{camino libre medio}
-% respectivamente---las cuales son mucho menor que las dimensiones de variación
-% temporales y espaciales de una estrella en el caso del equilibrio local.
-
 \subsection{Formación}
 
 % TODO: add citations from "Formación estelar" presentation I did in MHD course
@@ -61,7 +54,21 @@ cúmulo de gas y polvo no logrará mantener la cadena de reacciones termonuclear
 en su núcleo, resultando en una \textit{enana café}, un objeto inerte resultado
 del proceso fallido de formación estelar.
 
-Una vez que el material de la nube se estabilice\textemdash una vez que el objeto empiece a producir energía de orden de magnitud estelar\textemdash nace una \textbf{protoestrella}. Estos objetos extensos (aproximadamente $500 \ \mathrm{R}_{\odot}$ para una protoestrella de $1 \ \mathrm{M}_{\odot}$ \citetbookchapter{astronomyPhysicalPerspective}{15}) se mantienen a una baja temperatura durante esta etapa de su vida, alrededor de 2500 K en su superficie. Sin embargo, debido a la alta densidad, la nube no es completamente transparente, por lo cual solo la superficie es capaz de liberar energía por medio de radiación infrarroja; la energía producida en su interior primero debe de viajar a la superficie por medio de convección. Conforme va evolucionando la nube se sigue comprimiendo hasta llegar a un punto en el cual puede mantener reacciones termonucleares continuas en su núcleo, llegando al punto de ser una estrella en \textbf{secuencia principal}. La \reffigure{protostarEvolutionFig} muestra la evolución de una protoestrella a una estrella secuencia principal con respecto a su temperatura y luminosidad.
+Una vez que el material de la nube se estabilice\textemdash una vez que el
+objeto empiece a producir energía de orden de magnitud estelar\textemdash nace
+una \textbf{protoestrella}. Estos objetos extensos (aproximadamente $500 \
+\mathrm{R}_{\odot}$ para una protoestrella de $1 \ \mathrm{M}_{\odot}$
+\citetbookchapter{astronomyPhysicalPerspective}{15}) se mantienen a una baja
+temperatura durante esta etapa de su vida, alrededor de 2500 K en su superficie.
+Sin embargo, debido a la alta densidad, la nube no es completamente
+transparente, por lo cual solo la superficie es capaz de liberar energía por
+medio de radiación infrarroja; la energía producida en su interior primero debe
+de viajar a la superficie por medio de convección. Conforme va evolucionando la
+nube se sigue comprimiendo hasta llegar a un punto en el cual puede mantener
+reacciones termonucleares continuas en su núcleo, llegando al punto de ser una
+estrella en \textbf{secuencia principal}. La \reffigure{protostarEvolutionFig}
+muestra la evolución de una protoestrella a una estrella secuencia principal con
+respecto a su temperatura y luminosidad.
 
 \begin{figure}[!ht]
 	\centering
@@ -75,29 +82,80 @@ Una vez que el material de la nube se estabilice\textemdash una vez que el objet
 	\label{protostarEvolutionFig}
 \end{figure}
 
-\subsection{Equilibrio Hidrostático}
+\subsection{Balance de Fuerzas}
 
-\subsection{Evolución}
+Una vez que una estrella llegue su etapa de secuencia principal el sistema se
+vuelve estable a largas escalas temporales. En este estado la estrella deja de
+comprimirse, ya que el colapso gravitacional es contrarrestado por la presión
+del gas caliente en su interior y la presión ejercida por la radiación producida
+en su núcleo. A continuación se definen dos conceptos importantes en la física
+estelar: el \textbf{equilibrio hidrostático} y el \textbf{equilibrio
+termodinámico local}.
 
-En el transcurso del tiempo cada estrella será sujeta a ciertos cambios en
-su estructura. Esto se debe a que podemos considerar a una
-estrella cómo un objeto aislado en el espacio, lo cual significa que no tendrá
-algún ingreso de material significativo para reemplazar el combustible
-\quotes{quemado} en las reacciones termonucleares. A lo largo del tiempo la
-composición física y química de la estrella deberán cambiar para mantener el
-equilibrio termodinámico.
+\subsubsection{Equilibrio Hidrostático}
 
-El combustible primario de una estrella viene siendo el hidrógeno atómico, el
-cual se fusiona con otros átomos (protones individuales) libres, resultando en
-la producción de grandes cantidades de energía en forma de radiación y moléculas de helio como producto. El helio no es inmediatamente
-util para la estrella cómo combustible, ya que requiere temperaturas más altas
-de las que se encuentran durante esta fase evolutiva. Todas las estrellas conocidas pasan por esta etapa de evolución estelar;
-mientras que una estrella dependa principalmente del hidrógeno para brillar se
-dice que está en su etapa de \textit{secuencia principal}. 
+Podemos simplificar el modelo de una estrella al introducir la simetría
+esférica, en el cual las propiedades del gas que forma la estrella dependen
+unicamente de la distancia del núcleo. Para esto definimos la presión $P(r)$,
+densidad $\rho (r)$, temperatura $T(r)$, y aceleración gravitacional $g(r)$ como
+funciones con respecto a la distancia $r$ del centro. En base a estos
+fundamentos se puede deducir la estratificación de una estrella, formando varias
+capas de material con propiedades uniformes a lo largo de cada estrato. Dado que
+cada elemento está sujeto a un equilibrio de fuerzas descrita por la ecuación
+$P(r) \mathrm{d}A - [P(r) + \mathrm{d}P] \mathrm{d}A - [\rho(r) \mathrm{d}A
+\mathrm{d}r] g(r) = 0$, la cual se ve en la
+\reffigure{figuraEquilibrioHidrostatico}. Al simplificar esta ecuación e
+introduciendo un término para la presión radiativa\textemdash debido a la
+transferencia de momento de los fotones generados en el núcleo estelar al
+material circundante\textemdash se obtiene la
+\refequation{ecuacionEquilibrioHistrostatico}. 
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\frac{\textrm{d}P(r)}{\textrm{d}r} = -\rho(r) [g(r) - g_{rad}(r)]
+	\end{equation}
+	\caption{Ecuación del equilibrio hidrostático para una estrella, tomando en
+	cuenta los efectos de la presión radiativa saliente $g_{rad}(r)$.
+	\citetbookchapter{anIntroStellarAstro}{2}}
+	\label{ecuacionEquilibrioHistrostatico}
+\end{eqfloat}
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.5]{Introduccion/Figures/Figura Evolucion_MS_Astronomy_Physical_Perspective.png}
+	\includegraphics[scale=0.5]{Introduccion/Figures/EquilibrioHidrostatico_LeBlanc.png}
+	\caption{Diagrama de fuerzas actuando sobre cada elemento superficial
+	$\mathrm{d}A$ de material de una estrella. Los efectos debido a elementos
+	adyacentes son nulos, debido a que la presión en cada lados es constante,
+	resultando en un gradiente de presión radial. Figura obtenida de
+	\citetbookchapter{anIntroStellarAstro}{2}.}
+	\label{figuraEquilibrioHidrostatico}
+\end{figure}
+
+\subsubsection{Equilibrio Termodinámico Local}
+
+\subsection{Evolución}
+
+En el transcurso del tiempo cada estrella será sujeta a ciertos cambios en su
+estructura. Esto se debe a que podemos considerar a una estrella cómo un objeto
+aislado en el espacio, lo cual significa que no tendrá algún ingreso de material
+significativo para reemplazar el combustible \quotes{quemado} en las reacciones
+termonucleares. A lo largo del tiempo la composición física y química de la
+estrella deberán cambiar para mantener el equilibrio termodinámico.
+
+El combustible primario de una estrella viene siendo el hidrógeno atómico, el
+cual se fusiona con otros átomos (protones individuales) libres, resultando en
+la producción de grandes cantidades de energía en forma de radiación y moléculas
+de helio como producto. El helio no es inmediatamente util para la estrella cómo
+combustible, ya que requiere temperaturas más altas de las que se encuentran
+durante esta fase evolutiva. Todas las estrellas conocidas pasan por esta etapa
+de evolución estelar; mientras que una estrella dependa principalmente del
+hidrógeno para brillar se dice que está en su etapa de \textit{secuencia
+principal}. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.6]{Introduccion/Figures/Figura Evolucion_MS_Astronomy_Physical_Perspective.png}
 	\caption{Evolución de estrellas de la secuencia principal basado en su masa
 	inicial en el diagrama HR. La línea punteada representa la posición de la
 	estrella en el primer momento que se integra a la secuencia principal. Al
@@ -106,6 +164,7 @@ dice que está en su etapa de \textit{secuencia principal}.
 	mantiene la forma de la estrella. Esta deformación provoca una oscilación en
 	su tamaño, causado por las fluctuaciones del balance entre la presión
 	radiativa generada por las reacciones nucleares en el núcleo contra la
-	presión gravitacional. Diagrama obtenido de \citet{astronomyPhysicalPerspective_stellarOldAgeChapter}}
+	presión gravitacional. Diagrama obtenido de
+	\citet{astronomyPhysicalPerspective_stellarOldAgeChapter}}
 	\label{evolucionMSEstrella}
 \end{figure}
