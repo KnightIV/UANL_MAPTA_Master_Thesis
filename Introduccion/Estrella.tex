@@ -72,7 +72,7 @@ respecto a su temperatura y luminosidad.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.3]{Introduccion/Figures/EvolucionZAMSFormacionEstelar_Kutner.png}
+	\includegraphics[scale=0.27]{Introduccion/Figures/EvolucionZAMSFormacionEstelar_Kutner.png}
 	\caption{Diagrama de la evolución de una protoestrella hasta llegar a
 	\textit{ZAMS} (\textit{Zero Age Main Sequence}), la edad a la que se
 	convierte en una estrella de secuencia principal. Se muestran varios caminos
@@ -161,6 +161,99 @@ estructura de la estrella se puede determinar siempre y cuando se sepa la masa
 de la estrella, y la densidad, temperatura, y composición química de cada punto
 en su interior.
 
+\subsection{Atmósfera Estelar}
+
+La gran mayoría de la radiación que recibimos de las estrellas\textemdash tanto
+de nuestro Sol como de sistemas estelares ajenos\textemdash proviene de su
+\textbf{fotosfera}, la capa exterior sometida a la influencia gravitacional del
+astro. Debido al transporte de energía en los estratos interiores la fotosfera
+se encuentra a una temperatura a ordenes de magnitud menor que la temperatura en
+el núcleo; la intensidad monocromática de la estrella depende de esta
+temperatura, por lo cual la \textbf{distribución de energía espectral}
+(\textbf{SED} por sus siglas en inglés) varía de la misma forma. % TODO: reword?
+
+Un \textbf{cuerpo negro} es aquel objeto que se encuentra en un estado de
+equilibrio termodinámico con su ambiente, absorbiendo energía (en el caso de una
+estrella esta sería por medio de radiación) a la misma tasa que la emite
+\citetbookchapter{astronomyPhysicalPerspective}{2}. El espectro de un cuerpo
+negro es descrito por la función de Planck
+(\refequation{blackbodyPlanckEquation}), de la cual obtenemos la intensidad para
+cada longitud de onda dada la temperatura del cuerpo negro. La distribución
+espectral de energía se puede ver en la \reffigure{figuraCuerpoNegroEspectro}.
+Esta aproximación, a pesar de omitir una parte apreciable de la composición de
+una estrella, es suficientemente adecuada para ciertos estudios donde no es
+necesario implementar un modelo complejo.
+
+\begin{eqfloat}
+	\centering
+	\begin{equation}
+		B_\lambda (T) = \frac{2hc^2 / \lambda^5}{\mathrm{e}^{hc/\lambda kT} - 1}
+	\end{equation}
+	\caption{Función de Planck describiendo la intensidad emitida por un cuerpo
+	negro con temperatura $T$ para una longitud de onda $\lambda$. $h$ es la
+	constante de Planck, $k$ la constante de Boltzmann, y $c$ la velocidad de la
+	luz en un vacío.}
+	\label{blackbodyPlanckEquation}
+\end{eqfloat}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.5]{Introduccion/Figures/Figura Cuerpo Negro Espectro.png}
+	\caption{Intensidad de un cuerpo negro con temperatura efectiva especificada.}
+	\label{figuraCuerpoNegroEspectro}
+\end{figure}
+
+Sin embargo, en la práctica la composición química de una estrella (conocido
+como su \textbf{metalicidad}) llega a tener un efecto notable en su distribución
+espectral de energía medida. Esto se debe a la absorción, dispersión, y emisión
+de fotones por parte de las partículas en la atmósfera estelar, incluyendo
+electrones e iones libres, átomos, y moléculas esparcidas dentro de este
+volumen. Cada partícula interacciona con fotones de manera distinta, incluyendo
+la tasa de interacciones con respecto a la frecuencia de la radiación incidente.
+Existen varios códigos diseñados para modelar este comportamiento, llamados
+\textbf{model atmospheres} en inglés. Estos códigos reciben de entrada los
+parámetros conocidos de la estrella que se quiere modelar, su temperatura
+efectiva, aceleración gravitacional superficial, y metalicidad (en unidades
+solares), dando como resultado el espectro de la estrella.
+
+\subsubsection{Atmósfera de Kurucz}
+
+Entre los códigos de modelos de atmósferas estelares más utilizados está el de
+\code{ATLAS} escrito por Robert L. Kurucz. A continuación se especifican las
+suposiciones empleadas en el código de \code{ATLAS} descritas en
+\citetbookchapter{phoebeScientificReference}{4.2}; para una discusión completa
+del programa es necesario hacer referencia a \citet{kurucz_atlas_1970}.
+
+Este modelo parte de las condiciones del \textit{equilibrio hidrostático} y el
+\textit{equilibrio termodinámico local} para una estrella, lo cual simplifica el
+problema a un trato unidimensional; las propiedades físicas de la atmósfera
+depende unicamente de su distancia al núcleo. El grosor de cada capa es ordenes
+de magnitud menor que la superficie que abarca la fotosfera estelar, lo cual
+permite modelar el estrato usando varios segmentos discretos que se aproximan a
+\textit{planos paralelos}. La simetría esférica produce \textit{capas
+homogéneas}, cuyas propiedades físicas como su composición química es uniforme
+en cada capa, solo variando con su profundidad. Esto también permite ignorar
+estructuras finas en la superficie de la estrella como la granulación y las
+manchas solares (en ciertos ajustes de modelos estas manchas aún son requeridas
+para un ajuste adecuado a los datos observacionales dados). %TODO: cite later section
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.35]{Introduccion/Figures/Figura Kurucz_PHOEBE Reference.png}
+	\caption{Espectros sintéticos de las tablas de Kurucz para estrellas de varias temperaturas. El resto de los parámetros físicos utilizados se mantuvieron fijos para los cuatro modelos: $\log{g/g_0} = 4.0$ y [M/H] = 0.0. Figura obtenida de \citetbookchapter{phoebeScientificReference}{4.2}.}
+	\label{figuraKuruczEspectro}
+\end{figure}
+
+% TODO: in PHOEBE section mention value interpolation
+La \reffigure{figuraKuruczEspectro} muestra el espectro sintético generado por
+el código \code{ATLAS} dado diferentes parámetros físicos. Estas aproximaciones
+son ideales para estudiar estrellas aisladas, las cuales son mayormente
+esféricas en forma. Sin embargo, este modelo tiene limitaciones significantes
+para estrellas deformes, como los sistemas binarios cercanos donde las fuerzas
+de marea causan una partida notable de su forma esférica. A pesar de no ser un
+modelo perfecto, en la mayoría de los casos es más adecuado utilizar un código
+como \code{ATLAS} que modelar una estrella como un simple cuerpo negro.
+
 \subsection{Evolución}
 
 En el transcurso del tiempo cada estrella será sujeta a ciertos cambios en su
@@ -182,7 +275,7 @@ principal}.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.5]{Introduccion/Figures/Figura Evolucion_MS_Astronomy_Physical_Perspective.png}
+	\includegraphics[scale=0.47]{Introduccion/Figures/Figura Evolucion_MS_Astronomy_Physical_Perspective.png}
 	\caption{Evolución de estrellas de la secuencia principal basado en su masa
 	inicial en el diagrama HR. La línea punteada representa la posición de la
 	estrella en el primer momento que se integra a la secuencia principal. Al
@@ -192,6 +285,6 @@ principal}.
 	su tamaño, causado por las fluctuaciones del balance entre la presión
 	radiativa generada por las reacciones nucleares en el núcleo contra la
 	presión gravitacional. Diagrama obtenido de
-	\citet{astronomyPhysicalPerspective_stellarOldAgeChapter}}
+	\citetbookchapter{astronomyPhysicalPerspective}{2}}
 	\label{evolucionMSEstrella}
 \end{figure}
