@@ -25,6 +25,6 @@ jobs:
       - name: Upload to GitHub release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: xresloader/upload-to-github-release@v1.5.0
+        uses: JasonEtco/upload-to-release@master
         with:
-          file: "build/Tesis.pdf"
+          args: build/Tesis.pdf
