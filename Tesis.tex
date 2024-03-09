@@ -24,6 +24,7 @@
 \usepackage[spanish,es-nodecimaldot]{babel}
 \usepackage[group-digits=true,group-minimum-digits=4]{siunitx}
 \usepackage{xcoffins}
+\usepackage{sty/annotate-equations}
 
 \ExplSyntaxOn
 \NewCoffin\imagecoffin
@@ -159,6 +160,7 @@
 \newcommand{\ig}{\`{\i}}
 \newcommand{\R}{\textsf{R}}
 \newcommand{\Fortran}{\textsf{Fortran}}
+
 \newcommand{\comment}[1]{}
 \newcommand{\gaiaNoSpace}{\textit{Gaia}}
 \newcommand{\atoObjIdNoSpace}{ATO J339.9469+45.1464}
@@ -169,6 +171,9 @@
 \newcommand{\quotes}[1]{``#1''}
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\brakcite}[1]{[\citet{#1}]}
+
+% https://tex.stackexchange.com/questions/11031/how-to-do-the-curvy-l-for-lagrangian-or-laplace-transforms#11144
+\newcommand{\Lagr}{\mathcal{L}}
 %------------------------------------------------------------------------------------
 \definecolor{MyGray}{rgb}{0.30,0.31,0.32} % definizione grigio
 \definecolor{MyDarkBlue}{rgb}{0.,0.08,0.5} % blu scuro
@@ -207,6 +212,10 @@
 \newcommand{\refequation}[1]{{\color{MyDarkGreen}\textbf{Ecuación \ref{#1}}}}
 \newcommand{\textapproxtilde}{\raisebox{-0.55ex}{\textasciitilde}}
 \newcommand{\citetbookchapter}[2]{\citet*[\textcolor{MyLightBlue}{Capítulo #2}]{#1}}
+
+% https://tex.stackexchange.com/questions/148634/no-caption-or-title-but-entry-in-list-of-figures#148637
+\DeclareCaptionLabelFormat{blank}{}
+\newcommand{\blankcaption}{\captionsetup{textformat=empty,labelformat=blank} \caption{}}
 %------------------------------------------------------------------------------------
 \geometry{
 	paper=a4paper, % Change to letterpaper for US letter
