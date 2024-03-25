@@ -50,25 +50,26 @@ representan ambas componentes estelares, posicionadas de tal manera que la
 distancia entre las estrellas solo tenga una componente en una dirección
 cartesiana.
 
-\begin{figure}
+\begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.4]{Introduccion/Figures/Figura Tres Cuerpos_Intro Evolution Single Binary Stars.png}
+	\includegraphics[scale=0.6]{Introduccion/Figures/Figura Tres Cuerpos_Intro Evolution Single Binary Stars.png}
 	\caption{Configuración del problema de tres cuerpos dados dos objetos de
 	alta masa $m_1$ y $m_2$ (las cuales representan cada componente estelar del
 	sistema binario), y una partícula de masa despreciable de prueba ubicada a
 	una distancia $r_1$ y $r_2$ de las estrellas respectivamente. El centro de
-	masa del sistema está ubicado en el origen del sistema de coordenadas;
-	\citetbookchapter{phoebeScientificReference}{3.1} posiciona la componente
-	$m_1$ en el origen, con tal de simplificar las expresiones del modelo.
+	masa del sistema está ubicado en el origen del sistema de coordenadas.
 	Figura obtenida de
-	\citetbookchapter{benacquista_introduction_to_evolution_single_binary_stars_2013}{13.1}.}
+	\citetbookchapter{benacquista_introduction_to_evolution_single_binary_stars_2013}{13.1},
+	modificada cambiando los ejes $y$ y $x$ para que $m_1$ y $m_2$ estén
+	ubicadas en el eje $x$ para ser consistente con
+	\citetbookchapter{phoebeScientificReference}{3.1}.}
 	\label{figuraTresCuerpos}
 \end{figure}
 
 La \reffigure{figuraTresCuerpos} define el sistema de coordenadas rotando junto
 al sistema binario. La velocidad angular de Kepler está dada por:
 
-\begin{eqfloat}
+\begin{eqfloat}[!ht]
 	\centering
 	\begin{equation}
 		\omega = \frac{2 \pi}{P_{orb}} = \sqrt{\frac{G (m_1 + m_2)}{a^3}}
@@ -80,21 +81,327 @@ al sistema binario. La velocidad angular de Kepler está dada por:
 Donde $G = 6.673 \times 10^{-11} \ \mathrm{m}^3 \mathrm{kg}^{-1}
 \mathrm{s}^{-2}$ es la constante de gravitación universal, $P_{orb}$ es el
 periodo orbital de las estrellas (el cual es igual para ambas estrellas de
-acuerdo con la segunda ley de Kepler), y $a = a_1 + a_2$ es el semieje mayor.
+acuerdo a la segunda ley de Kepler), y $a = a_1 + a_2$ es el semieje mayor.
 Usando la \refequation{ecuacionVelocidadAngular} podemos definir el Lagrangiano
 para una partícula de prueba con masa $m$, el cual está a una distancia
-$\mathbf{r}_1$ y $\mathbf{r}_2$ de $m_1$ y $m_2$ respectivamente, y a una
-distancia $\mathbf{r}$ del centro de masa del sistema:
+$\mathbf{r}_1$ y $\mathbf{r}_2$ de $m_1$ y $m_2$ respectivamente:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\vspace{1em}
+	\begin{equation}
+		\Lagr = \eqnmark[MyDarkRed]{node1}{\frac{1}{2} m (\dot{x}^2 + \dot{y}^2 + \dot{z}^2)} +
+				\eqnmark[MyDarkGreen]{node2}{\frac{1}{2} m \omega^2 \tilde{r}^2} +
+				\eqnmark[MyDarkBlue]{node3}{\frac{G m_1 m}{r_1} + \frac{G m_2 m}{r_2}}
+	\end{equation}
+	\annotate[yshift=-0.2em]{below, left}{node1}{Energía cinética lineal}
+	\annotate[yshift=0.75em]{above, left}{node2}{Energía cinética rotacional}
+	\annotate[yshift=-0.75em]{below, left}{node3}{Potencial gravitacional}
+	\blankcaption
+	\vspace{0.4em}
+	\label{ecuacionLagrangianoTresCuerpos}
+\end{eqfloat}
+
+Donde $\tilde{r}$ es la distancia al eje de rotación del marco de referencia,
+$r_1 = \abs{\mathbf{r}_1} = \abs{\mathbf{r} - \mathbf{a}_1}$ y $r_2 =
+\abs{\mathbf{r}_2} = \abs{\mathbf{r} - \mathbf{a}_2}$. Utilizando los últimos 3
+términos de la \refequation{ecuacionLagrangianoTresCuerpos} podemos definir un
+pseudo-potencial que determina el movimiento de la partícula de prueba, tanto
+por la influencia gravitacional de las componentes como la fuerza centrifugal
+dada por la rotación del marco de referencia. Esta ecuación se puede simplificar
+al colocar el origen del sistema sobre la masa $m_1$ en vez de su centro de
+masa, donde $x_{1} = 0$ es la posición de $m_1$ y $x_2 = \mathbf{a}_1 +
+\mathbf{a}_2 = \mathbf{a}$ es la posición de la secundaria. Por lo tanto, la
+nueva coordenada del centro de masa del sistema se da por:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		x_{\textrm{CoM}} = \frac{\sum_{i}{m_i x_i}}{\sum_{i}{m_i}} = \frac{qa}{1 + q}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionCentroDeMasa}
+\end{eqfloat}
+
+Donde introducimos un parámetro para la razón de masa $q = \frac{m_2}{m_1}$. En
+varios trabajos las componentes de un sistema binario son identificados de tal
+manera que $q \leq 1$; sin embargo, esta convención no suele ser conveniente al
+momento de crear un modelo del sistema (por ejemplo,
+\autocite{ding_fast_derivation_cbs_params_2022}), en donde se permite que $q > 1$
+al asignar la componente primaria basado en parámetros orbitales. Esto se verá
+más a profundidad al momento de describir el modelo computacional de un sistema
+binario.
+% TODO: incluir sección de PHOEBE una vez escrito
+
+Este potencial efectivo $\psi$ se obtiene asumiendo una distribución de masa
+esférica para ambas estrellas \citetbookchapter{phoebeScientificReference}{3.1}:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\psi = -\frac{G m_1}{r_1} - \frac{G m_2}{r_2} - \frac{1}{2} \omega \tilde{r}^2
+	\end{equation}
+	\blankcaption
+	\label{ecuacionPotencialEfectivo}
+\end{eqfloat}
+
+Usando el potencial $\psi$ es posible llegar a un potencial adimensional
+$\Omega$ el cual determina la forma de ambas componentes. La geometría del
+sistema se presta a un sistema de coordenadas esféricas, usando un ángulo polar
+$\theta$ cuyo valor va desde $0$ en polo norte hasta $180^{\circ}$ en el polo
+sur\textemdash paralelo al eje $z$ en la
+\reffigure{figuraTresCuerpos}\textemdash y un ángulo azimutal $\phi$ cuyo valor
+es $0$ en el eje $x$. Utilizamos las siguientes expresiones para convertir de
+coordenadas cartesianas a coordenadas esféricas:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\begin{split}
+			& x = r \sin{\theta} \cos{\phi} = \lambda r \\
+			& y = r \sin{\theta} \sin{\phi} = \mu r \\
+			& z = r \cos{\theta} = \nu r
+		\end{split}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionesCoordsEsfericasConversion}
+\end{eqfloat}
+
+En donde $r = \sqrt{x^2 + y^2 + z^2}$ es la distancia entre la partícula de
+prueba ubicada en el punto $(x, y, z)$ al origen del sistema de coordenadas.
+Partiendo del teorema de Pitágoras se puede llegar a una ecuación para calcular
+la distancia $D$ entre dos puntos ubicados en $(x, y, z)$ y $(x', y', z')$ en un
+sistema de coordenadas esférico:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		D = \sqrt{(x - x')^2 + (y - y')^2 + (z - z')^2}
+	\end{equation}
+\end{eqfloat}
+
+La cual al expandir obtenemos:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		D = \sqrt{x^2 - 2xx' + x'^2 + y^2 - 2yy' + y'^2 + z^2 - 2zz' + z'^2}
+		% D = \sqrt{\eqnmark[MyDarkBlue]{rNode1}{x^2} - 2xx' + x'^2 + \eqnmark[MyDarkBlue]{rNode2}{y^2} - 2yy' + y'^2 + \eqnmark[MyDarkBlue]{rNode3}{z^2} - 2zz' + z'^2}
+	\end{equation}
+\end{eqfloat}
+
+Sustituyendo usando $d_1 = \sqrt{x^2 + y^2 + z^2}$ y $d_2 = \sqrt{x'^2 + y'^2 +
+z'^2}$ como las distancias de ambos puntos al origen se obtiene:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		D = \sqrt{d_1^2 + d_2^2 - 2xx' - 2yy' -2zz'}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionDistanciaCartesiana}
+\end{eqfloat}
+
+Para obtener la distancia $D$ en coordenadas esféricas es necesario hacer la
+conversión utilizando las \refequations{ecuacionesCoordsEsfericasConversion}, llegando a la expresión final:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		D = \sqrt{d_1^2 + d_2^2 - 2d_1d_2[(\sin{\theta} \sin{\theta'})(\cos{\phi - \phi'}) + \cos{\theta} \cos{\theta'}]}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionDistanciasEsferica}
+\end{eqfloat}
+
+Donde los puntos $(x, y, z)$ y $(x', y', z')$ corresponden a $(d_1, \theta,
+\phi)$ y $(d_2, \theta', \phi')$ respectivamente. Se puede utilizar la
+\refequation{ecuacionDistanciaCartesiana} y
+\refequation{ecuacionDistanciasEsferica}\textemdash y haciendo uso de las
+\refequations{ecuacionesCoordsEsfericasConversion}\textemdash para obtener las
+distancias de la partícula de prueba $m$ a ambas componentes estelares del
+sistema:
 
 \begin{eqfloat}
 	\centering
 	\begin{equation}
-		\Lagr = \eqnmark[MyDarkRed]{node1}{\frac{1}{2} m (\dot{x}^2 + \dot{y}^2) + \dot{z}^2}  +
-				\eqnmark[MyDarkGreen]{node2}{\frac{1}{2} m \omega^2 (x^2 + y^2)} +
-				\eqnmark[MyDarkBlue]{node3}{\frac{G m_1 m}{r_1} + \frac{G m_2 m}{r_2}}		
+		\begin{split}
+			& r_1 = r \\
+			& r_2 = \sqrt{r^2 - 2ax + a^2} = \sqrt{r^2 - 2ar\lambda + a^2} \\
+			& \tilde{r} = \sqrt{(x - x_{\textrm{CoM}})^2 + y^2} = \sqrt{r^2(1 - \nu^2) - 2r\lambda x_{\textrm{CoM}} + x_{\textrm{CoM}}^2}
+		\end{split}
 	\end{equation}
 	\blankcaption
-	\label{ecuacionLagrangianoTresCuerpos}
+	\label{ecuacionesDistancias}
+\end{eqfloat}
+
+Notando que el origen del sistema de coordenadas está ubicada en la posición de
+la componente $m_1$. Por lo tanto, el potencial es definido con respecto a
+$m_1$; para obtener el potencial con respecto a $m_2$ es necesario hacer una
+transformación descrita en \citetbookchapter{phoebeScientificReference}{3.1}.
+Sustituyendo las ecuaciones \refequations{ecuacionesDistancias} en la expresión
+del potencial $\psi$ se obtiene el potencial efectivo en coordenadas esféricas:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\psi(r, \lambda, \nu) = -\frac{Gm_1}{r} - \frac{Gm_2}{\sqrt{r^2 - 2ar\lambda + a^2}} - \frac{1}{2} \omega^2 (r^2(1-\nu^2) - 2r\lambda x_{\textrm{CoM}} + x_{\textrm{CoM}}^2)
+	\end{equation}
+	\blankcaption
+	\label{ecuacionPotencialEfectivoEsferico}
+\end{eqfloat}
+
+Utilizando la tercera ley de Kepler de la forma $\omega^2 a^3 = G(m_1 + m_2)$
+junto a la \refequation{ecuacionCentroDeMasa} y sustituyendo en la
+\refequation{ecuacionPotencialEfectivoEsferico} se obtiene la forma final del
+potencial efectivo, eliminando la dependencia explicita a la velocidad angular
+del sistema y de la masa de la secundaria $m_2$
+\citetbookchapter{phoebeScientificReference}{3.1}:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\begin{split}
+			\psi(r, \lambda, \nu) = -\frac{G m_1}{a} \left[ \frac{a}{r} + q \left(\frac{a}{\sqrt{r^2 - 2ar\lambda + a^2}} - \frac{r\lambda}{a} \right) \right.\\
+			\left. + \frac{r^2}{2a^2}(1 + q)(1 - \nu^2) + \frac{q}{2(1 + q)} \right]
+		\end{split}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionPotencialEfectivoFinal}
+\end{eqfloat}
+
+El potencial efectivo en la \refequation{ecuacionPotencialEfectivoFinal} se puede utilizar para definir un potencial adimensional, el cual define la forma de ambas componentes. Este potencial $\Omega$ se refiere al \textbf{potencial modificado de Kopal}, introducido en \citetbookchapter{kopal_close_binary_systems_1959}{III.1}. Este potencial se relaciona con $\psi$ por la siguiente ecuación:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\Omega = -\frac{a \psi}{G m_1} - \frac{m_2^2}{2m_1(m_1 + m_2)}
+	\end{equation}
+\end{eqfloat}
+
+El segundo término del RHS se puede simplificar multiplicando por $\frac{1/m_1^2}{1/m_1^2}$:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\Omega = -\frac{a \psi}{G m_1} - \frac{q^2}{2(1 + q)}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionRochePotencialEfectivo}
+\end{eqfloat}
+
+Sustituyendo la \refequation{ecuacionPotencialEfectivoFinal} en
+\refequation{ecuacionRochePotencialEfectivo} obtenemos obtenemos el potencial modificado
+de Kopal:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\Omega = \frac{1}{\varrho} + q\left(\frac{1}{\sqrt{\varrho^2 - 2\varrho \lambda + 1}} - \varrho \lambda \right) + \frac{1}{2} (1 + q)(1 - \nu^2)\varrho^2
+	\end{equation}
+	\blankcaption
+	\label{ecuacionRoche}
+\end{eqfloat}
+
+Introduciendo la variable adimensional $\varrho = \frac{r}{a}$ usada en
+\citetbookchapter{phoebeScientificReference}{3.1}. Usando la
+\refequation{ecuacionRoche} podemos determinar la forma de ambas estrellas
+asumiendo que la envoltura estelar (es decir, la capa superficial) coincide con
+superficies de \textbf{equipotenciales de Roche}, donde el valor de $\Omega$ es
+constante en toda la superficie
+\citetbookchapter{kopal_close_binary_systems_1959}{3}. Este modelo de las
+superficies estelares de un sistema binario comparte el nombre con el originador
+de esta idea, el matemático francés \textit{Édouard Albert Roche} del siglo XIX.
+Sin embargo, para que este modelo sea una buena aproximación del fenómeno
+astrofísico debe de cumplir con las siguientes condiciones:
+
+\begin{description}
+	\item[Órbita circular sincrónica -] La formalización de los equipotenciales
+	de Roche presentado en esta sección solo aplica para sistemas binarios cuya
+	órbita es circular y sincrónica (los periodos de rotación de ambas estrellas
+	son iguales al periodo orbital). 
+	
+	% TODO: escribe subsection de modelo generalizado para el caso excéntrico y no-sincrónico
+	% Para un desarrollo del modelo de Roche para
+	% el caso de órbitas no-sincrónicas y excéntricas se puede hacer referencia a
+	% \citetbookchapter{kallrath_eclipsing_binary_modelling_2009}{3.1.5}.
+	
+	\item[Oscilaciones no-radiales despreciables -]  Las estrellas por
+	imbalances locales padecen de una distorsión anisótropo, el cual causa que
+	la superficie estelar se desvíe del modelo de Roche. Sin embargo, en la
+	mayoría de las estrellas estas oscilaciones no-radiales ocurren en el orden
+	de la escala de tiempo hidrostática, la cual, por ejemplo, es de ~15 minutos
+	para una estrella tipo solar
+	\citetbookchapter{kallrath_eclipsing_binary_modelling_2009}{3.1.5}. Mientras
+	la escala de tiempo de estas distorsiones sea despreciable con respecto al
+	periodo orbital la superficie estelar (su fotosfera) se puede parametrizar
+	con el modelo de Roche.
+
+	\item[Alta densidad de masa -] A pesar de que el material de una estrella
+	esté distribuido por todo su volumen, el modelo de Roche simplifica la
+	composición de una estrella a un punto infinitesimal el cual ejerce una
+	fuerza gravitacional alrededor. Esta aproximación resulta en una superficie
+	sin masa, cuya forma es dictada por el potencial de Roche. Esta aproximación
+	permite derivar la expresión analítica en la \refequation{ecuacionRoche}, la
+	cual se puede aplicar a fenómenos de alta \quotes{condensación central}
+	\citetbookchapter{kopal_close_binary_systems_1959}{III}.
+\end{description}
+
+\subsection{Generalización a Órbitas Excéntricas y Asincrónicas}
+
+% TODO: porqué no se puede modelar 
+Una desventaja del modelo de Roche presentado en la \refequation{ecuacionRoche}
+yace en sus suposiciones principales; como consecuencia de estas, el potencial
+$\Omega$ definido hasta ahora solo puede ser aplicado a aquellos sistemas
+binarios cuya órbita es circular y sincrónica. Esto excluye los sistemas con
+órbitas excéntricas y/o asincrónicas, incluyendo sistemas binarios en contacto
+cuyas propiedades no pueden ser adecuadamente modeladas en este paradigma
+\citetbookchapter{kallrath_eclipsing_binary_modelling_2009}{3.1.5}.
+\autocite{wilson_eccentric_1979} generaliza el modelo de Roche a este tipo de
+órbitas, llegando a la siguiente expresión:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\Omega = \frac{1}{\varrho} + q \left(\frac{1}{\sqrt{\delta^2 + \varrho^2 - 2\varrho \delta \lambda}} - \frac{\varrho \lambda}{\delta^2} \right) + \frac{F^2 \varrho^2 (1 + q)(1 - \nu^2)}{2}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionRocheExcentricaAsincronica}
+\end{eqfloat}
+
+Introduciendo dos términos: el \textit{parámetro de sincronicidad} $F =
+\omega_{rot} / \omega_{orb}$ la razón de la velocidad angular rotacional de la
+componente a su velocidad angular orbital, y la \textit{separación instantánea}
+entre ambas componentes $\delta = D / a$ normalizada con respecto al semieje
+mayor $a$ \citetbookchapter{phoebeScientificReference}{3.1}. El cambio principal
+de este potencial modificado se refleja en la dependencia en la fase orbital del
+campo potencial; debido a la excentricidad del sistema, las componentes no
+mantienen una distancia constante una de otra, por lo cual el potencial de de
+ser nuevamente calculado para cada fase. Al igual, este modelo considera
+aquellos casos donde $F \neq 1$, ignorando los efectos de rotación diferencial
+en las estrellas por simplicidad. Para el caso de una órbita sincrónica y
+circular (es decir, $F = 1$ y $D = a$) la
+\refequation{ecuacionRocheExcentricaAsincronica} se reduce a la
+\refequation{ecuacionRoche}. Partiendo de esta ecuación se puede determinar la
+forma de ambas estrellas.
+
+\subsection{Superficies Equipotenciales}
+
+La forma de una estrella en el modelo de Roche es determinada por una
+\textbf{superficie equipotencial}, en la cual el valor del potencial $\Omega$ es
+igual, identificado por un contorno. Una forma conveniente de definir la
+superficie de un sistema es dando el valor de $\Omega$ en el polo norte de la
+estrella primaria, en las coordenadas polares $(\theta = 0, \lambda = 0,\nu =
+1)$; partiendo de este valor, incluyendo otros parámetros del sistema como la
+razón de masa y el semieje mayor de la órbita, se define el contorno para el
+valor del potencial del polo, denominado como $\Omega_{\mathrm{pol}}$. La
+expresión para el potencial del polo se reduce a:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\Omega_{\textrm{pol}} = 
+	\end{equation}
 \end{eqfloat}
 
 \section{Clasificaciones Observacionales}
@@ -108,36 +415,39 @@ datos del sistema; un sistema astrométrico sería indistinguible de uno
 espectroscópico si uno intenta identificar las componentes individuales a simple
 vista, o con un telescopio demasiado débil para el trabajo.
 
-Las \textbf{binarias visuales} son aquellos cuya separación orbital aparente es
-suficientemente grande para distinguir las dos estrellas individuales en la
-bóveda celeste. A pesar de que se puede trazar la órbita de la secundaria con
-varios años de observaciones, se requiere de cálculos adicionales para
-determinar la órbita exacta de las componentes. Esto se debe a la inclinación
-del sistema con respecto al eje de observación hacia la Tierra; solo es posible
-observar \quotes{una proyección del elipse orbital relativo en el plano del
-cielo,} aunque esto se puede superar usando el hecho de que la estrella primaria
-aparentemente inmóvil debe de estar presente \quotes{en un punto focal de la
-órbita relativa.} \citetbookchapter{fundamentalAstronomy}{10}
+\begin{description}
+	\item[Binarias visuales -] aquellos sistemas cuya separación orbital
+	aparente es suficientemente grande para distinguir las dos estrellas
+	individuales en la bóveda celeste. A pesar de que se puede trazar la órbita
+	de la secundaria con varios años de observaciones, se requiere de cálculos
+	adicionales para determinar la órbita exacta de las componentes. Esto se
+	debe a la inclinación del sistema con respecto al eje de observación hacia
+	la Tierra; solo es posible observar \quotes{una proyección del elipse
+	orbital relativo en el plano del cielo,} aunque esto se puede superar usando
+	el hecho de que la estrella primaria aparentemente inmóvil debe de estar
+	presente \quotes{en un punto focal de la órbita relativa.}
+	\citetbookchapter{fundamentalAstronomy}{10}
 
-Las \textbf{binarias espectroscópicas} presentan variaciones periódicas en sus
-espectros, en donde las líneas espectrales detectadas \quotes{oscilan
-periodicamente alrededor de la longitud de onda promedio}
-\citetbookchapter{astronomyPhysicalPerspective}{5}. Esto se observa
-debido al \textit{desplazamiento de Doppler}, lo cual causa que la frecuencia de
-un fotón se recorra hacia frecuencias más pequeñas (azules) o más grandes
-(rojas) dependiendo de su velocidad radial con respecto al observador, si se va
-acercando o alejando, respectivamente. Estas también pueden identificadas al
-observar dos distintos grupos de líneas espectrales, el cual es resultado de la
-contribución de ambas estrellas.
+	\item[Binarias espectroscópicas -] presentan variaciones periódicas en sus
+	espectros, en donde las líneas espectrales detectadas \quotes{oscilan
+	periodicamente alrededor de la longitud de onda promedio}
+	\citetbookchapter{astronomyPhysicalPerspective}{5}. Esto se observa debido
+	al \textit{desplazamiento de Doppler}, lo cual causa que la frecuencia de un
+	fotón se recorra hacia frecuencias más pequeñas (azules) o más grandes
+	(rojas) dependiendo de su velocidad radial con respecto al observador, si se
+	va acercando o alejando, respectivamente. Estas también pueden identificadas
+	al observar dos distintos grupos de líneas espectrales, el cual es resultado
+	de la contribución de ambas estrellas.
 
-Las \textbf{binarias astrométricas}, al igual que las espectroscópicas, solo
-muestran una componente visible al ser observada, al contrario de las binarias
-visibles. Sin embargo, una binaria astrométrica difiera de las otras dos
-categorías definidas en cuestión de su movimiento observado en la bóveda
-celeste. Estas muestran un movimiento errático y no-lineal, algo que no se
-esperaría ver en una estrella solitaria dado su inercia según la primera ley de
-Newton. Estas perturbaciones son causadas por una estrella secundaria no
-aparente al observar el sistema. 
+	\item[Binarias astrométricas -] al igual que las espectroscópicas, las
+	binarias astrométricas solo muestran una componente visible al ser
+	observada, al contrario de las binarias visibles. Sin embargo, una binaria
+	astrométrica difiera de las otras dos categorías definidas en cuestión de su
+	movimiento observado en la bóveda celeste. Estas muestran un movimiento
+	errático y no-lineal, algo que no se esperaría ver en una estrella solitaria
+	dado su inercia según la primera ley de Newton. Estas perturbaciones son
+	causadas por una estrella secundaria no aparente al observar el sistema. 
+\end{description}
 
 \section{Binarias Eclipsantes}
 
