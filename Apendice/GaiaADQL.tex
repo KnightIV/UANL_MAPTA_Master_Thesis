@@ -50,7 +50,6 @@ WHERE sdss_transform.g_sdss - sdss_transform.r_sdss < 0.7 AND sdss_transform.r_s
 	framexleftmargin=8pt,
 	frame=tb,
 	framerule=0pt ]
-
 SELECT TOP 3630000 * ,
 	array_element (sdss_transform.a0 , 1) AS J2000_ra_prop,
 	array_element (sdss_transform.a0 , 2) AS J2000_dec_prop,

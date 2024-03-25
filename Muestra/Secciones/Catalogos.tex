@@ -1,3 +1,77 @@
-\section{Catálogos}
-\input{Muestra/Secciones/Subsecciones/Gaia.tex}
-\input{Muestra/Secciones/Subsecciones/Sdss.tex}
+\chapter{Catálogos}
+
+\section{Gaia} \label{muestra:sec:gaia}
+
+Originalmente denominado como \textit{GAIA}, la misión de \gaia fue lanzada por
+la \textbf{Agencia Espacial Europea (ESA)} el 19 de Diciembre del 2013, con el
+objetivo de generar un mapa tridimensional de nuestra Galaxia, la Vía Láctea.
+Esto incluye calcular las propiedades astrométricas y astrofísicas de sus
+fuentes observadas con mayor precisión que cualquier otro catálogo publicado
+previamente. Para lograr esto se utiliza un satélite espacial, el cual está
+denominado como \gaiaNoSpace, ubicado en el punto de Lagrange L2 con respecto al
+sistema Sol-Tierra. Desde este punto la nave tiene una vista sin obstrucciones
+que le permite observar una cantidad de estrellas enorme, con \textapproxtilde
+1,000 millones de fuentes visibles con los instrumentos del satélite
+\gaiaNoSpace. \autocite{gaiaMission}
+
+\subsection{Fotometría}
+
+\subsection{Data Release 2} \label{muestra:sec:gaia:dr2}
+
+Para facilitar el acceso público a los datos recabados por la misión de \gaia la
+ESA ha escogido liberar los datos públicamente mediante los van recibiendo y
+procesando. Estos son conocidos como los \textbf{Data Releases}. Este trabajo se
+basa en el \textbf{Data Release 2}, el cuál de ahora en adelante será denominado
+simplemente \textbf{GDR2}. Este catálogo está compuesto de las observaciones
+hechas por \gaia entre las fechas de 25 de Julio del 2014 y el 23 de Mayo del
+2016, un periodo de tiempo de 22 meses en total. \autocite{gaiaDr2} GDR2 consiste
+de \num{1692919135} de fuentes individuales. Existe una gran diversidad de objetos
+dentro de este catálogo, desde estrellas de secuencia principal, asteroides
+dentro del sistema solar, hasta estrellas variables en las regiones más lejanas
+en la Galaxia.
+
+Los datos utilizados en este estudio fueron accedidos a través de el
+\textit{Gaia Archive}\footnote{\url{https://gea.esac.esa.int/archive/}}, una
+herramienta libre publicada por la ESA. Este cuenta con una interfaz de
+ADQL\footnote{\url{https://www.ivoa.net/documents/ADQL/20180112/PR-ADQL-2.1-20180112.html}},
+un lenguaje estructurado para hacer consultas a la base de datos de
+\gaiaNoSpace, incluyendo tablas conectando los datos de \gaia con otros
+catálogos, por ejemplo el catálogo de SDSS.
+
+\section{Sloan Digital Sky Survey}
+
+La colección de catálogos \textbf{Sloan Digital Sky
+Survey}\footnote{\url{https://www.sdss.org}} (de ahora en adelante será referido
+como \textbf{SDSS}) compila varias fuentes de datos astronómicos y astrofísicos
+en un sitio centralizado, con el objetivo de crear un mapa tridimensional del
+Universo con una precisión no vista antes. Estos incluyen imágenes de objetos
+astronómicos en varios colores, acompañados de un espectro obtenido como parte
+de esta misión. Para los finales del siglo XX habían surgido avances
+tecnológicos que llegarían a revolucionar la astronomía observacional. De estos,
+los de mayor interés ocurrieron con los detectores de estado sólido y en la
+capacidad computacional de procesamiento. Partiendo de estos empezaron a
+desarrollar la infraestructura necesaria para recabar datos fotométricos y
+espectroscópicos.
+
+El instrumento principal utilizado es el telescopio de 2.5m, ubicado en el
+observatorio \textit{Apache Point Observatory}, descrito a detalle en
+\autocite{sdss2_5mTelescope}. Este telescopio de diseño de Ritchey-Chrétien
+alimenta dos instrumentos separados; una CCD multi-banda de ancha área, y un par
+de espectrógrafos alimentados por fibra óptica. Su construcción empezó en 1998,
+pero no fue hasta el año 2000 que estuvo operacional.
+
+\subsection{Data Release 9}
+
+SDSS libera datos en colecciones iterativas; es decir cada Data Release (DR)
+liberado contiene todas las observaciones que forman parte del DR previo,
+agregando los datos recabados durante el periodo de observación para el DR
+actual. Cada DR cae bajo una fase de operaciones de SDSS, delimitado tanto por
+las fechas de observaciones como por los instrumentos y tipos de datos
+disponibles. Para el periodo operacional de
+\hyperref[muestra:sec:gaia:dr2]{GDR2} el catálogo más actual de SDSS era el DR9
+publicado como parte de SDSS-III
+\footnote{\url{https://www.sdss3.org/index.php}}. Esta tercera fase fue marcada
+por una gran mejora del equipo espectroscópico, instalando nuevos instrumentos
+con los cuales pudieron analizar la dinámica de nuestra Galaxia, al igual que
+otras galaxias y planetas gaseosos extra-solares. 
+
