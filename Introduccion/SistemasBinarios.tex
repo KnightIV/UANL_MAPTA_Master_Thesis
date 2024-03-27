@@ -391,7 +391,7 @@ La forma de una estrella en el modelo de Roche es determinada por una
 \textbf{superficie equipotencial}, en la cual el valor del potencial $\Omega$ es
 igual, identificado por un contorno. Una forma conveniente de definir la
 superficie de un sistema es dando el valor de $\Omega$ en el polo norte de la
-estrella primaria, en las coordenadas polares $(\theta = 0, \lambda = 0,\nu =
+estrella primaria, en las coordenadas polares $(\theta = 0 \rightarrow \lambda = 0,\nu =
 1)$; partiendo de este valor, incluyendo otros parámetros del sistema como la
 razón de masa y el semieje mayor de la órbita, se define el contorno para el
 valor del potencial del polo, denominado como $\Omega_{\mathrm{pol}}$. La
@@ -400,9 +400,58 @@ expresión para el potencial del polo se reduce a:
 \begin{eqfloat}[!ht]
 	\centering
 	\begin{equation}
-		\Omega_{\textrm{pol}} = 
+		\Omega_{\textrm{pol}} = \frac{1}{\varrho_{\textrm{pol}}} + \frac{q}{\sqrt{\delta^2 + \varrho_{\textrm{pol}}}}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionPotencialPoloRadio}
+\end{eqfloat}
+
+Donde $\Omega_{\textrm{pol}}$ es el valor del potencial modificado de Roche en
+el polo de la estrella, y $\varrho_{\textrm{pol}}$ es el radio normalizado al
+semieje mayor en el polo de la estrella. Usando esta expresión se puede
+parametrizar la forma y tamaño de la estrella utilizando un solo valor para el
+potencial; esto es gracias a la siguiente relación dada en
+\citetbookchapter{phoebeScientificReference}{3.1}:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\nabla p \parallel \rho \parallel \psi
 	\end{equation}
 \end{eqfloat}
+
+\newpage
+
+Esta nos dice que el gradiente de la densidad $\rho$, la presión $p$, y el
+potencial efectivo $\psi$ son paralelo uno a otro, lo cual necesariamente
+implica que una superficie constante del potencial coincide con las superficies
+constantes de densidad y presión. Esta superficie equipotencial es resuelta
+Utilizando la \refequation{ecuacionPotencialPoloRadio} y
+\refequation{ecuacionRocheExcentricaAsincronica}, dando el valor $\Omega =
+\Omega_{\textrm{pol}}$ del sistema:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\frac{1}{\varrho_{\textrm{pol}}} + \frac{q}{\sqrt{\delta^2 + \varrho_{\textrm{pol}}}} = \frac{1}{\varrho} + q \left(\frac{1}{\sqrt{\delta^2 + \varrho^2 - 2\varrho \delta \lambda}} - \frac{\varrho \lambda}{\delta^2} \right) + \frac{F^2 \varrho^2 (1 + q)(1 - \nu^2)}{2}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionRadioPolarEstelarEquivalencia}
+\end{eqfloat}
+
+Esta es resuelta de manera iterativa para cada valor de $\lambda$ y $\nu$ de la
+malla de valores utilizada en el problema. El resultado es la forma de ambas
+componentes del sistema binario, las cuales ya no son unas simples esferas o
+incluso elipses, si no que toman una forma de gota que sigue el campo de
+potencial establecido por medio de las fuerzas que rigen el sistema:
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.4]{Introduccion/Figures/Figura Forma Roche_PHOEBE Reference.png}
+	% TODO: finish caption
+	\caption{Distintas formas de las componentes dependiendo del valor dado para $\Omega$.}
+	\label{figuraRocheFormaPhoebe}
+\end{figure}
 
 \section{Clasificaciones Observacionales}
 
