@@ -370,7 +370,7 @@ cuyas propiedades no pueden ser adecuadamente modeladas en este paradigma
 \end{eqfloat}
 
 Introduciendo dos términos: el \textit{parámetro de sincronicidad} $F =
-\omega_{rot} / \omega_{orb}$ la razón de la velocidad angular rotacional de la
+\omega_{\mathrm{rot}} / \omega_{\mathrm{orb}}$ la razón de la velocidad angular rotacional de la
 componente a su velocidad angular orbital, y la \textit{separación instantánea}
 entre ambas componentes $\delta = D / a$ normalizada con respecto al semieje
 mayor $a$ \citetbookchapter{phoebeScientificReference}{3.1}. El cambio principal
@@ -420,13 +420,14 @@ potencial; esto es gracias a la siguiente relación dada en
 	\end{equation}
 \end{eqfloat}
 
+% TODO: newpage para mantener formato de documento
 \newpage
 
 Esta nos dice que el gradiente de la densidad $\rho$, la presión $p$, y el
 potencial efectivo $\psi$ son paralelo uno a otro, lo cual necesariamente
 implica que una superficie constante del potencial coincide con las superficies
 constantes de densidad y presión. Esta superficie equipotencial es resuelta
-Utilizando la \refequation{ecuacionPotencialPoloRadio} y
+utilizando la \refequation{ecuacionPotencialPoloRadio} y
 \refequation{ecuacionRocheExcentricaAsincronica}, dando el valor $\Omega =
 \Omega_{\textrm{pol}}$ del sistema:
 
@@ -448,10 +449,114 @@ potencial establecido por medio de las fuerzas que rigen el sistema:
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[scale=0.4]{Introduccion/Figures/Figura Forma Roche_PHOEBE Reference.png}
-	% TODO: finish caption
-	\caption{Distintas formas de las componentes dependiendo del valor dado para $\Omega$.}
+	\caption{Distintas formas de las componentes dependiendo del valor dado para $\Omega$. El potencial azul corresponde a $\Omega = 6.0$, verde a $\Omega = 3.5$, magenta a $\Omega = 2.8$, y rojo a $\Omega = 2.7$. La superficie negra corresponde a $\Omega = 2.87584$, el cual se le conoce como el \textbf{lóbulo de Roche crítico}. Figura obtenida de \citetbookchapter{phoebeScientificReference}{3.1}.}
 	\label{figuraRocheFormaPhoebe}
 \end{figure}
+
+\section{Clasificación Morfológica}
+
+Debido a que la estructura del potencial de Roche es una de las propiedades más
+importantes para un sistema binario estelar, se acostumbran a clasificar en base
+a la forma del potencial. Como se puede ver en la
+\reffigure{figuraRocheFormaPhoebe}, diferentes valores para el potencial polar
+$\Omega_{\mathrm{pol}}$ deforma ambas estrellas de maneras distintas, empezando
+con componentes mayormente esféricas para altos valores de $\Omega$, hasta
+llegar a sistemas en contacto en el caso de $\Omega < 2.87584$; la importancia
+de este valor es explicada en esta sección.
+
+\subsection{Sistemas Separados}
+
+Los \textbf{sistemas separados} son aquellos cuya distancia orbital es
+suficientemente grande para que las componentes estelares no hagan contacto
+físico una con otra. Por lo tanto, estas componentes interactúan entre si
+principalmente mediante sus campos gravitacionales, distorsionando la forma de
+su compañera estelar. Las superficies estelares pueden ser mayormente esféricas
+o elipsoidales dependiendo del campo de potencial, como se puede ver en la
+\reffigure{figuraRocheFormaPhoebe} para los modelos que corresponden a $\Omega =
+6.0$ y $\Omega = 3.5$. Estos sistemas son laboratorios importantes en el estudio
+de las propiedades físicas de las estrellas, debido ńo solo a que permiten
+calcular sus masas por medio de su interacción gravitacional, pero el hecho que
+no tengan contacto físico permite estudiar las propiedades evolutivas de las
+estrellas, ya que ambas componentes se desarrollan de manera independiente.
+
+\subsection{Sistemas Semi-separados}
+
+Un \textbf{sistema semi-separado} se distingue de otras morfologías debido a que
+la separación orbital de las componentes estelares llega a ser del orden de
+magnitud de unos cuantos radios solares. Esto causa que las superficies
+equipotenciales de ambas estrellas se acerquen una a otra. En la
+\reffigure{figuraRocheFormaPhoebe} se puede ver destacada la superficie de color
+negro, en el cual el potencial de una componente está en contacto con su
+compañera. Esta superficie se le conoce como el \textbf{lóbulo de Roche
+crítico}, o simplemente como el \textbf{lóbulo de Roche}. El punto en el que
+están en contacto es una región del espacio particular al problema de tres
+cuerpos, que se le conoce como un \textit{punto de Lagrange}. Estas regiones del
+espacio dentro del marco de referencia no-inercial marcan donde las fuerzas
+ejercidas por el campo potencial de las componentes es igual a 0; una partícula
+dentro de una de estas regiones no es sometida a ninguna aceleración. La
+\reffigure{figuraLagrange} muestra las posiciones relativas de los puntos de
+Lagrange.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.34]{Introduccion/Figures/Figura Lagrange_CVs Wide Field Surveys.png}
+	\caption{El modelo de Roche para un sistema binario con una razón de masa $q
+	= m_2 / m_1 = 0.25$. Se pueden apreciar los cinco puntos de
+	Lagrange\textemdash \textit{L1}- \textit{L5}\textemdash que resultan del
+	campo del potencial $\Omega$. Figura obtenida de
+	\autocite{ibanez_cvs_wide_field_surveys_2021}.}
+	\label{figuraLagrange}
+\end{figure}
+
+De interés particular es el punto \textit{L1}, el punto de contacto entre ambas
+componentes. Una vez que una componente llene su lóbulo de Roche, el material
+que previamente estaba ligado a su superficie será atraída gravitacionalmente a
+la compañera estelar, iniciando un proceso de acreción de material. Las
+\textit{variables cataclísmicas} son un ejemplo de este tipo de sistemas
+binarios semi-separados, donde la componente secundaria enana roja llena su
+lóbulo de Roche, transfiriendo material a la componente primaria enana blanca.
+
+\subsection{Sistemas en Contacto}
+
+Un sistema con un valor suficientemente pequeño de su potencial de Roche es un
+\textbf{sistema binario en contacto}. A diferencia de un sistema semi-separado,
+ambas componentes llenan su lóbulo de Roche en un sistema en contacto, haciendo
+contacto en el punto de Lagrange \textit{L1}. Este caso de contacto (también
+llamado un sistema en \textit{sobre-contacto} debido a que las estrellas no solo
+están en contacto con su lóbulo de Roche, si no que su material se derrama fuera
+del lóbulo crítico) da origen al fenómeno de una \textbf{envoltura común}: esta
+es una superficie equipotencial que envuelve a ambas estrellas, en lugar de que
+cada componente tenga su propia fotosfera independiente. La región de
+conexión\textemdash conocida como el \quotes{cuello} del sistema por su nombre
+en inglés\textemdash actúa como un puente entre las dos estrellas, sirviendo
+como un medio de transporte de tanto material estelar como energía. Ejemplos de
+superficies equipotenciales para estos sistemas se pueden ver en la
+\reffigure{figuraRocheFormaPhoebe}, las cuales corresponden a $\Omega = 2.8$ y
+$\Omega = 2.7$.
+
+En el estudio de sistemas en contacto es importante introducir un nuevo
+parámetro el cual describe la cantidad en que el sistema está en sobre-contacto.
+El \textbf{factor de relleno}, por su nombre en inglés \textbf{fillout factor},
+se define por medio de los valores del potencial en los puntos de Lagrange $L1
+\rightarrow \Omega^{L1}_{\mathrm{crit}}$ y $L2 \rightarrow
+\Omega^{L2}_{\mathrm{crit}}$:
+
+\begin{eqfloat}
+	\centering
+	\begin{equation}
+		\mathcal{F} = \frac{\Omega - \Omega^{L1}_{\textrm{crit}}}{\Omega^{L2}_{\textrm{crit}} - \Omega^{L1}_{\textrm{crit}}}
+	\end{equation}
+\end{eqfloat}
+
+Esta ecuación describe la concentración espacial del material superficial de las
+estrellas, definido unicamente con el potencial efectivo del sistema. El valor
+del factor de relleno está restringido los siguientes valores: $\mathcal{F} < 0$
+para sistemas separados, $\mathcal{F} = 0$ para el caso de semi-contacto, y $0 <
+\mathcal{F} \leq 1$ para el caso de sobre-contacto. El factor de relleno resulta
+ser una parametrización util al momento de modelar un sistema en contacto (por
+ejemplo, utilizando el paquete de software \textit{PHOEBE}), debido a la
+precisión computacional que sería necesaria para ajustar los radios individuales
+de las estrellas. 
 
 \section{Clasificaciones Observacionales}
 
@@ -484,7 +589,7 @@ vista, o con un telescopio demasiado débil para el trabajo.
 	al \textit{desplazamiento de Doppler}, lo cual causa que la frecuencia de un
 	fotón se recorra hacia frecuencias más pequeñas (azules) o más grandes
 	(rojas) dependiendo de su velocidad radial con respecto al observador, si se
-	va acercando o alejando, respectivamente. Estas también pueden identificadas
+	va acercando o alejando, respectivamente. Estas también pueden ser identificadas
 	al observar dos distintos grupos de líneas espectrales, el cual es resultado
 	de la contribución de ambas estrellas.
 
@@ -500,14 +605,106 @@ vista, o con un telescopio demasiado débil para el trabajo.
 
 \section{Binarias Eclipsantes}
 
-Una de las propiedades más importantes de identificar de un sistema binario es
-la \textit{inclinación} de su órbita con respecto a nuestra línea de visión
-desde el sitio de observación (ya sea la Tierra en caso de un observatorio
+Una de las propiedades más útiles de identificar de un sistema binario es
+la \textit{inclinación} de su órbita con respecto a la línea de visión
+del sitio de observación (ya sea la Tierra en caso de un observatorio
 terrestre o un punto lejano dentro del sistema solar para un telescopio
 espacial). En dado caso que un sistema tenga una inclinación suficientemente
 alta se pueden observar eclipses dentro del sistema, en lo que una componente
-obscurece a su compañera de nuestra línea de visión. Estos eclipses se
-manifiestan como disminuciones en el flujo total del sistema, brindando
-información que no se obtendría sin esta perspectiva visual. 
+obscurece a su compañera de nuestra línea de visión, otorgando el nombre de 
+\textbf{binaria eclipsante} a los sistemas que muestran este fenómeno. 
+Aparte de su clasificación morfológica física, los sistemas binarios eclipsantes
+se pueden distinguir en 3 diferentes tipos de sistemas binarios cercanos,
+basados en la forma de su curva de luz.
 
-\section{Binarias en Contacto}
+\subsection{EA - Algol}
+
+Las curvas de luz de tipo \textit{EA} son atribuidas generalmente a sistemas
+binarios separados, donde ambas componentes estelares pueden mantener su forma
+esférica sin perturbaciones a escalas apreciables. Gracias a esta separación de
+las estrellas es posible definir claramente el comienzo y fin de ambos eclipses;
+fuera de los eclipses, la curva de luz se mantiene relativamente constante,
+mostrando variabilidad despreciable en casos de variabilidad elipsoidal (en el
+caso que las componentes no sean esferas perfectas debido a una leve distorsión
+por el potencial gravitacional) o en caso del calentamiento superficial de una
+componente por la radiación incidente de su compañera
+\autocite{samus_gcvs_variable_types_2016}. Existen sistemas con un rango amplio
+de periodos orbitales, desde 4 horas hasta más de 25 años. Una curva de luz
+típica de un sistema \textit{EA} se puede apreciar en la
+\reffigure{figuraEACurvaLuz}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.6]{Introduccion/Figures/Figura EA Curva_Modelling of WUMa Stars.png}
+	\caption{Curva de luz emblemática de un sistema eclipsante
+	\textit{EA}. Obtenida de
+	\autocite{skelton_modelling_wuma_variable_stars_2009}.}
+	\label{figuraEACurvaLuz}
+\end{figure}
+
+\subsection{EB - \textbeta \space Lyrae}
+
+En el caso de un sistema eclipsante semi-separado, la curva de luz observada se
+le clasifica como tipo \textit{EB}, o de tipo \textbeta \space Lyrae. En un sistema
+semi-separado una de las estrellas llena su lóbulo crítico de Roche, haciendo
+contacto con la superficie de su compañera. Esta distorsión es responsable de su
+forma elipsoidal en vez de esférica. El flujo que un observador recibe de una
+estrella es proporcional al área superficial visible en la línea de visión; en
+una estrella esférica, esta área es constante en el tiempo, pero en el caso de
+una estrella elipsoidal la cantidad de área observada depende de la fase orbital
+actual. Esto resulta en eclipses sin un comienzo y fin claramente delimitados.
+En la mayoría de los casos el periodo orbital de este tipo de sistemas es mayor
+de 1 día \autocite{samus_gcvs_variable_types_2016}. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.63]{Introduccion/Figures/Figura EB Curva_Modelling of WUMa Stars.png}
+	\caption{Curva de luz emblemática de un sistema eclipsante
+	\textit{EB}. Obtenida de
+	\autocite{skelton_modelling_wuma_variable_stars_2009}.}
+	\label{figuraEBCurvaLuz}
+\end{figure}
+
+\subsection{EW - W UMa}
+
+Sistemas en sobre-contacto, en donde ambas componentes llenan su lóbulo de
+Roche, producen curvas de luz que muestran variabilidad continua a lo largo de
+su órbita, parecido a los sistemas \textit{EB}. Sin embargo, a diferencia de los
+sistemas semi-separados, ambas componentes de sistemas tipo \textit{EW} están
+altamente acopladas una a otra, la diferencia de temperaturas siendo del orden
+de cientos de Kelvin\textemdash lo cual es evidente por la profundidad de ambos
+eclipses\textemdash de tipo espectral A-K
+\autocite{skelton_modelling_wuma_variable_stars_2009}. El periodo orbital es
+menor de 1 día, del orden de unas cuantas horas, debido a su corta aproximación
+física. La envoltura común que comparten las estrellas es de una forma
+irregular; esta consiste de las superficies elipsoidales de las estrellas y del
+\quotes{cuello}, la región que llena el espacio alrededor del punto de Lagrange
+L1. Debido a esta geometría, cada fase orbital muestra una cantidad distinta de
+la superficie del sistema, causando la variabilidad continua en la curva de luz,
+sin una clara delimitación para ninguno de los eclipses. La
+\reffigure{figuraEWCurvaLuz} muestra una curva de luz típica de un sistema
+\textit{EW}. 
+
+Una característica única de los sistemas \textit{EW} es la diferencia en los
+máximos de la curva de luz. En ciertos casos puede ocurrir que un máximo del
+flujo sea mayor que el máximo medido de el eclipse contrario, a pesar de estar
+viendo una cantidad similar de superficie estelar. Este fenómeno observacional
+es denominado el \textit{efecto O'Connell}. A pesar de que aún no es muy bien
+entendido la causa de este efecto, una de las interpretaciones más populares en
+la literatura es la presencia de manchas estelares
+[\autocite{ding_fast_derivation_cbs_params_2022}
+\autocite{michel_photometric_study_contact_binary_2023}
+\autocite{michel_rotse1_new_wuma_eclipsing_binary_2016}], las cuales al ser más
+frías que el resto de la superficie llega a manifestar como una menor cantidad
+de radiación emitida por el sistema en ciertas fases. Esto se atribuye a la
+actividad magnética de la estrella, y se utiliza principalmente al momento de
+ajustar un modelo computacional a la curva de luz observada.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.63]{Introduccion/Figures/Figura EW Curva_Modelling of WUMa Stars.png}
+	\caption{Curva de luz emblemática de un sistema eclipsante
+	\textit{EW}. Obtenida de
+	\autocite{skelton_modelling_wuma_variable_stars_2009}.}
+	\label{figuraEWCurvaLuz}
+\end{figure}
