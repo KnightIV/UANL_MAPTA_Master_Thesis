@@ -1,4 +1,5 @@
 \documentclass[12pt,a4paper]{report}
+% \documentclass[12pt,a4paper]{unam-thesis}
 
 \usepackage{geometry}
 
@@ -24,6 +25,8 @@
 \usepackage{xcoffins}
 \usepackage{sty/annotate-equations}
 \usepackage{mathtools}
+\usepackage[euler]{textgreek}
+\usepackage{titling}
 
 \usepackage{csquotes}
 \usepackage[style=authoryear, natbib=true]{biblatex}
@@ -203,31 +206,40 @@
 \definecolor{SubSectionBlue}{rgb}{0.0,0.53,0.74} % blu per sottosezioni
 \definecolor{SubSubSectionBlue}{rgb}{0.0,0.58,0.65} % blu per sottosottosezioni
 %------------------------------------------------------------------------------------
+% styling part pages to fit abstract 
+    % https://tex.stackexchange.com/questions/30432/styling-the-part-page 
+\titleclass{\part}{top}
+\titleformat{\part}[display]
+    {\centering\normalfont\Huge\bfseries}
+    {\partname \space \thepart}
+    {0pt}
+    {\titlerule[1pt]\vspace{1pc}\huge}
+\titlespacing*{\part}{0pt}{0pt}{20pt}
+
 \titleformat{\chapter}[display]
-  {\color{SectionBlue}\normalfont\LARGE\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+    {\color{SectionBlue}\normalfont\LARGE\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}    
 \titleformat{\section}
-{\color{SectionBlue}\normalfont\Large\bfseries}
-{\color{SectionBlue}\thesection}{1em}{}
+    {\color{SectionBlue}\normalfont\Large\bfseries}
+    {\color{SectionBlue}\thesection}{1em}{}
 \titleformat{\subsection}
-{\color{SubSectionBlue}\normalfont\Large\bfseries}
-{\color{SubSectionBlue}\thesubsection}{1em}{}
+    {\color{SubSectionBlue}\normalfont\Large\bfseries}
+    {\color{SubSectionBlue}\thesubsection}{1em}{}
 \titleformat{\subsubsection}
-{\color{SubSubSectionBlue}\normalfont\large\bfseries}
-{\color{SubSubSectionBlue}\thesubsubsection}{1em}{}
+    {\color{SubSubSectionBlue}\normalfont\large\bfseries}
+    {\color{SubSubSectionBlue}\thesubsubsection}{1em}{}
 \DeclareCaptionFont{myblue}{\color{SubSectionBlue}}
 \captionsetup{labelfont={myblue,bf}}
-% \setcitestyle{authoryear, open={(},close={)}}
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 %------------------------------------------------------------------------------------
 \newcommand{\myboldverb}[1]{{\color{MyDarkBlue}\bfseries{#1}}} % per enfasi in grassetto 
 \newcommand{\myverb}[1]{{\color{MyDarkBlue}\texttt{#1}}} % in evidenza
 \newcommand{\myurl}[1]{{\color{MyDarkGreen}\url{#1}}} % per url
-\newcommand{\quotesection}[1]{{\color{SectionBlue}\textbf{Sección \ref{#1}}}}
-\newcommand{\quotesubsection}[1]{{\color{SubSectionBlue}\textbf{Sección \ref{#1}}}}
-\newcommand{\quotesubsubsection}[1]{{\color{SubSubSectionBlue}\textbf{Sección \ref{#1}}}}
+\newcommand{\refthesissection}[1]{{\color{SectionBlue}\textbf{Sección \ref{#1}}}}
+\newcommand{\refthesissubsection}[1]{{\color{SubSectionBlue}\textbf{Sección \ref{#1}}}}
+\newcommand{\refthesissubsubsection}[1]{{\color{SubSubSectionBlue}\textbf{Sección \ref{#1}}}}
 \newcommand{\reffigure}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
-\newcommand{\quotetable}[1]{{\color{MyDarkGreen}\textbf{Tabla \ref{#1}}}}
+\newcommand{\reftable}[1]{{\color{MyDarkGreen}\textbf{Tabla \ref{#1}}}}
 \newcommand{\refequation}[1]{{\color{MyDarkGreen}\textbf{Ecuación \ref{#1}}}}
 \newcommand{\refequations}[1]{{\color{MyDarkGreen}\textbf{Ecuaciones \ref{#1}}}}
 \newcommand{\textapproxtilde}{\raisebox{-0.55ex}{\textasciitilde}}
