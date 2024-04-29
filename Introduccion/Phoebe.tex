@@ -1,3 +1,29 @@
-\chapter{PHOEBE - Modelo Computacional}
+\chapter{PHOEBE}
 
-Como se ha planteado, los sistemas binarios estelares ofrecen una oportunidad de analizar el comportamiento y la estructura estelar que sería imposible deducir en estrellas aisladas. Sin embargo, 
+Como se ha planteado, los sistemas binarios estelares ofrecen una oportunidad de
+analizar el comportamiento y la estructura estelar que sería imposible deducir
+en estrellas aisladas. Sin embargo, el análisis analítico es una herramienta
+restringida en cuanto a la cantidad de información que puede extraer de una
+curva de luz; las ecuaciones que rigen un sistema binario no tienen una solución
+analítica. Para resolver este problema, se hacen códigos capaces de simular la
+física de un sistema binario, el cual partiendo de ciertos parámetros estelares
+y orbitales pueden reproducir los datos observacionales de un sistema
+equivalente en la bóveda celeste.
+
+En el campo de sistemas binarios estelares, uno de los primeros códigos con
+mayor impacto es el código \textbf{Wilson-Devinney}, descrito por primera vez en
+\autocite{wilson_devinney_realization_of_accurate_binary_lcs_wd_1971}. El código
+de Wilson-Devinney\textemdash referenciado como el código \textbf{WD} en varias
+publicaciones\textemdash parte del modelo de Roche para representar las
+superficies de las estrellas, lo cual le permite hacer un trato adecuado de
+fenómenos físicos importantes como el oscurecimiento al limbo y el
+oscurecimiento gravitacional. A pesar de sobrepasar 5 décadas de edad el código
+WD sigue en uso actualmente en proyectos de investigación (por ejemplo,
+\autocite{li_extremely_low_mass_ratio_wd_analysis_2022}), de los cuales se
+obtienen los parámetros físicos de un sistema binario estelar observado. Este
+trabajo de tesis de maestría utilizó la librería \textbf{PHOEBE}
+(\textbf{PH}ysics \textbf{O}f \textbf{E}clipsing \textbf{B}inari\textbf{E}s),
+basado en el código WD.
+
+\section{\quotes{Modelo Hacia Adelante}}
+
