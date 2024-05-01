@@ -1,4 +1,4 @@
-\chapter{PHOEBE}
+\chapter{PHOEBE - Modelo Computacional}
 
 Como se ha planteado, los sistemas binarios estelares ofrecen una oportunidad de
 analizar el comportamiento y la estructura estelar que sería imposible deducir
@@ -27,3 +27,115 @@ basado en el código WD.
 
 \section{\quotes{Modelo Hacia Adelante}}
 
+El propósito principal de códigos como PHOEBE cae en su capacidad para generar
+un \quotes{\textbf{modelo hacia adelante}} (traducido de forma directa de su nombre
+en inglés: \textbf{forward model}). Se parte de un modelo del sistema\textemdash
+en el caso de un sistema binario, este viene siendo el modelo de Roche junto a
+una formulación de las superficies estelares\textemdash el cual se va integrando
+en el tiempo, produciendo como resultado datos sintéticos observables como una
+curva de luz fotométrica o una curva de velocidades radiales. Un ejemplo de un
+sistema \quotes{de juguete} se puede ver en la
+\reffigure{figuraPhoebeObservablesSinteticos}. Es importante notar que estos
+modelos se trabajan en el espacio fase de la órbita de un sistema; en casos
+donde el sistema no experimente algún cambio significativo a lo largo del
+tiempo, es suficiente computar el modelo para cada fase orbital observada, dado
+que una campaña de observación adecuada abarcaría las mismas fases orbitales más
+de una vez.
+
+\begin{figure}[!ht]
+	\centering
+	\xincludegraphics[scale=0.253, label=\textbf{a)}, labelbox=true, pos=nw, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE LC Sintetico.png}
+	\xincludegraphics[scale=0.253, label=\textbf{b)}, labelbox=true, pos=nw, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE RVs Sintetico.png}
+	\caption{Datos sintéticos generados usando PHOEBE. Estas curvas representan
+	un sistema binario separado, donde $M_1 = 1.0 \ \mathrm{M}_{\odot}$, $M_2 =
+	0.5 \ \mathrm{M}_{\odot}$, $R_1 = 2.0 \ \mathrm{R}_{\odot}$, $R_2 = 1.2 \
+	\mathrm{R}_{\odot}$, $T_1 = T_2 = 6000 \ \mathrm{K}$, inclinación
+	$i_{\mathrm{orb}} = 90^{\circ}$ y periodo orbital $P_{orb} = 1.0 \
+	\mathrm{d}$ en una órbita sincrónica. La figura muestra dos diferentes tipos
+	de observables: \textbf{a)} Curva de luz fotométrica, cuyas variaciones se
+	deben a los eclipses en el sistema. \textbf{b)} Curva de velocidades
+	radiales de ambas componentes, donde el movimiento de las estrellas
+	individuales a lo largo de nuestra línea de visión causa fluctuaciones se
+	observa debido al efecto de Doppler.} 
+	\label{figuraPhoebeObservablesSinteticos}
+\end{figure}
+
+Para generar datos sintéticos observables de un sistema binario, es necesario
+que PHOEBE tome ciertos aspectos en consideración, descritos a continuación en
+este capitulo.
+
+\subsection{Discretización de la Superficie Estelar}
+
+Partiendo del modelo de Roche es como se determina la superficie de ambas
+componentes, siguiendo el principio de superficies equipotenciales. Sin embargo,
+una descripción analítica de las variaciones de las propiedades estelares
+resultaría en una complejidad de tiempo intratable del problema; a pesar de
+permitirnos modelar pequeñas variaciones en los valores de cada parámetro
+superficial, este no es una opción realista dado la capacidad de computo actual.
+Es por esto que PHOEBE implementa un método el cual aproxima la superficie de
+las estrellas a un muestreo uniforme de puntos determinados por el modelo de
+Roche. Sin embargo, se requiere un tratamiento adicional del modelo de Roche; la
+\refequation{ecuacionRocheExcentricaAsincronica} viene definida en coordenadas
+esféricas, lo cual causaría una distribución no uniforme en el tamaño de los
+elementos superficiales no deseada (aparte de causar un tipo de \quotes{costura}
+a lo largo del ecuador de la estrella \citetbookchapter{phoebeScientificReference}{5.1.1}).
+
+Para resolver este problema, se transforma la
+\refequation{ecuacionRocheExcentricaAsincronica} a un sistema de coordenadas
+cilíndrico de acuerdo a las siguientes transformaciones:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\begin{split}
+			& x = \varrho_{\perp} \cos{\phi} \\
+			& y = \varrho_{\perp} \sin{\phi} \\
+			& z = z
+		\end{split}
+	\end{equation}
+\end{eqfloat}
+
+Donde $\phi$ representa la longitud, $\varrho_{\perp}$ es la componente en el
+plano orbital de la distancia al elemento superficial, y $z$ mantiene su
+definición del sistema de coordenadas cartesianas. Utilizando estas
+transformaciones se llega a una expresión del potencial de Roche en coordenadas
+cilíndricas:
+
+% TODO: new page to group equation and text together
+\newpage
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\Omega = \frac{1}{\sqrt{\varrho_{\perp} + z^2}} + q \left(\frac{1}{\sqrt{\delta^2 + \varrho_{\perp}^2 + z^2 - 2 \varrho_{\perp} \delta \cos{\phi}}} - \frac{\varrho_{\perp} \cos{\phi}}{\delta^2} \right) + \frac{F^2 \left(1 + q\right) \varrho_{\perp}^2}{2}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionRocheCilindrica}
+\end{eqfloat}
+
+Parecido a la \refequation{ecuacionRadioPolarEstelarEquivalencia} se puede
+llegar a una expresión similar para encontrar el valor de $\varrho_{\perp}$ que
+le corresponde a los valores dados de $\phi$ y $z$, utilizando un método para
+encontrar raíces como el de \textit{Newton-Raphson}:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\begin{split}
+			f(\varrho_{\perp}) = \eqnmark[MyDarkRed]{omega}{\frac{1}{\sqrt{\varrho_{\perp} + z^2}} + q \left(\frac{1}{\sqrt{\delta^2 + \varrho_{\perp}^2 + z^2 - 2 \varrho_{\perp} \delta \cos{\phi}}} - \frac{\varrho_{\perp} \cos{\phi}}{\delta^2} \right) + \frac{F^2 \left(1 + q\right) \varrho_{\perp}^2}{2}} \\
+			\eqnmark[MyDarkBlue]{omegaPol}{- \frac{1}{z_{\textrm{pol}}} - \frac{q}{\sqrt{z_{\textrm{pol}}^2 + \delta^2}}}
+		\end{split}
+	\end{equation}
+	\annotate[yshift=-0.2em]{below, left}{omega}{Potencial de Roche $\Omega$}
+	\annotate[yshift=-0.2em]{below, left}{omegaPol}{Potencial de referencia en el polo $\Omega_{\mathrm{pol}}$}
+	\blankcaption
+	\vspace{0.4em}
+	\label{ecuacionRadioCilindrica}
+\end{eqfloat}
+
+Donde se define $z_{\mathrm{pol}} \equiv \varrho_{\mathrm{pol}}$ como el valor
+de referencia del radio al polo de la estrella
+\citetbookchapter{phoebeScientificReference}{5.1.1}. Al hacer uso de la derivada
+$f\prime (\varrho_{\perp})$\textemdash la cual se puede obtener como lo muestra
+\citetbookchapter{phoebeScientificReference}{5.1.1}\textemdash es posible
+implementar un método para encontrar raíces del sistema. 
