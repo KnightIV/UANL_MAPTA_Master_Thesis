@@ -411,11 +411,11 @@ incidente, definida como $E_{\lambda} = hc/\lambda$, e integrar:
 \begin{eqfloat}
 	\centering
 	\begin{equation}
-		I_{\textrm{pb}}^{\prime} = \int_{\lambda}{\left(\frac{\mathcal{S}(\lambda) \mathcal{P}(\lambda)}{E_{\lambda}}\textrm{d}\lambda \right)} = \frac{1}{hc} \int_{\lambda}{\lambda \mathcal{S}(\lambda) \mathcal{P}(\lambda) \textrm{d}\lambda}
+		I_{\textrm{pb}, \textrm{fot}} = \int_{\lambda}{\left(\frac{\mathcal{S}(\lambda) \mathcal{P}(\lambda)}{E_{\lambda}}\textrm{d}\lambda \right)} = \frac{1}{hc} \int_{\lambda}{\lambda \mathcal{S}(\lambda) \mathcal{P}(\lambda) \textrm{d}\lambda}
 	\end{equation}
 \end{eqfloat}
 
-Por último, se integra $I^{\prime}_{\mathrm{pb}}$ o $I_{\mathrm{pb}}$\textemdash
+Por último, se integra $I_{\mathrm{pb}, \mathrm{fot}}$ o $I_{\mathrm{pb}}$\textemdash
 dependiendo si se desea el flujo por cuentas de fotones o en energía\textemdash
 a lo largo de la superficie estelar visible para obtener el flujo emitido por la
 estrella en la pasa banda deseada, llegando como resultado a una curva de luz
@@ -425,6 +425,25 @@ forma la base del análisis fotométrico de un sistema binario estelar.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[scale=0.4]{Introduccion/Figures/Figura PHOEBE JohnsonV Pasabanda.png}
-	\caption{Curva de transmisión en PHOEBE para el pasa banda \textit{Johnson:V}.}
+	\caption{Curva de transmisión en PHOEBE para la pasa banda \textit{Johnson:V}.}
 	\label{figuraPhoebePasabandaJohnsonV}
 \end{figure}
+
+\section{El Problema Inverso}
+
+El tener un modelo sofisticado de un sistema binario estelar nos ayuda a
+entender los mecanismos responsables por su comportamiento, incluyendo como
+afectan las diferentes combinaciones de parámetros estelares en las curvas
+observables del sistema. Sin embargo, el propósito de modelos como PHOEBE o WD
+yace en determinar los parámetros físicos que, una vez imputadas al modelo,
+generan una curva observable sintética que se acopla a datos reales observados
+del sistema. Esto en general se conoce como el \textbf{problema inverso}, y es
+tanto una gran parte de este trabajo de tesis como el objetivo de varias
+investigaciones en la literatura. Encontrar los parámetros que mejor ajustan un
+modelo a datos observados es un proceso particular para cada objeto estudiado;
+sin embargo, existe un proceso general que se sigue para llegar a una conclusión
+cuyos errores y sesgos sean aceptables.
+
+\subsection{Función de Calidad}
+
+Para saber si un modelo es un buen ajusto a una curva observable de un sistema es necesario definir una función que sirva para parametrizar el error entre el modelo sintético y los datos reales. 
