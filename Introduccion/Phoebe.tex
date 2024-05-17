@@ -446,4 +446,82 @@ cuyos errores y sesgos sean aceptables.
 
 \subsection{Función de Calidad}
 
-Para saber si un modelo es un buen ajusto a una curva observable de un sistema es necesario definir una función que sirva para parametrizar el error entre el modelo sintético y los datos reales. 
+Para saber si un modelo es un buen ajusto a una curva observable de un sistema
+es necesario definir una función que sirva para parametrizar el error entre el
+modelo sintético y los datos reales. Para una curva observada, se calcula el
+$\chi^2$, el cual se define como la siguiente expresión:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\chi_{k}^2 = \sum_{i=1}^{N}{\left(\frac{y_{i,o} - y_{i,m}}{\sigma_{i}^2} + \ln{\sigma{i}^2}\right)}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionPhoebeChi2Curve}
+\end{eqfloat}
+
+Donde $y$ indica un punto en la curva del modelo, los subindices $o$ y $m$
+refiriéndose a datos observacionales o del modelo sintético, respectivamente.
+Cada punto del modelo se le atribuye un peso, la incertidumbre en el dato
+observado $\sigma_{i,o}$, el cual se determina antes de ingresar los datos a
+PHOEBE. En el caso de tener incertidumbres que han sido subestimadas se
+introduce el termino $\sigma_{inf}$, donde al final se obtiene la incertidumbre
+$\sigma_{i}$:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\sigma_{i}^{2} = \sigma_{i,o}^{2} + y_{i,m}^{2} \exp{\left(2 \sigma_{inf}\right)}
+	\end{equation}
+\end{eqfloat}
+
+En el caso de tener incertidumbres acertadas, $\sigma_{inf} = -\infty$, el cual
+simplifica la previa ecuación a solo $\sigma_{i}^{2} = \sigma_{i,o}^{2}$.
+
+Estos datos no necesariamente son mediciones fotométricas del sistema; pueden
+ser velocidades radiales o intensidades de lineas espectrales. El subíndice $k$
+denota la curva para la cual se está calculando el ajuste del modelo. Si se
+tiene varias curvas observadas (por ejemplo, en diferentes bandas fotométricas)
+el ajuste total del modelo se califica por la suma de los ajustes individuales a
+cada curva observable:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\chi^2 = \sum_{k}{\chi_{k}^{2}}
+	\end{equation}
+\end{eqfloat}
+
+El objetivo de un ajuste de un modelo a datos observacionales es encontrar los
+parámetros físicos del sistema binario en cuestión que resultan en el $\chi^{2}$
+más diminuto posible. Sin embargo, el modelo descrito en la literatura, y que
+usa PHOEBE, es altamente no-lineal; el espacio de parámetros posee una topología
+compleja, el cual implica que existen más de una combinación de valores para los
+parámetros del modelo que se ajustan a un mismo conjunto de curvas
+observacionales, el cual se resalta en casos de degeneración de un modelo, donde
+2 o más parámetros se ven correlacionados de tal manera que existen una cantidad
+infinita de soluciones al problema. Para finalizar la descripción de PHOEBE con
+respecto a este trabajo de tesis, se describe un proceso de ajuste de modelo a
+un conjunto de curvas de luz fotométricas, utilizando herramientas dadas dentro
+de PHOEBE, con la finalidad de llegar a la mejor combinación de parámetros
+evitando caer lo más posible en trampas como mínimos locales en el espacio de
+parámetros y modelos degenerados.
+
+\subsection{Estimación Inicial de Parámetros}
+
+La solución final para un sistema binario va a depender de manera significativa
+de los valores iniciales de los cuales se parte las siguientes etapas del
+ajuste. 
+
+% TODO: add macro for python code; this section will likely be less math heavy and more practical with code samples
+\begin{eqfloat}[!ht]
+	\begin{lstlisting}[ language=Python,
+						framesep=6pt,
+						xleftmargin=6pt,
+						framexleftmargin=6pt,
+						frame=tb,
+						framerule=0pt ]
+		print("hello world")
+		b = phoebe.load("sample_bundle.bundle")
+	\end{lstlisting}
+\end{eqfloat}
