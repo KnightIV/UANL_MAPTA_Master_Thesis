@@ -23,10 +23,39 @@ WD sigue en uso actualmente en proyectos de investigación (por ejemplo,
 obtienen los parámetros físicos de un sistema binario estelar observado. Este
 trabajo de tesis de maestría utilizó la librería \textbf{PHOEBE}
 (\textbf{PH}ysics \textbf{O}f \textbf{E}clipsing \textbf{B}inari\textbf{E}s),
-basado en el código WD. En particular se hizo uso de la versión 2.4.11, notando
+basado en el código WD. En particular se hizo uso de la versión 2.4.13, notando
 las varias mejoras realizadas en esta segunda versión mayor en comparación con
 versiones menores a 2.0, las cuales utilizaban el código WD como el motor
 principal del modelo.
+
+\section{Estructura de PHOEBE}
+
+PHOEBE es un paquete de software escrito en Python para generar modelos de
+sistemas binarios estelares generales, partiendo del modelo de Roche y modelos
+de atmósferas estelares, produciendo datos sintéticos (curvas de luz
+fotométricas, velocidades radiales, perfil de líneas espectrales, etc.) para
+analizar y comparar con datos observados reales. Es posible crear un modelo
+utilizando un cliente
+gráfico\footnote{\protect\url{http://phoebe-project.org/clients}} de PHOEBE,
+cuya funcionalidad depende de un servidor de PHOEBE (una instancia de
+\code{phoebe-server}) corriendo, de manera remota o local. Sin embargo, estas
+tienen sus limitaciones, y por lo general el equipo de PHOEBE recomiendan usar
+el paquete de Python de manera directa, escribiendo códigos en Python que llamen
+a funciones y manipulen los datos del modelo. Un código escrito y ejecutado no
+solo ofrece un mayor grado de libertad al momento de tratar los datos, si no que
+sirve como una receta que cualquiera puede analizar y ejecutar para obtener los
+mismos resultados de un experimento. Este trabajo de tesis unicamente hizo uso
+del paquete de PHOEBE en Python.
+
+PHOEBE maneja cada sistema modelado como un \textit{bundle}, el objeto principal
+responsable de almacenar no solo los parámetros del sistema, pero también los
+datos observados que corresponden al sistema físico. A diferencia de otros
+códigos en el mundo de software, PHOEBE no utiliza mucho la programación
+orientada a objetos para manipular el modelo (por ejemplo, manipulando un objeto
+que represente la estrella primaria); la arquitectura de PHOEBE consolida todos
+los parámetros al nivel del bundle, tanto para tener acceso conveniente como
+para tener flexibilidad en cambiar el modelo de manera dinámica\textemdash por
+ejemplo agregando una componente de luz externa al sistema.
 
 \section{\quotes{Modelo Hacia Adelante}}
 
@@ -105,7 +134,7 @@ transformaciones se llega a una expresión del potencial de Roche en coordenadas
 cilíndricas:
 
 % TODO: new page to group equation and text together
-\newpage
+% \newpage
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -511,17 +540,122 @@ parámetros y modelos degenerados.
 
 La solución final para un sistema binario va a depender de manera significativa
 de los valores iniciales de los cuales se parte las siguientes etapas del
-ajuste. 
+ajuste. El proceso de estimar los valores iniciales es una combinación de
+manipulación manual y herramientas diseñadas para un ajuste rápido a los datos
+observacionales. Para utilizar estos estimadores es necesario primero encontrar
+el periodo orbital del sistema, el cual comúnmente corresponde a la segunda
+harmonica de la frecuencia dominante de un periodograma; los algoritmos
+principales utilizados en la literatura son \textit{Lomb-Scargle}
+\autocite{vanderplas_understanding_lomb_scargle_periodogram_2018} el cual ajusta
+un modelo sinusoidal a una serie de tiempo (cuyas muestras no requieren haber
+sido tomadas en intervalos regulares del tiempo) y \textit{Box Least Squares}
+(abreviado como BLS) \autocite{kovacs_bls_periodogram_periodic_transits_2002},
+un algoritmo diseñado para casos donde la señal de los eclipses es diminuto a
+comparación con el flujo de base del sistema, por ejemplo los sistemas cuya
+duración de eclipses estelares es mucho menor que el periodo orbital. Existen
+varias implementaciones de periodogramas para su uso en el ámbito de la
+astrofísica; ambos están disponibles dentro de PHOEBE en la forma de un
+estimador:
 
-% TODO: add macro for python code; this section will likely be less math heavy and more practical with code samples
-\begin{eqfloat}[!ht]
-	\begin{lstlisting}[ language=Python,
-						framesep=6pt,
-						xleftmargin=6pt,
-						framexleftmargin=6pt,
-						frame=tb,
-						framerule=0pt ]
-		print("hello world")
-		b = phoebe.load("sample_bundle.bundle")
+% TODO: usar figure float o crear algo nuevo para solo bloques de código? pregunta a Dr.
+\begin{figure}[!ht]
+	\begin{lstlisting}[language=python]
+		periodogram_freqs = phoebe.linspace(0.001, MAX_FREQ, NUM_FREQS)
+		b.add_solver('estimator.lc_periodogram', 
+						solver='periodogram',
+						algorithm='ls', # 'ls' corresponde a Lomb-Scargle, 'bls' a BLS
+						sample_mode='manual',
+						lc_datasets=['lc01', 'lc02'],
+						sample_periods=periodogram_freqs)
+		b.run_solver(solver='periodogram', solution='period_spectrum')
 	\end{lstlisting}
-\end{eqfloat}
+	\caption{Ejemplo de cómo correr un periodograma de tipo
+	Lomb-Scargle en un bundle de PHOEBE. Este caso en particular es para un
+	modelo con 2 curvas de luz fotométricas distintas, que se ha determinado
+	muestra un comportamiento sinusoidal. Dependiendo de la información
+	antecedente disponible del objeto al estudiar se puede definir limites de
+	manera manual del periodograma, por ejemplo si se sabe que es un sistema de
+	corto periodo ($<$1 día). Los resultados del periodograma se pueden acceder en
+	la solución \code{period\_spectrum}, donde se puede obtener el espectro de
+	potencias completo.}
+\end{figure}
+
+Es posible correr un periodograma de manera automática o manual, dependiendo si
+una malla de frecuencias es dada como entrada al periodograma. Una vez que se
+obtenga el periodo orbital del sistema es posible determinar un punto de partida
+de los parámetros del sistema, utilizando la curva de luz doblada en fase.
+Dentro de PHOEBE existen 2 distintos métodos para esto: la estimación de
+parámetros utilizando de manera directa la geometría de la curva, o haciendo uso
+de \textbf{EBAI}.
+
+\subsubsection{Geometría de la Curva de Luz}
+Dada una curva de luz fotométrica en fase es posible estimar ciertos parámetros
+del sistema analizando ciertas de sus características geométricas. Una vez que
+se haya encontrado el periodo orbital del sistema\textemdash y por ende haber
+obtenido la curva de luz en fase\textemdash es posible ajustar una función
+analítica compuesta de 2 funciones Gaussianas, un término coseno, un término
+constante, o cualquier combinación de estas que mejor se ajusten a los datos
+observacionales, generando en total 7 modelos
+\autocite{conroy_phoebe_v_framework_solving_inverse_problem_2020}. Utilizando un
+ajuste de mínimos cuadrados a las curvas en fase, una vez estimado los tiempos
+de los eclipses, se determina el mejor modelo usando un criterio. Del modelo
+final se obtiene valores iniciales para tanto propiedades orbitales del
+sistema\textemdash el tiempo de superconjunción primario $t_0$, la excentricidad
+$e$, y el argumento de periastro $\omega_0$\textemdash como propiedades
+relativas entre las estrellas componentes: la suma de radios normalizado al
+semieje mayor de la órbita $(R_1 + R_2)/a_{\mathrm{orb}}$ (esto se nota en la
+diferencia de anchura entre ambas jorobas de la curva de luz) y la razón de
+temperaturas efectivas $T_{\mathrm{eff},2}/T_{\mathrm{eff},1}$ (el cual se puede
+aproximar por la diferencia de profundidad entre el eclipse primario y
+secundario). Este estimador solo es capaz de analizar sistemas separados, por lo
+cual no se utilizó en este trabajo de tesis.
+
+\subsubsection{EBAI - Eclipsing Binaries via Artificial Intelligence}
+\textbf{EBAI} es una red neuronal artificial que hace uso de métodos de
+aprendizaje automático como \textit{K-Nearest Neighbors} para mapear una curva
+de luz observacional a parámetros físicos de un sistema binario estelar. El
+algoritmo KNN ajusta una función a datos reales, permitiendo hacer una regresión
+basado en los vecinos cercanos de un punto. Los detalles de KNN se encuentran en
+\autocite{pedregosa_scikit-learn_2011}, el cual describe la implementación
+dentro del paquete de Python \code{scikit-learn}. Una red neuronal es compuesta
+de varias capas de procesamiento, donde cada capa está compuesta de unidades
+individuales (o \quotes{neuronas}) que propagan valores de acuerdo a su función
+de activación. Esta arquitectura es la que las permite \quotes{aprender}
+relaciones en modelos no lineales como el de un sistema binario. Hasta el
+momento (PHOEBE version $\leq$2.4.13) el estimador de EBAI es el único capaz de
+estimar los parámetros de un sistema binario en contacto; un esquema de su
+composición interna se puede ver en la \reffigure{figuraPhoebeEbaiAnnDiagrama}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.5]{Introduccion/Figures/Figura PHOEBE EBAI ANN Diagrama.png}
+	\caption{Esquema de una red neuronal artificial (ANN por sus siglas en
+	inglés). El objetivo de una red como EBAI es partir de datos de entrada como
+	una curva de luz observada y obtener los parámetros del sistema que generen
+	un modelo sintético que se aproxime a los datos. Figura obtenida de
+	\autocite{prsa_phoebe_artificial_intelligence_approach_ebai_2008}.}
+	\label{figuraPhoebeEbaiAnnDiagrama}
+\end{figure}
+
+Para sistemas binarios en contacto, el estimador EBAI puede determinar la razón
+de masa $q$, la razón de temperaturas efectiva $T_2/T_1$, la inclinación orbital
+$i$, y el factor de relleno $f$ del sistema; el estimador calcula un valor para
+el tiempo de superconjunción $t_0$ del sistema binario, el cual es necesario
+para obtener una curva de luz en fase cuyo eclipse primario yace en la fase
+orbital 0. Dado un Bundle en PHOEBE, se puede generar una estimación inicial
+corriendo el siguiente código:
+
+\begin{figure}[!ht]
+	\begin{lstlisting}[language=Python]
+		# b: phoebe.Bundle
+		b.add_solver('estimator.ebai', solver='ebai_estimator', 
+						ebai_method='knn', phase_bin=False, 
+						lc_datasets=['lc01', 'lc02'])
+		b.run_solver(solver='ebai_estimator', solution='ebai_init_estimates')
+		b.adopt_solution(solution='ebai_init_estimates')
+	\end{lstlisting}
+	\caption{Código para correr un estimador EBAI para un sistema compuesto de 2
+	curvas de luz fotométricas distintas, \code{lc01} y \code{lc02}. Para un
+	sistema binario separado también existe la opción de correr el estimador con
+	\code{ebai\_method='mlp'}, el cual usa una red neuronal propia de PHOEBE.}
+\end{figure}
