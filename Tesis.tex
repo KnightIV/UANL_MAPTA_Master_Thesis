@@ -27,6 +27,7 @@
 \usepackage{mathtools}
 \usepackage[euler]{textgreek}
 \usepackage{titling}
+\usepackage{lstautogobble}
 
 \usepackage{csquotes}
 \usepackage[style=authoryear, natbib=true, backend=biber]{biblatex}
@@ -158,9 +159,12 @@
     % breaklines=false,
     captionpos=b,
     keepspaces=true,
-    % numbers=left,
-    % numbersep=10pt,
-    % numbersep=5pt,
+    numbers=left,
+    numbersep=10pt,
+    numbersep=5pt,
+    xleftmargin=3em,
+    frame=single,
+    framexleftmargin=3em,
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
@@ -196,17 +200,6 @@
 \newcommand{\quotes}[1]{``#1''}
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\brakcite}[1]{[\autocite{#1}]}
-
-% \newcommand{\pythonblock}[1]{
-%     \begin{lstlisting}[ language=Python,
-%         framesep=6pt,
-%         xleftmargin=6pt,
-%         framexleftmargin=6pt,
-%         frame=tb,
-%         framerule=0pt ]
-%         #1
-%     \end{lstlisting}
-% }
 
 % https://tex.stackexchange.com/questions/11031/how-to-do-the-curvy-l-for-lagrangian-or-laplace-transforms#11144
 \newcommand{\Lagr}{\mathcal{L}}
@@ -254,6 +247,7 @@
 \newcommand{\refthesissubsection}[1]{{\color{SubSectionBlue}\textbf{Sección \ref{#1}}}}
 \newcommand{\refthesissubsubsection}[1]{{\color{SubSubSectionBlue}\textbf{Sección \ref{#1}}}}
 \newcommand{\reffigure}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
+\newcommand{\refcode}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
 \newcommand{\reftable}[1]{{\color{MyDarkGreen}\textbf{Tabla \ref{#1}}}}
 \newcommand{\refequation}[1]{{\color{MyDarkGreen}\textbf{Ecuación \ref{#1}}}}
 \newcommand{\refequations}[1]{{\color{MyDarkGreen}\textbf{Ecuaciones \ref{#1}}}}

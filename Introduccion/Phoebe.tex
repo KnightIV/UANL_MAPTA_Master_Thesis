@@ -30,6 +30,7 @@ principal del modelo.
 
 \section{Estructura de PHOEBE}
 
+% TODO: termina 
 PHOEBE es un paquete de software escrito en Python para generar modelos de
 sistemas binarios estelares generales, partiendo del modelo de Roche y modelos
 de atmósferas estelares, produciendo datos sintéticos (curvas de luz
@@ -49,13 +50,70 @@ del paquete de PHOEBE en Python.
 
 PHOEBE maneja cada sistema modelado como un \textit{bundle}, el objeto principal
 responsable de almacenar no solo los parámetros del sistema, pero también los
-datos observados que corresponden al sistema físico. A diferencia de otros
-códigos en el mundo de software, PHOEBE no utiliza mucho la programación
-orientada a objetos para manipular el modelo (por ejemplo, manipulando un objeto
-que represente la estrella primaria); la arquitectura de PHOEBE consolida todos
-los parámetros al nivel del bundle, tanto para tener acceso conveniente como
-para tener flexibilidad en cambiar el modelo de manera dinámica\textemdash por
-ejemplo agregando una componente de luz externa al sistema.
+datos observados que corresponden al sistema físico. La
+\refcode{codigoCreandoPhoebeBundle} presenta un ejemplo de como crear un
+bundle de PHOEBE utilizando una curva de luz sintética (que solo se va a
+utilizar al momento de computar la curva observable del modelo, sin una
+contraparte real) y datos reales obtenidos del catálogo ZTF:
+
+\begin{figure}[!ht]
+	\begin{lstlisting}[language=Python, autogobble]
+	import pandas as pd # paquete de manipulacion de datos
+	import phoebe # importar el paquete
+
+	# creando el bundle para un sistema binario en contacto
+	b = phoebe.default_contact_binary() 
+
+	# agregando una curva de luz en el pasabanda Johnson:V para computar (no datos reales)
+	b.add_dataset('lc', times=phoebe.linspace(0, 1, 101), dataset='lc01', passband='Johnson:V')
+
+	# datos obtenidos del catalogo de ZTF; curva de luz fotometrica, en el pasabanda ZTF:g
+	ztf_data: pd.Dataframe
+
+	# agregando curva de luz observada por ZTF, incluyendo el flujo medido y su incertidumbre
+	b.add_dataset('lc', times=ztf_data['times'], fluxes=ztf_data['fluxes'], sigmas=ztf_data['flux_err'], passband='ZTF:g', dataset='lcZtfG')
+	\end{lstlisting}
+	\caption{Código para crear un bundle en PHOEBE junto a dos curvas de luz:
+	\code{lc01}, una curva sintética en el pasabanda \textit{Johnson:V}, y
+	\code{lcZtfG}, una curva observada del sistema con datos proveniente de el
+	catálogo de ZTF en el pasabanda \textit{ZTF:G}. En el caso de \code{lc01},
+	solo se generarán datos sintéticos al momento de calcular el \textbf{modelo
+	hacia adelante}.}
+	\label{codigoCreandoPhoebeBundle}
+\end{figure}
+
+A diferencia de otros códigos en el mundo de software, PHOEBE no utiliza mucho
+la programación orientada a objetos para manipular el modelo (por ejemplo,A
+diferencia de otros códigos en el mundo de software, PHOEBE no utiliza mucho la
+programación orientada a objetos para manipular el modelo (por ejemplo,
+manipulando un objeto que represente la estrella primaria); la arquitectura de
+PHOEBE consolida todos los parámetros al nivel del bundle, tanto para tener
+acceso conveniente como para tener flexibilidad en cambiar el modelo de manera
+dinámica\textemdash por ejemplo agregando una componente de luz externa al
+sistema. manipulando un objeto que represente la estrella primaria); la
+arquitectura de PHOEBE consolida todos los parámetros al nivel del bundle, tanto
+para tener acceso conveniente como para tener flexibilidad en cambiar el modelo
+de manera dinámica\textemdash por ejemplo agregando una componente de luz
+externa al sistema. Los parámetros de un bundle están organizados en una
+jerarquía, en donde un identificador no es único en un solo nivel. Por ejemplo,
+para inspeccionar la temperatura efectiva de las estrellas:
+
+\begin{figure}[!ht]
+	\begin{lstlisting}[language=Python, autogobble]
+	b: phoebe.Bundle # bundle de un sistema binario creado en un codigo anterior
+	teff_primary = b.get_value(qualifier='teff', component='primary')
+	b.set_value(qualifier='teff', component='secondary', value=teff_primary/2)
+	\end{lstlisting}
+	\caption{Definiendo un bundle almacenado en la variable \code{b}, el cual ya
+	está configurado con ciertos parámetros del sistema. Estos son accesibles
+	dentro del bundle; esto facilita la manipulación de parámetros del sistema
+	programática, como se puede ver en este ejemplo al asignar el valor de la
+	temperatura efectiva de la estrella secundaria como la mitad de la
+	temperatura efectiva de la componente primaria.}
+	\label{codigoAsignandoTeffPhoebe}
+\end{figure}
+
+En la \refcode{codigoAsignandoTeffPhoebe} se puede ver la estructura de los parámetros de un bundle, en el cual existen más de un parámetro con el calificador (\code{qualifier} por su nombre en inglés y su nombre en el código) \code{teff}. Estos se diferencian por la componente (\code{component} en el código) a la que le pertenecen, en donde \code{primary} se refiere a la estrella primaria y \code{secondary} a la secundaria, por sus identificadores respectivos en inglés. Más información\textemdash incluyendo la información más actual en el caso de ver una versión de PHOEBE mayor de 2.4.13\textemdash se puede encontrar en la página de documentación de PHOEBE\footnote{\url{http://phoebe-project.org/docs/2.4/tutorials/general_concepts}}.
 
 \section{\quotes{Modelo Hacia Adelante}}
 
@@ -486,7 +544,7 @@ $\chi^2$, el cual se define como la siguiente expresión:
 		\chi_{k}^2 = \sum_{i=1}^{N}{\left(\frac{y_{i,o} - y_{i,m}}{\sigma_{i}^2} + \ln{\sigma{i}^2}\right)}
 	\end{equation}
 	\blankcaption
-	\label{ecuacionPhoebeChi2Curve}
+	\label{ecuacionPhoebeChi2Curva}
 \end{eqfloat}
 
 Donde $y$ indica un punto en la curva del modelo, los subindices $o$ y $m$
@@ -519,11 +577,26 @@ cada curva observable:
 	\begin{equation}
 		\chi^2 = \sum_{k}{\chi_{k}^{2}}
 	\end{equation}
+	\blankcaption
+	\vspace{-0.4em}
+	\label{ecuacionChi2}
 \end{eqfloat}
 
 El objetivo de un ajuste de un modelo a datos observacionales es encontrar los
 parámetros físicos del sistema binario en cuestión que resultan en el $\chi^{2}$
-más diminuto posible. Sin embargo, el modelo descrito en la literatura, y que
+más cercano a 0 posible. El valor obtenido de $\chi^2$ se parametriza en PHOEBE
+normalizando por el número de observaciones hechas en todas las curvas de luz
+combinadas $N_{\mathrm{tot}}$, resultando en el parámetro $\lambda$, el cual
+indica un ajuste satisfactorio si $\lambda \approx 1$:
+
+\begin{eqfloat}
+	\centering
+	\begin{equation}
+		\lambda \coloneq \frac{\chi^2}{N_{\textrm{tot}}}
+	\end{equation}
+\end{eqfloat}
+
+Sin embargo, el modelo descrito en la literatura, y que
 usa PHOEBE, es altamente no-lineal; el espacio de parámetros posee una topología
 compleja, el cual implica que existen más de una combinación de valores para los
 parámetros del modelo que se ajustan a un mismo conjunto de curvas
@@ -559,15 +632,15 @@ estimador:
 
 % TODO: usar figure float o crear algo nuevo para solo bloques de código? pregunta a Dr.
 \begin{figure}[!ht]
-	\begin{lstlisting}[language=python]
-		periodogram_freqs = phoebe.linspace(0.001, MAX_FREQ, NUM_FREQS)
-		b.add_solver('estimator.lc_periodogram', 
-						solver='periodogram',
-						algorithm='ls', # 'ls' corresponde a Lomb-Scargle, 'bls' a BLS
-						sample_mode='manual',
-						lc_datasets=['lc01', 'lc02'],
-						sample_periods=periodogram_freqs)
-		b.run_solver(solver='periodogram', solution='period_spectrum')
+	\begin{lstlisting}[language=python, autogobble]
+	periodogram_freqs = phoebe.linspace(0.001, MAX_FREQ, NUM_FREQS)
+	b.add_solver('estimator.lc_periodogram', 
+					solver='periodogram',
+					algorithm='ls', # 'ls' corresponde a Lomb-Scargle, 'bls' a BLS
+					sample_mode='manual',
+					lc_datasets=['lc01', 'lc02'],
+					sample_periods=periodogram_freqs)
+	b.run_solver(solver='periodogram', solution='period_spectrum')
 	\end{lstlisting}
 	\caption{Ejemplo de cómo correr un periodograma de tipo
 	Lomb-Scargle en un bundle de PHOEBE. Este caso en particular es para un
@@ -646,16 +719,124 @@ orbital 0. Dado un Bundle en PHOEBE, se puede generar una estimación inicial
 corriendo el siguiente código:
 
 \begin{figure}[!ht]
-	\begin{lstlisting}[language=Python]
-		# b: phoebe.Bundle
-		b.add_solver('estimator.ebai', solver='ebai_estimator', 
-						ebai_method='knn', phase_bin=False, 
-						lc_datasets=['lc01', 'lc02'])
-		b.run_solver(solver='ebai_estimator', solution='ebai_init_estimates')
-		b.adopt_solution(solution='ebai_init_estimates')
+	\begin{lstlisting}[language=Python, autogobble]
+	# b: phoebe.Bundle
+	b.add_solver('estimator.ebai', solver='ebai_estimator', 
+					ebai_method='knn', phase_bin=False, 
+					lc_datasets=['lc01', 'lc02'])
+	b.run_solver(solver='ebai_estimator', solution='ebai_init_estimates')
+	b.adopt_solution(solution='ebai_init_estimates')
 	\end{lstlisting}
 	\caption{Código para correr un estimador EBAI para un sistema compuesto de 2
 	curvas de luz fotométricas distintas, \code{lc01} y \code{lc02}. Para un
 	sistema binario separado también existe la opción de correr el estimador con
 	\code{ebai\_method='mlp'}, el cual usa una red neuronal propia de PHOEBE.}
 \end{figure}
+
+\subsection{Optimización de Parámetros}
+
+Durante un ajuste de modelo es importante determinar si la combinación de
+parámetros elegida es óptima dado una serie de datos observados. Esto se basa en
+la función de costo definida en la \refequation{ecuacionChi2}; un ajuste
+adecuado del modelo implica tener un valor de $\chi^2$ cercano a 0. PHOEBE
+ofrece herramientas especializadas para encontrar la combinación de parámetros
+que más se acerca a esta condición de manera sistemática. Estos son denominados
+\textit{optimizadores}: algoritmos diseñados para explorar el espacio de
+parámetros y llegar a un mínimo de la función de costo. Este trabajo de tesis
+hizo uso de 2 optimizadores principales: \textbf{el simplex de Nelder-Mead} y
+\textbf{correcciones diferenciales}.
+
+\subsubsection{Simplex de Nelder-Mead}
+
+Descrito por primera vez por \autocite{nelder_mead_simplex_1965}, el
+\textbf{simplex de Nelder-Mead} (NMS por sus siglas en inglés) es un algoritmo
+heurístico que explora el espacio de parámetros mediante un \textit{simplex}, un
+politopo compuesto de varios vertices que representan distintos puntos en la
+función que se busca optimizar. En el caso de PHOEBE, la función a optimizar es
+$\chi^2$; para esto es necesario evaluar el ajuste en cada punto del simplex, lo
+cual requiere calcular el modelo hacia adelante para cada punto de prueba. Esto
+se demuestra con la siguiente modificación a la \refequation{ecuacionChi2}:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\chi^2(\textbf{p}) = \sum_{i}{\frac{\left(F_{i}^{\textrm{obs}} - F^{\textrm{syn}}_i(\textbf{p})\right)^2}{\sigma_{i}^2}}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionChi2Params}
+\end{eqfloat}
+
+Donde $\mathbf{p}$ representa el vector de parámetros del modelo, como la
+inclinación orbital, razón de masas, y cualquier otro incluido en el cálculo. El
+método de NMS solo requiere evaluaciones de la función de costo en los puntos
+del simplex; esto lo hace un método adecuado para optimizar funciones altamente
+no-lineales a cambio de una baja eficiencia computacional. En total, la cantidad
+de vertices empleados depende del número de dimensiones del modelo; en el caso
+de optimizar $n$ parámetros del sistema binario, NMS utilizará $n+1$ vertices, o
+combinaciones de parámetros. Con cada iteración, el método manipula el simplex
+por medio de transformaciones geométricas, como lo muestra
+\citetbookchapter{phoebeScientificReference}{6.4}. En el ajuste de un sistema
+binario eclipsante el método de NMS se utiliza para intentar llegar al mínimo
+global de la función de costo, el cual el punto de parada es cuando haya
+convergido la optimización (donde el simplex se podría considerar de un tamaño
+geométrico despreciable), o cuando hayan pasado un cierto número de iteraciones,
+en el caso que no haya sido completamente exitoso. Su uso se puede ver en la
+\refcode{codigoOptimizadorNMS}. Para más información de la implementación y uso
+del optimizador se puede hacer referencia a la documentación de
+SciPy\footnote{\url{https://docs.scipy.org/doc/scipy/reference/optimize.minimize-neldermead.html}}
+
+\begin{figure}[!ht]
+	\centering
+	\begin{lstlisting}[language=Python, autogobble]
+	# b: phoebe.Bundle
+	b.add_solver('optimizer.nelder_mead', solver='opt_nm',
+		fit_parameters=['teffratio', 'period@binary', 't0_supconj@binary', 'incl@binary', 'fillout_factor'],
+		maxiter=50)
+	b.run_solver(solver='opt_nm', solution='opt_nm_solution')
+	\end{lstlisting}
+	\caption{Código para crear y ejecutar un optimizador utilizando el algoritmo
+	NMS. Este código en particular busca encontrar la combinación de la razón de
+	temperaturas, periodo orbital, el tiempo de superconjunción primario, la
+	inclinación orbital, y el factor de relleno del sistema, como se puede ver
+	por el argumento \code{fit\_parameters} del resolvedor (\textit{solver} por
+	su categoría en inglés). Se especifica 50 como el máximo número de
+	iteraciones que tiene permitido correr el optimizador en dado caso que no
+	llegue a convergir a una solución; el criterio de convergencia se define por
+	los argumentos \code{xatol} y \code{fatol} que definen una tolerancia de
+	convergencia para los parámetros de entrada y la función de costo,
+	respectivamente.}
+	\label{codigoOptimizadorNMS}
+\end{figure}
+
+\subsubsection{Correcciones Diferenciales}
+
+Una de las formas más directas de explorar el espacio de parámetros y llegar a
+un valor optimo de la función de costo es por el método de \textbf{correcciones
+diferenciales}. Este algoritmo trabaja evaluando derivadas parciales de la
+función; estas son evaluadas por medio de diferencias finitas como se ve en la \refequation{ecuacionDiferenciasFinitas}.
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\frac{\partial f(p_1,...,p_k,...,p_n)}{\partial p_k} \rightarrow \frac{f(...p_k + \Delta p_k...) - f(...p_k...)}{\Delta p_k}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionDiferenciasFinitas}
+\end{eqfloat}
+
+De esta manera PHOEBE explora el espacio alrededor de los valores actuales del
+modelo para cada parámetro $p_k$; dado un valor de $\Delta p_k$ se calcula
+$\chi^2$ en el punto actual del modelo y el paso propuesto, siguiendo el camino
+que disminuya la función de costo. La técnica de correcciones diferenciales se
+puede aplicar a más de un parámetro a la vez, evaluando la diferencia parcial
+para cada parámetro a optimizar. Esta herramienta tiene mayor utilidad cuando el
+modelo esté cerca del mínimo global, por ejemplo después obtener estimaciones
+iniciales de los parámetros y utilizado un optimizador menos sensible a espacios
+mínimos locales como NMS. Sin embargo, un algoritmo de correcciones
+diferenciales puede divergir en modelos cuya discrepancia entre las curvas
+sintéticas y curvas observadas es significativo. Es por esto que PHOEBE no
+permite correr este optimizador por varias iteraciones de manera directa; esto
+obliga al operador a analizar la solución propuesta por el algoritmo y decidir
+si es una solución aceptable. Si es necesario ejecutar más iteraciones, el mismo
+resolvedor es capaz de correr de nuevo, utilizando los valores adoptados de la
+iteración pasada.
