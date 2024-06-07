@@ -12,11 +12,10 @@ fenómenos que surgen mediante la interacción entre las componentes, tanto como
 la interacción gravitacional debido a sus masas, como a la física interesante
 que ocurre en el caso de interacciones de material entre una estrella a otra. 
 
-% TODO: incluir sección en cite?
 Los sistemas binarios estelares ofrecen un laboratorio celeste de gran
 importancia, ya que debido a la interacción a cortas escalas espaciales nos
 brindan información acerca de las estrellas que sería imposible obtener de otra
-manera. \citetbookchapter{phoebeScientificReference}{2.1} menciona varios
+manera. \citetbooksection{phoebeScientificReference}{2.1} menciona varios
 parámetros derivados de observaciones de estos sistemas, como las masas de cada
 una de las componentes estelares por medio de su interacción gravitacional, la
 calibración y estudio de la evolución estelar y su dependencia de la masa y
@@ -59,10 +58,10 @@ cartesiana.
 	una distancia $r_1$ y $r_2$ de las estrellas respectivamente. El centro de
 	masa del sistema está ubicado en el origen del sistema de coordenadas.
 	Figura obtenida de
-	\citetbookchapter{benacquista_introduction_to_evolution_single_binary_stars_2013}{13.1},
+	\citetbooksection{benacquista_introduction_to_evolution_single_binary_stars_2013}{13.1},
 	modificada cambiando los ejes $y$ y $x$ para que $m_1$ y $m_2$ estén
 	ubicadas en el eje $x$ para ser consistente con
-	\citetbookchapter{phoebeScientificReference}{3.1}.}
+	\citetbooksection{phoebeScientificReference}{3.1}.}
 	\label{figuraTresCuerpos}
 \end{figure}
 
@@ -123,18 +122,16 @@ nueva coordenada del centro de masa del sistema se da por:
 	\label{ecuacionCentroDeMasa}
 \end{eqfloat}
 
-Donde introducimos un parámetro para la razón de masa $q = \frac{m_2}{m_1}$. En
+Donde se introduce el parámetro para la razón de masa $q = \frac{m_2}{m_1}$. En
 varios trabajos las componentes de un sistema binario son identificados de tal
 manera que $q \leq 1$; sin embargo, esta convención no suele ser conveniente al
 momento de crear un modelo del sistema (por ejemplo,
-\autocite{ding_fast_derivation_cbs_params_2022}), en donde se permite que $q > 1$
-al asignar la componente primaria basado en parámetros orbitales. Esto se verá
-más a profundidad al momento de describir el modelo computacional de un sistema
-binario.
-% TODO: incluir sección de PHOEBE una vez escrito
+\autocite{ding_fast_derivation_cbs_params_2022}), en donde se permite que $q >
+1$ al asignar la componente primaria basado en parámetros orbitales en vez de
+sus masas.
 
 Este potencial efectivo $\psi$ se obtiene asumiendo una distribución de masa
-esférica para ambas estrellas \citetbookchapter{phoebeScientificReference}{3.1}:
+esférica para ambas estrellas \citetbooksection{phoebeScientificReference}{3.1}:
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -238,7 +235,7 @@ sistema:
 Notando que el origen del sistema de coordenadas está ubicada en la posición de
 la componente $m_1$. Por lo tanto, el potencial es definido con respecto a
 $m_1$; para obtener el potencial con respecto a $m_2$ es necesario hacer una
-transformación descrita en \citetbookchapter{phoebeScientificReference}{3.1}.
+transformación descrita en \citetbooksection{phoebeScientificReference}{3.1}.
 Sustituyendo las ecuaciones \refequations{ecuacionesDistancias} en la expresión
 del potencial $\psi$ se obtiene el potencial efectivo en coordenadas esféricas:
 
@@ -256,7 +253,7 @@ junto a la \refequation{ecuacionCentroDeMasa} y sustituyendo en la
 \refequation{ecuacionPotencialEfectivoEsferico} se obtiene la forma final del
 potencial efectivo, eliminando la dependencia explicita a la velocidad angular
 del sistema y de la masa de la secundaria $m_2$
-\citetbookchapter{phoebeScientificReference}{3.1}:
+\citetbooksection{phoebeScientificReference}{3.1}:
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -304,7 +301,7 @@ de Kopal:
 \end{eqfloat}
 
 Introduciendo la variable adimensional $\varrho = \frac{r}{a}$ usada en
-\citetbookchapter{phoebeScientificReference}{3.1}. Usando la
+\citetbooksection{phoebeScientificReference}{3.1}. Usando la
 \refequation{ecuacionRoche} podemos determinar la forma de ambas estrellas
 asumiendo que la envoltura estelar (es decir, la capa superficial) coincide con
 superficies de \textbf{equipotenciales de Roche}, donde el valor de $\Omega$ es
@@ -327,7 +324,7 @@ astrofísico debe de cumplir con las siguientes condiciones:
 	mayoría de las estrellas estas oscilaciones no-radiales ocurren en el orden
 	de la escala de tiempo hidrostática, la cual, por ejemplo, es de ~15 minutos
 	para una estrella tipo solar
-	\citetbookchapter{kallrath_eclipsing_binary_modelling_2009}{3.1.5}. Mientras
+	\citetbooksection{kallrath_eclipsing_binary_modelling_2009}{3.1.5}. Mientras
 	la escala de tiempo de estas distorsiones sea despreciable con respecto al
 	periodo orbital la superficie estelar (su fotosfera) se puede parametrizar
 	con el modelo de Roche.
@@ -351,7 +348,7 @@ $\Omega$ definido hasta ahora solo puede ser aplicado a aquellos sistemas
 binarios cuya órbita es circular y sincrónica. Esto excluye los sistemas con
 órbitas excéntricas y/o asincrónicas, incluyendo sistemas binarios en contacto
 cuyas propiedades no pueden ser adecuadamente modeladas en este paradigma
-\citetbookchapter{kallrath_eclipsing_binary_modelling_2009}{3.1.5}.
+\citetbooksection{kallrath_eclipsing_binary_modelling_2009}{3.1.5}.
 \autocite{wilson_eccentric_1979} generaliza el modelo de Roche a este tipo de
 órbitas, llegando a la siguiente expresión:
 
@@ -368,7 +365,7 @@ Introduciendo dos términos: el \textit{parámetro de sincronicidad} $F =
 \omega_{\mathrm{rot}} / \omega_{\mathrm{orb}}$ la razón de la velocidad angular rotacional de la
 componente a su velocidad angular orbital, y la \textit{separación instantánea}
 entre ambas componentes $\delta = D / a$ normalizada con respecto al semieje
-mayor $a$ \citetbookchapter{phoebeScientificReference}{3.1}. El cambio principal
+mayor $a$ \citetbooksection{phoebeScientificReference}{3.1}. El cambio principal
 de este potencial modificado se refleja en la dependencia en la fase orbital del
 campo potencial; debido a la excentricidad del sistema, las componentes no
 mantienen una distancia constante una de otra, por lo cual el potencial de de
@@ -406,7 +403,7 @@ el polo de la estrella, y $\varrho_{\textrm{pol}}$ es el radio normalizado al
 semieje mayor en el polo de la estrella. Usando esta expresión se puede
 parametrizar la forma y tamaño de la estrella utilizando un solo valor para el
 potencial; esto es gracias a la siguiente relación dada en
-\citetbookchapter{phoebeScientificReference}{3.1}:
+\citetbooksection{phoebeScientificReference}{3.1}:
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -444,7 +441,7 @@ potencial establecido por medio de las fuerzas que rigen el sistema:
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[scale=0.4]{Introduccion/Figures/Figura Forma Roche_PHOEBE Reference.png}
-	\caption{Distintas formas de las componentes dependiendo del valor dado para $\Omega$. El potencial azul corresponde a $\Omega = 6.0$, verde a $\Omega = 3.5$, magenta a $\Omega = 2.8$, y rojo a $\Omega = 2.7$. La superficie negra corresponde a $\Omega = 2.87584$, el cual se le conoce como el \textbf{lóbulo de Roche crítico}. Figura obtenida de \citetbookchapter{phoebeScientificReference}{3.1}.}
+	\caption{Distintas formas de las componentes dependiendo del valor dado para $\Omega$. El potencial azul corresponde a $\Omega = 6.0$, verde a $\Omega = 3.5$, magenta a $\Omega = 2.8$, y rojo a $\Omega = 2.7$. La superficie negra corresponde a $\Omega = 2.87584$, el cual se le conoce como el \textbf{lóbulo de Roche crítico}. Figura obtenida de \citetbooksection{phoebeScientificReference}{3.1}.}
 	\label{figuraRocheFormaPhoebe}
 \end{figure}
 

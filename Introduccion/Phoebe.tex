@@ -168,7 +168,7 @@ Roche. Sin embargo, se requiere un tratamiento adicional del modelo de Roche; la
 \refequation{ecuacionRocheExcentricaAsincronica} viene definida en coordenadas
 esféricas, lo cual causaría una distribución no uniforme en el tamaño de los
 elementos superficiales no deseada (aparte de causar un tipo de \quotes{costura}
-a lo largo del ecuador de la estrella \citetbookchapter{phoebeScientificReference}{5.1.1}).
+a lo largo del ecuador de la estrella \citetbooksection{phoebeScientificReference}{5.1.1}).
 
 Para resolver este problema, se transforma la
 \refequation{ecuacionRocheExcentricaAsincronica} a un sistema de coordenadas
@@ -225,9 +225,9 @@ encontrar raíces como el de \textit{Newton-Raphson}:
 
 Donde se define $z_{\mathrm{pol}} \equiv \varrho_{\mathrm{pol}}$ como el valor
 de referencia del radio al polo de la estrella
-\citetbookchapter{phoebeScientificReference}{5.1.1}. Al hacer uso de la derivada
+\citetbooksection{phoebeScientificReference}{5.1.1}. Al hacer uso de la derivada
 $f\prime (\varrho_{\perp})$\textemdash la cual se puede obtener como lo muestra
-\citetbookchapter{phoebeScientificReference}{5.1.1}\textemdash es posible
+\citetbooksection{phoebeScientificReference}{5.1.1}\textemdash es posible
 implementar un método para encontrar las raíces de esta ecuación. El muestreo de la superficie se hace a intervalos regulares de latitud y longitud:
 
 \begin{eqfloat}[!ht]
@@ -247,7 +247,7 @@ implementar un método para encontrar las raíces de esta ecuación. El muestreo
 Donde $N$ es el número de elementos superficiales solicitados en la muestra. Se
 define los subindices $k = 1 \dots N$ y $l = 1 \dots M_k$, donde $M_k := 1 +
 \mathrm{int}\left(1.3 N \sin{\theta_k}\right)$
-\citetbookchapter{phoebeScientificReference}{5.1}. Una vez que se obtienen las
+\citetbooksection{phoebeScientificReference}{5.1}. Una vez que se obtienen las
 posiciones de cada muestra se adopta una forma tal que forme una \quotes{malla}
 que representa la superficie estelar. Cada elemento de la malla se considera
 uniforme con respecto a sus propiedades, como su temperatura efectiva, gravedad
@@ -329,14 +329,14 @@ Donde se define $r_{\mathrm{pol}}$ como el radio al polo estelar, $h =
 la estrella compañera, $\omega(t)$ es la velocidad angular como función del
 tiempo, y $d_{\perp,\textrm{rot}}$ es la distancia del polo estelar hacia el eje
 de rotación del sistema (su centro de masa)
-\citetbookchapter{phoebeScientificReference}{5.2}. La gravedad superficial
+\citetbooksection{phoebeScientificReference}{5.2}. La gravedad superficial
 depende de manera indirecta de la fase orbital, debido al ajuste de la estrella
 a una superficie equipotencial a lo largo de la órbita del sistema. Este
 parámetro rige la distribución de material y energía en la estrella; las
 regiones de mayor gravedad superficial (en sistemas binarios eclipsantes suelen
 ser los polos estelares, debido a las fuerzas de marea que resultan en un radio
 ecuatorial mayor) con áreas más calientes que el resto de la superficie.
-\citetbookchapter{phoebeScientificReference}{4.3} dice que el flujo
+\citetbooksection{phoebeScientificReference}{4.3} dice que el flujo
 monocromático para el rango de longitud de onda $[\lambda, \lambda +
 \mathrm{d}\lambda]$ es proporcional tanto a la gravedad superficial como a la
 temperatura efectiva:
@@ -775,7 +775,7 @@ de vertices empleados depende del número de dimensiones del modelo; en el caso
 de optimizar $n$ parámetros del sistema binario, NMS utilizará $n+1$ vertices, o
 combinaciones de parámetros. Con cada iteración, el método manipula el simplex
 por medio de transformaciones geométricas, como lo muestra
-\citetbookchapter{phoebeScientificReference}{6.4}. En el ajuste de un sistema
+\citetbooksection{phoebeScientificReference}{6.4}. En el ajuste de un sistema
 binario eclipsante el método de NMS se utiliza para intentar llegar al mínimo
 global de la función de costo, el cual el punto de parada es cuando haya
 convergido la optimización (donde el simplex se podría considerar de un tamaño
@@ -789,9 +789,9 @@ SciPy\footnote{\url{https://docs.scipy.org/doc/scipy/reference/optimize.minimize
 	\centering
 	\begin{lstlisting}[language=Python, autogobble]
 	# b: phoebe.Bundle
-	b.add_solver('optimizer.nelder_mead', solver='opt_nm',
-		fit_parameters=['teffratio', 'period@binary', 't0_supconj@binary', 'incl@binary', 'fillout_factor'],
-		maxiter=50)
+	b.add_solver('optimizer.nelder_mead', solver='opt_nm', maxiter=50,
+		fit_parameters=['teffratio', 'period@binary', 
+			't0_supconj@binary', 'incl@binary', 'fillout_factor'])
 	b.run_solver(solver='opt_nm', solution='opt_nm_solution')
 	\end{lstlisting}
 	\caption{Código para crear y ejecutar un optimizador utilizando el algoritmo
@@ -821,6 +821,7 @@ función; estas son evaluadas por medio de diferencias finitas como se ve en la 
 		\frac{\partial f(p_1,...,p_k,...,p_n)}{\partial p_k} \rightarrow \frac{f(...p_k + \Delta p_k...) - f(...p_k...)}{\Delta p_k}
 	\end{equation}
 	\blankcaption
+	\vspace{-0.4em}
 	\label{ecuacionDiferenciasFinitas}
 \end{eqfloat}
 
@@ -840,3 +841,4 @@ obliga al operador a analizar la solución propuesta por el algoritmo y decidir
 si es una solución aceptable. Si es necesario ejecutar más iteraciones, el mismo
 resolvedor es capaz de correr de nuevo, utilizando los valores adoptados de la
 iteración pasada.
+

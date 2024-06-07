@@ -1,2 +1,16 @@
 /build
 *.log
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb*
+*.fls
+*.out
+
+# ignoring top level pdf built outside VS Code
+Tesis.pdf
+
+*.run.xml
+*.synctex.gz
+*.toc
