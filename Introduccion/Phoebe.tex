@@ -770,7 +770,8 @@ Donde $\mathbf{p}$ representa el vector de parámetros del modelo, como la
 inclinación orbital, razón de masas, y cualquier otro incluido en el cálculo. El
 método de NMS solo requiere evaluaciones de la función de costo en los puntos
 del simplex; esto lo hace un método adecuado para optimizar funciones altamente
-no-lineales a cambio de una baja eficiencia computacional. En total, la cantidad
+no-lineales a cambio de una baja eficiencia computacional 
+dependiendo del número de vertices a evaluar. En total, la cantidad
 de vertices empleados depende del número de dimensiones del modelo; en el caso
 de optimizar $n$ parámetros del sistema binario, NMS utilizará $n+1$ vertices, o
 combinaciones de parámetros. Con cada iteración, el método manipula el simplex
@@ -841,4 +842,6 @@ obliga al operador a analizar la solución propuesta por el algoritmo y decidir
 si es una solución aceptable. Si es necesario ejecutar más iteraciones, el mismo
 resolvedor es capaz de correr de nuevo, utilizando los valores adoptados de la
 iteración pasada.
+
+\subsection{Muestreo MCMC}
 
