@@ -21,10 +21,10 @@ y colaboradores solo fueron definidos para el sistema fotométrico de SDSS; para
 poder utilizar estos primero se llevó a cabo una conversión de las magnitudes
 reportadas en el catálogo de Gaia a magnitudes en los pasa bandas de SDSS. Esta
 conversión se llevó a cabo utilizando las siguientes relaciones definidas en la
-documentación de Gaia DR3 \autocite{gdr3ReleaseDocumentation}, como se puede
+documentación de Gaia DR3 \citeyearparen{gdr3ReleaseDocumentation}, como se puede
 ver en la figura \ref{gdr3SdssConversionGraphs}. Partiendo de estas magnitudes
 transformadas se aplicó los criterios definidos en
-\autocite{szkody2002CvSearchSdss}. Sin embargo, solo dos de los 4 indices de color
+\citeyearparen{szkody2002CvSearchSdss}. Sin embargo, solo dos de los 4 indices de color
 se pueden aplicar a la muestra de Gaia; no están definidas transformaciones para
 las bandas $u$ ni $z$ de SDSS, ya que estas abarcan longitudes de onda más
 extremas que las observadas por Gaia. El query de ADQL ejecutada se puede
@@ -41,7 +41,7 @@ de Gaia para el segundo Data Release (DR2) (apéndice \ref{apendice:gaiaAdql:dr2
 	\includegraphics[scale=0.18]{Muestra/Secciones/Figures/Gaia-SDSS-Transform-i.png}
 	\includegraphics[scale=0.18]{Muestra/Secciones/Figures/Gaia-SDSS-Transform-r.png}
 
-	\caption{Relación empírica entre las magnitudes reportadas en GDR3 y SDSS12. Las relaciones están dadas para 3 de las 5 bandas de SDSS12, debido a las diferencias entre las pasa bandas de Gaia y SDSS. \autocite{gdr3ReleaseDocumentation}}
+	\caption{Relación empírica entre las magnitudes reportadas en GDR3 y SDSS12. Las relaciones están dadas para 3 de las 5 bandas de SDSS12, debido a las diferencias entre las pasa bandas de Gaia y SDSS. \citeyearparen{gdr3ReleaseDocumentation}}
 	\label{gdr3SdssConversionGraphs}
 \end{figure}
 
@@ -52,7 +52,7 @@ importante en la viabilidad de una campaña de observación desde el OAU. Esto
 determina si un objeto es visible desde la locación geográfica del observatorio
 durante las fechas de observación; de otra manera sería imposible apuntar un
 telescopio al sistema. Para realizar esta tarea se utilizaron los módulos de
-\code{astroplan} \autocite{astroplan} y \code{astropy} \autocite{astropy}, aplicando
+\code{astroplan} \citeyearparen{astroplan} y \code{astropy} \citeyearparen{astropy}, aplicando
 el algoritmo a los objetos resultados de la búsqueda en la base de datos de
 Gaia. El código responsable se encuentra en el archivo
 \href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/obsrv_plan/gaia/observable_targets.py}{\code{observable\_targets.py}}.
@@ -65,7 +65,7 @@ Gaia. El código responsable se encuentra en el archivo
 Una vez obtenidos los objetos de interés de la selección de objetos visibles se
 utilizó la base de datos de
 SIMBAD\footnote{\url{http://simbad.cds.unistra.fr/simbad/}}
-\autocite{simbadDatabase} para restringir los objetos de interés a un tamaño
+\citeyearparen{simbadDatabase} para restringir los objetos de interés a un tamaño
 manejable, con el objetivo de obtener un sistema clasificado como variable
 cataclísmica, binaria eclipsante, o candidata a alguna de estas clasificaciones.
 Uno de los objetivos de este trabajo de tesis fue realizar una campaña de

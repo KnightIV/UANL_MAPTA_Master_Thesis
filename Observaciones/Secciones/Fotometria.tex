@@ -70,7 +70,7 @@ La limpieza de las imágenes incluyó la corrección de bias, darks, y flats por
 medio de imágenes de calibración, las cuales fueron tomadas cada noche de
 observación. Esta sustracción se realizó utilizando el paquete \code{ccdproc} en
 Python, haciendo uso de sus funciones dedicadas al procesamiento de imágenes de
-CCD \autocite{ccdproc241}. El código relevante se puede encontrar en el notebook
+CCD \citeyearparen{ccdproc241}. El código relevante se puede encontrar en el notebook
 \href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/photometry_clean.ipynb}{\code{photometry\_clean.ipynb}}.
 Una vez que las mediciones hayan sido corregidas de errores sistemáticos, fue
 necesario trasladar los datos dentro de las imágenes para que \atoObjId quede en
@@ -79,7 +79,7 @@ notebook
 \href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/photometry_clean.ipynb}{\code{photometry\_clean.ipynb}}
 se ejecutó una tarea de \textit{plate solving} para cada imagen calibrada; el
 proceso de \textit{plate solve}, llevado a cabo utilizando \textit{Astrometry}
-\autocite{astrometry}, toma como referencia estrellas dentro del campo de la
+\citeyearparen{astrometry}, toma como referencia estrellas dentro del campo de la
 imagen, comparando contra una base de datos pre-definida para determinar las
 coordenadas físicas que corresponden a una imagen. Esta información va
 encapsulada dentro de los metadatos del archivo FITS, conocido como

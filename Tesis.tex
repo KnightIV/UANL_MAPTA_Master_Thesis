@@ -30,8 +30,8 @@
 \usepackage{lstautogobble}
 
 \usepackage{csquotes}
-\usepackage[style=authoryear, natbib=true, backend=biber]{biblatex}
-% \usepackage[style=phys, natbib=true, backend=biber]{biblatex}
+% \usepackage[style=authoryear, natbib=true, backend=biber]{biblatex}
+\usepackage[style=authoryear]{biblatex}
 \addbibresource[]{ref.bib}
 
 \ExplSyntaxOn
@@ -200,7 +200,10 @@
 \newcommand{\gaia}{\gaiaNoSpace \space}
 \newcommand{\quotes}[1]{``#1''}
 \newcommand{\code}[1]{\texttt{#1}}
-\newcommand{\brakcite}[1]{[\autocite{#1}]}
+
+\newcommand{\citeyearparen}[1]{\Citeauthor{#1} (\cite*{#1})}
+\newcommand{\citetbookchapter}[2]{\Citeauthor{#1} (\cite*[\textcolor{MyLightBlue}{Capítulo #2}]{#1})}
+\newcommand{\citetbooksection}[2]{\Citeauthor{#1} (\cite*[\textcolor{MyLightBlue}{Sección #2}]{#1})}
 
 % https://tex.stackexchange.com/questions/11031/how-to-do-the-curvy-l-for-lagrangian-or-laplace-transforms#11144
 \newcommand{\Lagr}{\mathcal{L}}
@@ -253,8 +256,6 @@
 \newcommand{\refequation}[1]{{\color{MyDarkGreen}\textbf{Ecuación \ref{#1}}}}
 \newcommand{\refequations}[1]{{\color{MyDarkGreen}\textbf{Ecuaciones \ref{#1}}}}
 \newcommand{\textapproxtilde}{\raisebox{-0.55ex}{\textasciitilde}}
-\newcommand{\citetbookchapter}[2]{\autocite[\textcolor{MyLightBlue}{Capítulo #2}]{#1}}
-\newcommand{\citetbooksection}[2]{\autocite[\textcolor{MyLightBlue}{Sección #2}]{#1}}
 
 % https://tex.stackexchange.com/questions/148634/no-caption-or-title-but-entry-in-list-of-figures#148637
 \DeclareCaptionLabelFormat{blank}{}
@@ -418,12 +419,12 @@ has been provided by national institutions, in particular the institutions
 participating in the {\it Gaia} Multilateral Agreement.
 
 This research made use of Astropy,\footnote{\url{http://www.astropy.org}} a
-community-developed core Python package for Astronomy \autocite{astropy}.
+community-developed core Python package for Astronomy \citeyearparen{astropy}.
 
 This research has made use of the SIMBAD database, operated at CDS, Strasbourg, France.
 
 This research made use of ccdproc, an Astropy package for
-image reduction \autocite{ccdproc241}.
+image reduction \citeyearparen{ccdproc241}.
 \clearpage
 
 % \bibliography{ref}

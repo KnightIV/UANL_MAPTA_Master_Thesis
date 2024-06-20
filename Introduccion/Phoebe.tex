@@ -12,14 +12,14 @@ equivalente en la bóveda celeste.
 
 En el campo de sistemas binarios estelares, uno de los primeros códigos con
 mayor impacto es el código \textbf{Wilson-Devinney}, descrito por primera vez en
-\autocite{wilson_devinney_realization_of_accurate_binary_lcs_wd_1971}. El código
+\citeyearparen{wilson_devinney_realization_of_accurate_binary_lcs_wd_1971}. El código
 de Wilson-Devinney\textemdash referenciado como el código \textbf{WD} en varias
 publicaciones\textemdash parte del modelo de Roche para representar las
 superficies de las estrellas, lo cual le permite hacer un trato adecuado de
 fenómenos físicos importantes como el oscurecimiento al limbo y el
 oscurecimiento gravitacional. A pesar de sobrepasar 5 décadas de edad el código
 WD sigue en uso actualmente en proyectos de investigación (por ejemplo,
-\autocite{li_extremely_low_mass_ratio_wd_analysis_2022}), de los cuales se
+\citeyearparen{li_extremely_low_mass_ratio_wd_analysis_2022}), de los cuales se
 obtienen los parámetros físicos de un sistema binario estelar observado. Este
 trabajo de tesis de maestría utilizó la librería \textbf{PHOEBE}
 (\textbf{PH}ysics \textbf{O}f \textbf{E}clipsing \textbf{B}inari\textbf{E}s),
@@ -267,7 +267,7 @@ elementos en forma de triángulos equiláteros, tal como se muestra en la
 	utilizar elementos en forma de triángulos equiláteros se puede observar que
 	se obtiene una superficie continua, eliminando esta fuente de error en el
 	modelo. Figura obtenida de
-	\autocite{prsa_phoebe_increased_model_fidelity_mesh_2016}}
+	\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}}
 	\label{figuraMallaPhoebe}
 \end{figure}
 
@@ -292,7 +292,7 @@ la distancia no constante entre ambas componentes estelares. Uno de los
 principios del modelo de Roche es que las superficies estelares se ajustan al
 campo de fuerzas instantáneo del sistema, el cual va cambiando a escalas de
 tiempo significativamente menores que el periodo orbital
-\autocite{prsa_phoebe_increased_model_fidelity_mesh_2016}. Esto causaría un
+\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}. Esto causaría un
 cambio apreciable en los radios estelares, debido a que las superficies
 equipotenciales del campo no son constantes en volumen. En teoría, si una
 estrella se rige a solo las superficies equipotenciales del mismo valor en cada
@@ -303,7 +303,7 @@ literatura; al contrario, existen sistemas como las estrellas \quotes{heartbeat}
 (nombrado por su parecido a una lectura de un electrocardiograma) cuya
 variabilidad se debe a la distorsión de sus superficies por fuerzas de marea en
 órbitas excéntricas
-\autocite{thompson_class_eccentric_binaries_tidal_distortion_heartbeat_2012}.
+\citeyearparen{thompson_class_eccentric_binaries_tidal_distortion_heartbeat_2012}.
 Como consecuencia, PHOEBE adopta un mecanismo para preservar el volumen del
 sistema; al momento de muestrear la superficie para generar la malla
 superficial, PHOEBE elige la superficie equipotencial que más se acerque al
@@ -433,7 +433,7 @@ calculada en la dirección normal de cada elemento superficial; la
 \reffigure{figuraMallaPhoebeIntensidadNormal} muestra la distribución de
 intensidad absoluta a lo largo de la superficie estelar. La intensidad
 monocromática se obtiene partiendo del modelo atmosférico empleado, ya sea el de
-cuerpo negro básico o una tabla como la de \autocite{kurucz_atlas_1970}. Para
+cuerpo negro básico o una tabla como la de \citeyearparen{kurucz_atlas_1970}. Para
 obtener la \textit{intensidad absoluta} es necesario integrar la intensidad
 monocromática sobre todas las longitudes de onda:
 
@@ -466,7 +466,7 @@ inglés), donde $\mathcal{S} \equiv \mathrm{d}I_{\lambda}/\mathrm{d}\lambda$. El
 SED calculado depende tanto en las propiedades de la estrella como en el modelo
 empleado para su atmósfera estelar; en el caso de un cuerpo negro, su SED
 depende solo de su temperatura efectiva, mientras que modelos como
-\autocite{kurucz_atlas_1970} requieren parámetros adicionales como la
+\citeyearparen{kurucz_atlas_1970} requieren parámetros adicionales como la
 metalicidad estelar y gravedad superficial. Sin embargo, en el modelo hacia
 adelante de una estrella es de gran importancia determinar la intensidad en una
 \textit{pasa banda}; esta es definida por una curva de transmisión, la cual
@@ -488,7 +488,7 @@ la pasa banda con la siguiente ecuación:
 Donde $I_{\mathrm{pb}}$ como $\mathcal{S}$ son funciones que toman de parámetro
 de entrada las propiedades termodinámicas de la estrella, incluyendo incluso
 efectos extrínsecos al sistema como la extinción interestelar
-\autocite{prsa_phoebe_increased_model_fidelity_mesh_2016}. La intensidad
+\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}. La intensidad
 $I_{\mathrm{pb}}$ definida en la \refequation{ecuacionIntensidadPasabanda} solo
 es apropiada para simular un detector calibrado por flujo de estrellas
 estándares; para medir la intensidad con respecto al número de fotones
@@ -619,10 +619,10 @@ observacionales. Para utilizar estos estimadores es necesario primero encontrar
 el periodo orbital del sistema, el cual comúnmente corresponde a la segunda
 harmonica de la frecuencia dominante de un periodograma; los algoritmos
 principales utilizados en la literatura son \textit{Lomb-Scargle}
-\autocite{vanderplas_understanding_lomb_scargle_periodogram_2018} el cual ajusta
+\citeyearparen{vanderplas_understanding_lomb_scargle_periodogram_2018} el cual ajusta
 un modelo sinusoidal a una serie de tiempo (cuyas muestras no requieren haber
 sido tomadas en intervalos regulares del tiempo) y \textit{Box Least Squares}
-(abreviado como BLS) \autocite{kovacs_bls_periodogram_periodic_transits_2002},
+(abreviado como BLS) \citeyearparen{kovacs_bls_periodogram_periodic_transits_2002},
 un algoritmo diseñado para casos donde la señal de los eclipses es diminuto a
 comparación con el flujo de base del sistema, por ejemplo los sistemas cuya
 duración de eclipses estelares es mucho menor que el periodo orbital. Existen
@@ -669,7 +669,7 @@ obtenido la curva de luz en fase\textemdash es posible ajustar una función
 analítica compuesta de 2 funciones Gaussianas, un término coseno, un término
 constante, o cualquier combinación de estas que mejor se ajusten a los datos
 observacionales, generando en total 7 modelos
-\autocite{conroy_phoebe_v_framework_solving_inverse_problem_2020}. Utilizando un
+\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}. Utilizando un
 ajuste de mínimos cuadrados a las curvas en fase, una vez estimado los tiempos
 de los eclipses, se determina el mejor modelo usando un criterio. Del modelo
 final se obtiene valores iniciales para tanto propiedades orbitales del
@@ -689,7 +689,7 @@ aprendizaje automático como \textit{K-Nearest Neighbors} para mapear una curva
 de luz observacional a parámetros físicos de un sistema binario estelar. El
 algoritmo KNN ajusta una función a datos reales, permitiendo hacer una regresión
 basado en los vecinos cercanos de un punto. Los detalles de KNN se encuentran en
-\autocite{pedregosa_scikit-learn_2011}, el cual describe la implementación
+\citeyearparen{pedregosa_scikit-learn_2011}, el cual describe la implementación
 dentro del paquete de Python \code{scikit-learn}. Una red neuronal es compuesta
 de varias capas de procesamiento, donde cada capa está compuesta de unidades
 individuales (o \quotes{neuronas}) que propagan valores de acuerdo a su función
@@ -706,7 +706,7 @@ composición interna se puede ver en la \reffigure{figuraPhoebeEbaiAnnDiagrama}.
 	inglés). El objetivo de una red como EBAI es partir de datos de entrada como
 	una curva de luz observada y obtener los parámetros del sistema que generen
 	un modelo sintético que se aproxime a los datos. Figura obtenida de
-	\autocite{prsa_phoebe_artificial_intelligence_approach_ebai_2008}.}
+	\citeyearparen{prsa_phoebe_artificial_intelligence_approach_ebai_2008}.}
 	\label{figuraPhoebeEbaiAnnDiagrama}
 \end{figure}
 
@@ -748,7 +748,7 @@ hizo uso de 2 optimizadores principales: \textbf{el simplex de Nelder-Mead} y
 
 \subsubsection{Simplex de Nelder-Mead}
 
-Descrito por primera vez por \autocite{nelder_mead_simplex_1965}, el
+Descrito por primera vez por \citeyearparen{nelder_mead_simplex_1965}, el
 \textbf{simplex de Nelder-Mead} (NMS por sus siglas en inglés) es un algoritmo
 heurístico que explora el espacio de parámetros mediante un \textit{simplex}, un
 politopo compuesto de varios vertices que representan distintos puntos en la
@@ -896,13 +896,13 @@ densidad posterior}, o \textbf{PDF} por sus siglas en inglés. El teorema de
 Bayes permite incorporar información conocida por medio de la distribución
 \textbf{priori}; esto puede incluir relaciones conocidas (por ejemplo, funciones
 determinadas por análisis estadísticos como
-\autocite{latkovic_statistics_700_wuma_2021}), cuyas distribuciones pueden
+\citeyearparen{latkovic_statistics_700_wuma_2021}), cuyas distribuciones pueden
 variar en cuanta confianza dependiendo de sus formas; una distribución Gaussiana
 conlleva mayor información de un parámetro que una distribución uniforme
 acotada. El valor de la \textbf{verosimilitud} dice la probabilidad de observar
 el vector de datos $\mathbf{D}$ dado el vector de parámetros; PHOEBE utiliza el
 logaritmo natural de esta función, la cual se define en
-\autocite{conroy_phoebe_v_framework_solving_inverse_problem_2020}:
+\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}:
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -946,7 +946,7 @@ distribución posterior. Un esquema de este proceso se presenta en la
 	aceptar o rechazar (cuyas muestras realizadas para este ejemplo se pueden
 	ver en la segunda gráfica), con la finalidad de estimar la distribución
 	posterior vista en la última gráfica. Figura obtenida de
-	\autocite{speagle_conceptual_intro_mcmc_2020}.}
+	\citeyearparen{speagle_conceptual_intro_mcmc_2020}.}
 	\label{figuraMcmcMuestreoImportancia}
 \end{figure}
 
