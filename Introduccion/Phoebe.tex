@@ -814,7 +814,8 @@ SciPy\footnote{\url{https://docs.scipy.org/doc/scipy/reference/optimize.minimize
 Una de las formas más directas de explorar el espacio de parámetros y llegar a
 un valor optimo de la función de costo es por el método de \textbf{correcciones
 diferenciales}. Este algoritmo trabaja evaluando derivadas parciales de la
-función; estas son evaluadas por medio de diferencias finitas como se ve en la \refequation{ecuacionDiferenciasFinitas}.
+función; estas son evaluadas por medio de diferencias finitas como se ve en la
+\refequation{ecuacionDiferenciasFinitas}.
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -843,5 +844,139 @@ si es una solución aceptable. Si es necesario ejecutar más iteraciones, el mis
 resolvedor es capaz de correr de nuevo, utilizando los valores adoptados de la
 iteración pasada.
 
-\subsection{Muestreo MCMC}
+\subsection{Muestreo de la Función de Densidad de Probabilidad Posterior}
+
+El modelo resultante de los optimizadores en teoría resulta en el mejor ajuste a
+los datos observacionales, lo cual es indicado por la métrica de $\chi^2$. Sin
+embargo, este parámetro no es suficiente para justificar que se haya encontrado
+el valor óptimo del modelo. Para los problemas de un alto número de dimensiones
+como los modelos de sistemas binarios, el espacio de parámetros está repleto de
+volúmenes donde el ajuste a los datos observacionales varía de manera
+significativa. Para modelos como un sistema binario estelar, también existe la
+posibilidad que ciertas combinaciones de parámetros que resulten en un modelo
+físicamente imposible, el cual debe de ser descartado por completo. Para
+determinar la distribución de densidad de cada parámetro\textemdash de donde se
+puede calcular \textit{intervalos de confianza}\textemdash es necesario conocer
+la topología del espacio de parámetros.
+
+En un mundo ideal este proceso se haría para todos los valores posibles para
+cada parámetro del modelo. Esto resulta ser prácticamente imposible para muchos
+modelos del mundo real debido al costo computacional de un modelo; para calcular
+un modelo hacia adelante en PHOEBE, dependiendo de la cantidad curvas de luz
+generadas y de las optimizaciones empleadas en el modelo, puede tardar un tiempo
+en el orden de decenas o cientos de segundos. Dado millones de combinaciones de
+los parámetros, esto resulta en un tiempo de cómputo en el orden de meses o años
+para cubrir todo el volumen del problema, lo cual no es factible para un
+proyecto de investigación.
+
+Existen métodos estadísticos que sirven para explorar el espacio de parámetros
+de un modelo de manera sistemática, incorporando creencias o información previa
+que se conoce \textit{a priori}. Se basan en el \textit{teorema de Bayes}, que
+establece la probabilidad de obtener un vector de parámetros
+$\mathbf{\Theta}_{M}$ para un modelo $M$ dado un vector de datos $\mathbf{D}$ es
+igual a:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\vspace{1.4em}
+	\begin{equation}
+		\eqnmark[MyLightBlue]{posteriorNode}{P(\mathbf{\Theta}_{M} | \textbf{D}, M)} = \frac{\eqnmark[MyDarkGreen]{likelihoodNode}{P(\textbf{D} | \mathbf{\Theta}_{M}, M)} \eqnmark[MyDarkRed]{priorNode}{P(\mathbf{\Theta}_{M} | M)}}{\eqnmark[MyDarkBlue]{evidenceNode}{P(\textbf{D} | M)}}
+	\end{equation}
+	\annotate[yshift=1em]{above, left}{posteriorNode}{Posterior}
+	\annotate[yshift=1.3em]{above, right}{likelihoodNode}{Verosimilitud}
+	\annotate[yshift=0.8em]{above, right}{priorNode}{Priori}
+	\annotate[yshift=-0.3em]{below, left}{evidenceNode}{Evidencia}
+
+	\vspace{0.4em}
+\end{eqfloat}
+
+La probabilidad que observemos una serie de parámetros $\mathbf{\Theta}_{M}$
+dado un vector de datos $\mathbf{D}$ se le llama la \textbf{distribución de
+densidad posterior}, o \textbf{PDF} por sus siglas en inglés. El teorema de
+Bayes permite incorporar información conocida por medio de la distribución
+\textbf{priori}; esto puede incluir relaciones conocidas (por ejemplo, funciones
+determinadas por análisis estadísticos como
+\autocite{latkovic_statistics_700_wuma_2021}), cuyas distribuciones pueden
+variar en cuanta confianza dependiendo de sus formas; una distribución Gaussiana
+conlleva mayor información de un parámetro que una distribución uniforme
+acotada. El valor de la \textbf{verosimilitud} dice la probabilidad de observar
+el vector de datos $\mathbf{D}$ dado el vector de parámetros; PHOEBE utiliza el
+logaritmo natural de esta función, la cual se define en
+\autocite{conroy_phoebe_v_framework_solving_inverse_problem_2020}:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\ln{P(\textbf{D} | \mathbf{\Theta}_{M}, M)} = -0.5 \chi^2
+	\end{equation}
+\end{eqfloat}
+
+La \textbf{evidencia} se define como la verosimilitud del modelo $M$ integrado
+sobre todos los valores posibles de parámetros:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		P(\textbf{D} | M) = \int{P(\textbf{D} | \mathbf{\Theta}_M, M) P(\mathbf{\Theta}_M | M) \textrm{d}\mathbf{\Theta}_M}
+	\end{equation}
+	\blankcaption
+	\label{ecuacionEvidencia}
+\end{eqfloat}
+
+Sin embargo, la evidencia es prácticamente imposible de calcular en el caso de
+un sistema binario estelar; no existe una solución analítica para este problema,
+por lo tanto para calcular la verosimilitud para un modelo de PHOEBE es
+necesario computar un modelo hacia adelante, generando curvas observables
+sintéticas que se pueden utilizar para calcular $\chi^2$ de acuerdo a la
+\refequation{ecuacionChi2Params}. Este proceso combinado con técnicas de
+integración numéricas resulta en un tiempo de computo con crecimiento
+exponencial. Para mitigar estos problemas se utilizan métodos de \textit{Monte
+Carlo} para hacer un muestreo estocástico de tal manera que al aplicar un peso
+de importancia a cada muestra se puede llegar a una aproximación de la
+distribución posterior. Un esquema de este proceso se presenta en la
+\reffigure{figuraMcmcMuestreoImportancia}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.28]{Introduccion/Figures/Figura MCMC Pesos Muestreo.png}
+	\caption{Esquema del \textit{muestreo de importancia}, una técnica de
+	generar muestras de una distribución propuesta como estimación inicial (a
+	priori) $\mathcal{Q}(\mathbf{\Theta})$ que se muestra en la primera gráfica.
+	Se emplea un algoritmo para proponer muestras del espacio de parámetros que
+	aceptar o rechazar (cuyas muestras realizadas para este ejemplo se pueden
+	ver en la segunda gráfica), con la finalidad de estimar la distribución
+	posterior vista en la última gráfica. Figura obtenida de
+	\autocite{speagle_conceptual_intro_mcmc_2020}.}
+	\label{figuraMcmcMuestreoImportancia}
+\end{figure}
+
+\subsubsection{\code{emcee}: MCMC en Python}
+
+Las \textbf{cadenas de Markov de Monte Carlo} (conocidas por sus siglas en
+inglés \textbf{MCMC}) generan muestras de la distribución a priori formando
+\textit{cadenas} de valores del vector de parámetros $\mathbf{\Theta}$
+correlacionados. Cada valor muestreado se adjunta a la cadena; después de $n$
+iteraciones se calcula la \textit{densidad} $\rho(\mathbf{\Theta_i})$ de las
+muestras dentro de una región $\delta_{\mathbf{\Theta}}$ centrada en el vector
+$\mathbf{\Theta}_i$, definida por el número de muestras dentro de la región de
+interés $m(\mathbf{\Theta_i})$:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\rho(\mathbf{\Theta}) \equiv \frac{m(\mathbf{\Theta})}{n}
+	\end{equation}
+\end{eqfloat}
+
+Dados suficientes iteraciones, la densidad $\rho(\mathbf{\Theta})$ estará
+distribuía de la misma forma que la distribución posterior
+$\mathcal{P}(\mathbf{\Theta})$; esto se puede integrar para llegar al
+\textit{valor esperado} de la distribución posterior, la cual es definida como:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\mathbb{E}_{\mathcal{P}}\left[f(\mathbf{\Theta})\right] = \int{f(\mathbf{\Theta}) \mathcal{P}(\mathbf{\Theta}) \textrm{d}\mathbf{\Theta}}
+	\end{equation}
+\end{eqfloat}
 
