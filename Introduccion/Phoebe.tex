@@ -939,7 +939,7 @@ distribución posterior. Un esquema de este proceso se presenta en la
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[scale=0.28]{Introduccion/Figures/Figura MCMC Pesos Muestreo.png}
-	\caption{Esquema del \textit{muestreo de importancia}, una técnica de
+	\caption{Esquema del \textit{muestreo de importancia}, una técnica para
 	generar muestras de una distribución propuesta como estimación inicial (a
 	priori) $\mathcal{Q}(\mathbf{\Theta})$ que se muestra en la primera gráfica.
 	Se emplea un algoritmo para proponer muestras del espacio de parámetros que
@@ -969,7 +969,7 @@ interés $m(\mathbf{\Theta_i})$:
 \end{eqfloat}
 
 Dados suficientes iteraciones, la densidad $\rho(\mathbf{\Theta})$ estará
-distribuía de la misma forma que la distribución posterior
+distribuida de la misma forma que la distribución posterior
 $\mathcal{P}(\mathbf{\Theta})$; esto se puede integrar para llegar al
 \textit{valor esperado} de la distribución posterior, la cual es definida como:
 
@@ -980,3 +980,246 @@ $\mathcal{P}(\mathbf{\Theta})$; esto se puede integrar para llegar al
 	\end{equation}
 \end{eqfloat}
 
+Esta integral se puede expresar como una sumatoria como es visto en \citeyearparen{speagle_conceptual_intro_mcmc_2020}, donde $f_i(\mathbf{\Theta})
+\equiv f_i$ son muestras del espacio de parámetros tomadas de tal manera que
+cada muestra se considera \textit{independiente} e \textit{idénticamente
+distribuida} (\textbf{IID} por sus siglas en inglés) tras $n$ iteraciones:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		\mathbb{E}_{\mathcal{P}}\left[f(\mathbf{\Theta})\right] = n^{-1} \sum_{i=1}^{n}{f_i}
+	\end{equation}
+\end{eqfloat}
+
+% TODO: maybe remove, present only for formatting
+\newpage
+
+Donde el peso de cada muestra se toma como $1/n$ debido a que las muestras se
+consideran IID. El proceso de generar cada muestra en la cadena de Markov
+consiste de un algoritmo probabilístico que solo depende de la muestra anterior;
+el algoritmo de \textbf{Metropolis-Hastings} descrito en en
+\citeyearparen{mackay_information_theory_inference_learning_algorithms_2003}
+adopta una muestra propuesta $\mathbf{\Theta}^*$ bajo la siguiente condición:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		a = \frac{\tilde{\mathcal{P}}(\mathbf{\Theta}')}{\tilde{\mathcal{P}}(\mathbf{\Theta})} \frac{\mathcal{Q}(\mathbf{\Theta} ; \mathbf{\Theta}')}{\mathcal{Q}(\mathbf{\Theta}' ; \mathbf{\Theta})}
+	\end{equation}
+\end{eqfloat}
+
+Donde $\tilde{\mathcal{P}}/\mathcal{Z} = \mathcal{P}$ representa la función de
+densidad posterior no normalizada (antes de dividir por la evidencia
+$\mathcal{Z}$ para llegar a la función de densidad de probabilidad
+$\mathcal{P}$), y $\mathcal{Q}(\mathbf{\Theta}_1 ; \mathbf{\Theta}_2)$
+representa la función de densidad de propuestas, la cual calcula la probabilidad
+de obtener una nueva muestra $\mathbf{\Theta}'$ dado la muestra/posición actual
+$\mathbf{\Theta}$. El factor $a$ representa la probabilidad de aceptar la nueva
+muestra $\mathbf{\Theta}'$: si $a \geq 1$, entonces se toma $\mathbf{\Theta}'$
+como la nueva posición de la cadena. Si $a <1$, se acepta la nueva muestra con
+una probabilidad de $a$; en el caso de ser rechazada, la cadena se mantiene en
+su posición actual $\mathbf{\Theta}$, a partir de donde el proceso empieza de
+nuevo para la siguiente iteración. Este algoritmo trabaja bajo la suposición que
+se puede calcular el valor de $\tilde{\mathcal{P}}$ para un valor dado de
+$\mathbf{\Theta}$; al dejar correr la cadena por $n$ iteraciones se encuentra
+que la densidad del espacio de parámetros $\rho(\mathbf{\Theta})$ converge con
+$n \rightarrow \infty$.
+
+En Python existe la librería
+\code{emcee}\footnote{\url{https://emcee.readthedocs.io/en/stable/}}, una
+implementación de MCMC haciendo uso de ensambles de cadenas de Markov e
+invarianza de transformaciones afines para generar cadenas de muestras con un
+tiempo menor de convergencia a la solución final. \code{emcee} implementa un
+algoritmo denominado el \textit{stretch move}, descrito en
+\citeyearparen{goodman_ensemble_samplers_affine_invariance_gw10_stretch_move_2010},
+en donde la nueva posición de una cadena depende otra cadena en el ensamble $S =
+{X_k}$, para $k$ caminadores $X \in {X_1, X_2, ..., X_k}$. Dado un caminador
+$X_k$, primero se toma otro caminador del ensamble complementario $S_{[k]} =
+{X_j, j \neq k}$ del cual proponer una nueva posición $Y$:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		(X_{k}(t) \rightarrow Y) = X_j + Z[X_{k}(t) - X_j]
+	\end{equation}
+\end{eqfloat}
+
+Donde $Z$ es un valor aleatorio muestreado de una distribución $g(z = Z)$:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		g(z) \propto \left\{\begin{matrix}
+			\frac{1}{z} & | \ z \in \mathrm{Cond}(z) \\
+			0 &| \ z \notin \mathrm{Cond}(z) \\
+			\end{matrix}\right.
+	\end{equation}
+\end{eqfloat}
+
+Donde se define el conjunto $\mathrm{Cond}(z) = [1/c, c]$ dado un valor $c$;
+\citeyearparen{goodman_ensemble_samplers_affine_invariance_gw10_stretch_move_2010}
+da un valor de $c = 2$, pero en principio es un parámetro ajustable del
+algoritmo para obtener mejores resultados según el problema en cuestión. Una vez
+obtenido una nueva posición se evalúa con un criterio parecido a aquel
+implementado en el algoritmo de Metropolis-Hastings:
+
+% TODO: maybe delete, only here for formatting
+\newpage
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		q = Z^{(N - 1)} \left(\frac{\tilde{\mathcal{P}}(\mathbf{\Theta}_Y)}{\tilde{\mathcal{P}}(\mathbf{\Theta}_X)}\right)
+	\end{equation}
+\end{eqfloat}
+
+Donde $\mathbf{\Theta}_Y$ y $\mathbf{\Theta}_X$ corresponden al vector de
+parámetros de los caminadores $Y$ y $X$ respectivamente. La nueva posición solo
+es aceptada si $q \geq 1$, de lo contrario el caminador permanece en su posición
+actual $Y = X_{k}(t + 1) = X_{k}(t)$. Dado a que cada nuevo valor en la cadena
+de un caminador depende del estado actual del resto del ensamble, este problema
+es inherentemente serial; para poder actualizar a más de un caminador a la vez
+se divide el ensamble $S$ en 2 subconjuntos $S^{(1)} = \{ X_k; k = 1, 2, ...,
+K/2 \}$ y $S^{(2)} = \{ X_k; k = (K/2) + 1, ..., K \}$ para un ensamble total
+compuesto de $K$ caminadores. Esto permite actualizar la posición de todos los
+caminadores en un subconjunto $S^{(1)}$ o $S^{(2)}$ simultáneamente usando los
+caminadores en el subconjunto opuesto para proponer su nueva posición.
+\citeyearparen{foreman-mackey_emcee_2013} describe el proceso a mayor detalle,
+mientras que la implementación se puede ver en su repositorio de
+GitHub\footnote{\url{https://github.com/dfm/emcee}}.
+
+\subsubsection{MCMC en PHOEBE}
+
+El problema de un sistema binario estelar es uno de alta dimensionalidad debido
+a la cantidad de parámetros libres. Al momento de explorar el espacio de
+parámetros la distribución de densidad posterior tiende a estar concentrada en
+pequeños volúmenes de cuboides de $N$ dimensiones; el volumen crece a una alta
+tasa a comparación con el área superficial del cuboide. Esto presenta una
+situación problemática para un proceso de MCMC, en donde una mayor razón de las
+posiciones propuestas para cada caminador es rechazada por la mayor diferencia
+entre los valores resultantes de la función $\tilde{\mathcal{P}}$. El volumen de
+un cuboide de $N$ dimensiones con lados de largo $l$ se obtiene mediante la
+siguiente ecuación:
+
+\begin{eqfloat}[!ht]
+	\centering
+	\begin{equation}
+		V(l) = \prod_{i = 1}^{N}{l} = l^N
+	\end{equation}
+\end{eqfloat}
+
+Esta baja tasa de pasos aceptados causa un largo \textit{tiempo de
+autocorrelación}, el cual describe el número de iteraciones necesarios para que
+una cadena \quotes{olvide} su posición inicial. El tiempo de autocorrelación
+parametriza la cantidad de muestras independientes en el ensamble de cadenas;
+por lo tanto el número de muestras independientes es dado por el número de
+iteraciones totales corridos en el muestreo dividido por el tiempo de
+autocorrelación. Para problemas como el modelado de un sistema binario en
+PHOEBE, este problema se puede mitigar con el uso de una mayor cantidad de
+caminadores (en el orden de 100s de caminadores) y el uso de una distribución
+adecuada de muestreo inicial.\
+
+Para correr un muestreo de parámetros en PHOEBE simplemente se necesita crear un
+nuevo resolvedor (\textit{solver} en la API de PHOEBE) del tipo \code{emcee}, en
+el cual se especifica las características del ensamble. Esto se puede ver en la \refcode{codigoMuestreoMCMC}.
+
+\begin{figure}[!ht]
+	\centering
+	\begin{lstlisting}[language=Python, autogobble]
+		b.add_solver('sampler.emcee', solver='mcmc_sampler',
+			init_from=['mcmc_prior'], 
+			niters=5000, nwalkers=200, 
+			progress_every_niters=5)
+	\end{lstlisting}
+	\caption{Resolvedor de tipo \code{emcee} para muestrear el espacio de
+	parámetros dado el bundle \code{b}. Este muestreo está configurado para
+	correr 5000 iteraciones con 200 caminadores; al contrario de un optimizador,
+	el muestreo de \code{emcee} no tiene manera de saber si ha convergido a una
+	solución para determinar cuando ha obtenido suficientes muestras. Por
+	seguridad, se puede configurar para que el muestreo guarde su progreso
+	después de cada \code{progress\_every\_niters} iteraciones, el cual se puede
+	utilizar para revisar el progreso del muestreo o para continuar un proceso
+	que haya terminado de manera prematura (por ejemplo, en el caso de una falla
+	en el equipo).}
+	\label{codigoMuestreoMCMC}
+\end{figure}
+
+El resolvedor \code{emcee} creado usará los conjuntos de datos\textemdash
+\textit{datasets} en PHOEBE\textemdash habilitados para evaluar la función de
+costo para cada vector de parámetros muestreado. En vez de especificar
+explícitamente los parámetros que muestrear, el resolvedor toma de entrada el
+parámetro \code{init\_from}, el cual representa el conjunto de distribuciones
+propuestas $\mathcal{Q}(\mathbf{\Theta})$ para los parámetros que muestrear.
+Estos son distribuciones de forma arbitraria; para facilitar su creación y
+maximizar la facilidad de tomar muestras discretas PHOEBE ofrece la habilidad de
+crear distribuciones informativas (de forma de Gaussianas) o no-informativas
+(distribuciones uniformes limitadas a cierto rango) alrededor de los valores
+actuales de los parámetros en el bundle visto en la \refcode{codigoMuestreoPriors}.
+
+\begin{figure}[!ht]
+	\centering
+	\begin{lstlisting}[language=Python, autogobble]
+		b.add_distribution({
+			'asini@orbit': phoebe.gaussian_around(0.5),
+			'q': phoebe.gaussian_around(0.1),
+			'vgamma@system': phoebe.gaussian_around(5.0),
+			'ecc@orbit': phoebe.gaussian_around(0.05),
+			'per0@orbit': phoebe.gaussian_around(10.0)
+		}, distribution='ndg', overwrite_all=True)
+
+		b.add_distribution({
+			'asini@orbit': phoebe.uniform_around(2),
+			'q': phoebe.uniform_around(0.5),
+			'vgamma@system': phoebe.uniform_around(15.0),
+			'ecc@orbit': phoebe.uniform_around(0.2),
+			'per0@orbit': phoebe.uniform_around(20.0)
+		}, distribution='nuni', overwrite_all=True)
+	\end{lstlisting}
+	\caption{Creando dos distribuciones por separado para iniciar como punto de
+	partida para un muestreo de MCMC en PHOEBE dado un bundle \code{b} cuyos
+	valores han sido previamente optimizados para llegar a un ajuste adecuado.
+	La distribución \code{ndg} representa una Gaussiana multi-dimensional,
+	especificando el valor de $\sigma$ para cada parámetro como valor de entrada
+	a la función \code{phoebe.gaussian\_around}. La distribución \code{nuni}
+	representa una distribución multi-dimensional uniforme, donde el valor de
+	entrada a la función \code{phoebe.uniform\_around} representa la anchura
+	total de la distribución de densidad de cada parámetro. La representación
+	gráfica de estas distribuciones se puede ver en la
+	\reffigure{figuraPhoebeMuestreoPriors}}
+	\label{codigoMuestreoPriors}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\xincludegraphics[scale=0.35, label=\textbf{(a)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Gaussian.png}
+	\xincludegraphics[scale=0.35, label=\textbf{(b)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Uniform.png}
+	\caption{Gráfica mostrando las distribuciones creadas por el código en la
+	\refcode{codigoMuestreoPriors}. Este \textit{corner plot} (su nombre en
+	inglés) permite ver las distribuciones de los parámetros individuales en el
+	último cuadro de cada gráfica, al igual que ver las correlaciones entre cada
+	par de parámetros representada por cada intersección de una columna y un
+	renglón. \textbf{(a)} representa la distribución normal multivariada
+	\code{ndg}, mientras que \textbf{(b)} muestra la distribución uniforme
+	\code{nuni}.}
+	\label{figuraPhoebeMuestreoPriors}
+\end{figure}
+
+Un muestreo ideal convergerá a una distribución de densidad que se asemejará a
+la distribución de probabilidad posterior de cada parámetro. De estas
+distribuciones posteriores se pueden determinar los valores promedios e
+incertidumbres (por ejemplo, en el caso de que sea una Gaussiana, el valor
+promedio y la incertidumbre son triviales de obtener tras un ajuste analítico de
+las muestras individuales, cosa que PHOEBE lo hace en automático) de cada
+parámetro, al igual que identificar correlaciones entre distintos parámetros del
+modelo. En dado caso que el muestreo corrido no haya sido suficiente (no haya
+convergido, ciertos caminadores se quedaron \quotes{atascados} en una región del
+espacio de parámetros, etc.) es posible continuar el resolvedor actual
+utilizando el parámetro del resolvedor \code{continue\_from} para apuntar a la
+solución producida por el resolvedor, o es posible crear un nuevo resolvedor de
+tipo \code{sampler.emcee} cuyas distribuciones a priori sean la distribución de
+densidad producida por el muestreo previo. Información adicional del API de
+PHOEBE se ubica en su página de
+documentación\footnote{\url{http://phoebe-project.org/docs/2.4/tutorials/emcee}}.
+El muestreo empleado para este trabajo de tesis se encuentra en el
+\refthesischapter{metodologia:modelocomputacional}.
