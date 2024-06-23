@@ -1,20 +1,20 @@
 \chapter{PHOEBE - Modelo Computacional}
 
 Como se ha planteado, los sistemas binarios estelares ofrecen una oportunidad de
-analizar el comportamiento y la estructura estelar que sería imposible deducir
-en estrellas aisladas. Sin embargo, el análisis analítico es una herramienta
+analizar el comportamiento, la estructura, y la evolución estelar que sería imposible 
+deducir en estrellas aisladas. Sin embargo, el análisis analítico es una herramienta
 restringida en cuanto a la cantidad de información que puede extraer de una
 curva de luz; las ecuaciones que rigen un sistema binario no tienen una solución
-analítica. Para resolver este problema, se hacen códigos capaces de simular la
+analítica. Para resolver este problema, se desarrollan códigos capaces de simular la
 física de un sistema binario, el cual partiendo de ciertos parámetros estelares
 y orbitales pueden reproducir los datos observacionales de un sistema
 equivalente en la bóveda celeste.
 
 En el campo de sistemas binarios estelares, uno de los primeros códigos con
 mayor impacto es el código \textbf{Wilson-Devinney}, descrito por primera vez en
-\citeyearparen{wilson_devinney_realization_of_accurate_binary_lcs_wd_1971}. El código
-de Wilson-Devinney\textemdash referenciado como el código \textbf{WD} en varias
-publicaciones\textemdash parte del modelo de Roche para representar las
+\citeyearparen{wilson_devinney_realization_of_accurate_binary_lcs_wd_1971}. El
+código de Wilson-Devinney\textemdash referenciado como el código \textbf{WD} en
+varias publicaciones\textemdash parte del modelo de Roche para representar las
 superficies de las estrellas, lo cual le permite hacer un trato adecuado de
 fenómenos físicos importantes como el oscurecimiento al limbo y el
 oscurecimiento gravitacional. A pesar de sobrepasar 5 décadas de edad el código
@@ -22,15 +22,15 @@ WD sigue en uso actualmente en proyectos de investigación (por ejemplo,
 \citeyearparen{li_extremely_low_mass_ratio_wd_analysis_2022}), de los cuales se
 obtienen los parámetros físicos de un sistema binario estelar observado. Este
 trabajo de tesis de maestría utilizó la librería \textbf{PHOEBE}
-(\textbf{PH}ysics \textbf{O}f \textbf{E}clipsing \textbf{B}inari\textbf{E}s),
-basado en el código WD. En particular se hizo uso de la versión 2.4.13, notando
-las varias mejoras realizadas en esta segunda versión mayor en comparación con
-versiones menores a 2.0, las cuales utilizaban el código WD como el motor
-principal del modelo.
+(\textbf{PH}ysics \textbf{O}f \textbf{E}clipsing
+\textbf{B}inari\textbf{E}s\footnote{\url{http://phoebe-project.org}}), basado en
+el código WD. En particular se hizo uso de la versión 2.4.13, notando las varias
+mejoras realizadas en esta segunda versión mayor en comparación con versiones
+menores a 2.0, las cuales utilizaban el código WD como el motor principal del
+modelo.
 
 \section{Estructura de PHOEBE}
 
-% TODO: termina 
 PHOEBE es un paquete de software escrito en Python para generar modelos de
 sistemas binarios estelares generales, partiendo del modelo de Roche y modelos
 de atmósferas estelares, produciendo datos sintéticos (curvas de luz
@@ -117,9 +117,9 @@ En la \refcode{codigoAsignandoTeffPhoebe} se puede ver la estructura de los par�
 
 \section{\quotes{Modelo Hacia Adelante}}
 
-El propósito principal de códigos como PHOEBE cae en su capacidad para generar
+El propósito principal de librerías como PHOEBE cae en su capacidad para generar
 un \quotes{\textbf{modelo hacia adelante}} (traducido de forma directa de su nombre
-en inglés: \textbf{forward model}). Se parte de un modelo del sistema\textemdash
+en inglés: \textbf{forward model}). Parte de un modelo del sistema\textemdash
 en el caso de un sistema binario, este viene siendo el modelo de Roche junto a
 una formulación de las superficies estelares\textemdash el cual se va integrando
 en el tiempo, produciendo como resultado datos sintéticos observables como una
@@ -156,7 +156,7 @@ este capitulo.
 
 \subsection{Discretización de la Superficie Estelar}
 
-Partiendo del modelo de Roche es como se determina la superficie de ambas
+Partiendo del modelo de Roche se determinan las superficies de ambas
 componentes, siguiendo el principio de superficies equipotenciales. Sin embargo,
 una descripción analítica de las variaciones de las propiedades estelares
 resultaría en una complejidad de tiempo intratable del problema; a pesar de
@@ -226,7 +226,7 @@ encontrar raíces como el de \textit{Newton-Raphson}:
 Donde se define $z_{\mathrm{pol}} \equiv \varrho_{\mathrm{pol}}$ como el valor
 de referencia del radio al polo de la estrella
 \citetbooksection{phoebeScientificReference}{5.1.1}. Al hacer uso de la derivada
-$f\prime (\varrho_{\perp})$\textemdash la cual se puede obtener como lo muestra
+$f' (\varrho_{\perp})$\textemdash la cual se puede obtener como lo muestra
 \citetbooksection{phoebeScientificReference}{5.1.1}\textemdash es posible
 implementar un método para encontrar las raíces de esta ecuación. El muestreo de la superficie se hace a intervalos regulares de latitud y longitud:
 
@@ -298,11 +298,11 @@ equipotenciales del campo no son constantes en volumen. En teoría, si una
 estrella se rige a solo las superficies equipotenciales del mismo valor en cada
 fase orbital, la estrella debería de comprimirse o expandirse, irradiando parte
 de su energía a su ambiente exterior, llegando rápidamente a una órbita
-circular. Sin embargo, esto no es un fenómeno que se ha observado en la
-literatura; al contrario, existen sistemas como las estrellas \quotes{heartbeat}
-(nombrado por su parecido a una lectura de un electrocardiograma) cuya
-variabilidad se debe a la distorsión de sus superficies por fuerzas de marea en
-órbitas excéntricas
+circular. Sin embargo, en la literatura no existen observaciones publicadas que
+apoyen esta teoría; al contrario, existen sistemas como las estrellas
+\quotes{heartbeat} (nombrado por su parecido a una lectura de un
+electrocardiograma) cuya variabilidad se debe a la distorsión de sus superficies
+por fuerzas de marea en órbitas excéntricas
 \citeyearparen{thompson_class_eccentric_binaries_tidal_distortion_heartbeat_2012}.
 Como consecuencia, PHOEBE adopta un mecanismo para preservar el volumen del
 sistema; al momento de muestrear la superficie para generar la malla
@@ -352,7 +352,7 @@ Donde $\sigma = 5.67 \times 10^{-8} \mathrm{W} \mathrm{m}^{-2} \mathrm{K}^{-4}$
 es la constante de Stefan-Boltzmann, $\bar{\kappa}$ es el coeficiente de
 opacidad de Rosseland (el cual describe la opacidad, o la probabilidad de un
 fotón de atravesar un medio\textemdash en este caso la superficie estelar),
-$\rho$ es la densidad del material en la fotosfera, $g$ es la aceleración
+$\rho$ es la densidad del material en la fotósfera, $g$ es la aceleración
 gravitacional local, y $\beta$ es el \textit{coeficiente del oscurecimiento
 gravitacional}. El valor de $\beta$ en lo general se mantiene fijo dependiendo
 de la naturaleza de la envoltura estelar:
@@ -397,7 +397,7 @@ gravedad superficial y temperatura efectiva se puede ver en la
 	local.]{Malla de una estrella cuyas propiedades son las mismas que el Sol,
 	generada utilizando PHOEBE, donde el potencial efectivo es calculado no en
 	base al modelo de Roche, si no basado en su frecuencia de rotación, en el
-	caso de una estrella singular\textemdash a pesar de que esta información no
+	caso de una estrella aislada\textemdash a pesar de que esta información no
 	esté documentada explícitamente en un documento fácil de encontrar, esto se
 	puede ver en el código fuente de PHOEBE 2, en este caso en el archivo
 	\href{https://github.com/phoebe-project/phoebe2/blob/master/phoebe/distortions/rotstar.py}{\code{rotstar.py}}.
@@ -459,10 +459,10 @@ monocromática sobre todas las longitudes de onda:
 	\label{figuraMallaPhoebeIntensidadNormal}
 \end{figure}
 
-Utilizando la intensidad monocromática definida en la
+Utilizando la intensidad monocromática dada por la
 \refequation{ecuacionIntensidadMonocromatica} se usa para definir la
 \textbf{distribución espectral de energía} (\textbf{SED} por sus siglas en
-inglés), donde $\mathcal{S} \equiv \mathrm{d}I_{\lambda}/\mathrm{d}\lambda$. El
+inglés), donde $\mathcal{S} \equiv \mathrm{d}I_{\lambda}/\mathrm{d}\lambda$. La
 SED calculado depende tanto en las propiedades de la estrella como en el modelo
 empleado para su atmósfera estelar; en el caso de un cuerpo negro, su SED
 depende solo de su temperatura efectiva, mientras que modelos como
@@ -473,7 +473,7 @@ adelante de una estrella es de gran importancia determinar la intensidad en una
 describe la cantidad de radiación incidente que traspasa el sistema óptico.
 PHOEBE tiene varias pasa bandas disponibles, como por ejemplo la de
 \textit{Johnson:V} vista en la \reffigure{figuraPhoebePasabandaJohnsonV}.
-Utilizando la pasa banda elegida y el SED calculado se computa la intensidad de
+Utilizando la pasa banda elegida y la SED calculado se computa la intensidad de
 la pasa banda con la siguiente ecuación:
 
 \begin{eqfloat}
@@ -519,7 +519,7 @@ forma la base del análisis fotométrico de un sistema binario estelar.
 \section{El Problema Inverso}
 
 El tener un modelo sofisticado de un sistema binario estelar nos ayuda a
-entender los mecanismos responsables por su comportamiento, incluyendo como
+entender los mecanismos responsables de su comportamiento, incluyendo como
 afectan las diferentes combinaciones de parámetros estelares en las curvas
 observables del sistema. Sin embargo, el propósito de modelos como PHOEBE o WD
 yace en determinar los parámetros físicos que, una vez imputadas al modelo,
@@ -533,7 +533,7 @@ cuyos errores y sesgos sean aceptables.
 
 \subsection{Función de Calidad}
 
-Para saber si un modelo es un buen ajusto a una curva observable de un sistema
+Para saber si un modelo es un buen ajuste a una curva observable de un sistema
 es necesario definir una función que sirva para parametrizar el error entre el
 modelo sintético y los datos reales. Para una curva observada, se calcula el
 $\chi^2$, el cual se define como la siguiente expresión:
@@ -568,7 +568,7 @@ simplifica la previa ecuación a solo $\sigma_{i}^{2} = \sigma_{i,o}^{2}$.
 Estos datos no necesariamente son mediciones fotométricas del sistema; pueden
 ser velocidades radiales o intensidades de lineas espectrales. El subíndice $k$
 denota la curva para la cual se está calculando el ajuste del modelo. Si se
-tiene varias curvas observadas (por ejemplo, en diferentes bandas fotométricas)
+tienen varias curvas observadas (por ejemplo, en diferentes bandas fotométricas)
 el ajuste total del modelo se califica por la suma de los ajustes individuales a
 cada curva observable:
 
@@ -602,7 +602,9 @@ compleja, el cual implica que existen más de una combinación de valores para l
 parámetros del modelo que se ajustan a un mismo conjunto de curvas
 observacionales, el cual se resalta en casos de degeneración de un modelo, donde
 2 o más parámetros se ven correlacionados de tal manera que existen una cantidad
-infinita de soluciones al problema. Para finalizar la descripción de PHOEBE con
+infinita de soluciones al problema. 
+
+Para finalizar la descripción de PHOEBE con
 respecto a este trabajo de tesis, se describe un proceso de ajuste de modelo a
 un conjunto de curvas de luz fotométricas, utilizando herramientas dadas dentro
 de PHOEBE, con la finalidad de llegar a la mejor combinación de parámetros
@@ -612,7 +614,7 @@ parámetros y modelos degenerados.
 \subsection{Estimación Inicial de Parámetros}
 
 La solución final para un sistema binario va a depender de manera significativa
-de los valores iniciales de los cuales se parte las siguientes etapas del
+de los valores iniciales de los cuales parten las siguientes etapas del
 ajuste. El proceso de estimar los valores iniciales es una combinación de
 manipulación manual y herramientas diseñadas para un ajuste rápido a los datos
 observacionales. Para utilizar estos estimadores es necesario primero encontrar
@@ -623,7 +625,7 @@ principales utilizados en la literatura son \textit{Lomb-Scargle}
 un modelo sinusoidal a una serie de tiempo (cuyas muestras no requieren haber
 sido tomadas en intervalos regulares del tiempo) y \textit{Box Least Squares}
 (abreviado como BLS) \citeyearparen{kovacs_bls_periodogram_periodic_transits_2002},
-un algoritmo diseñado para casos donde la señal de los eclipses es diminuto a
+un algoritmo diseñado para casos donde la señal de los eclipses es pequeña a
 comparación con el flujo de base del sistema, por ejemplo los sistemas cuya
 duración de eclipses estelares es mucho menor que el periodo orbital. Existen
 varias implementaciones de periodogramas para su uso en el ámbito de la
@@ -656,14 +658,14 @@ estimador:
 Es posible correr un periodograma de manera automática o manual, dependiendo si
 una malla de frecuencias es dada como entrada al periodograma. Una vez que se
 obtenga el periodo orbital del sistema es posible determinar un punto de partida
-de los parámetros del sistema, utilizando la curva de luz doblada en fase.
+de los parámetros del sistema, utilizando la curva de luz ajustada en fase.
 Dentro de PHOEBE existen 2 distintos métodos para esto: la estimación de
 parámetros utilizando de manera directa la geometría de la curva, o haciendo uso
 de \textbf{EBAI}.
 
 \subsubsection{Geometría de la Curva de Luz}
 Dada una curva de luz fotométrica en fase es posible estimar ciertos parámetros
-del sistema analizando ciertas de sus características geométricas. Una vez que
+del sistema analizando ciertas características geométricas. Una vez que
 se haya encontrado el periodo orbital del sistema\textemdash y por ende haber
 obtenido la curva de luz en fase\textemdash es posible ajustar una función
 analítica compuesta de 2 funciones Gaussianas, un término coseno, un término
@@ -672,7 +674,7 @@ observacionales, generando en total 7 modelos
 \citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}. Utilizando un
 ajuste de mínimos cuadrados a las curvas en fase, una vez estimado los tiempos
 de los eclipses, se determina el mejor modelo usando un criterio. Del modelo
-final se obtiene valores iniciales para tanto propiedades orbitales del
+final se obtienen valores iniciales tanto para propiedades orbitales del
 sistema\textemdash el tiempo de superconjunción primario $t_0$, la excentricidad
 $e$, y el argumento de periastro $\omega_0$\textemdash como propiedades
 relativas entre las estrellas componentes: la suma de radios normalizado al
@@ -693,7 +695,7 @@ basado en los vecinos cercanos de un punto. Los detalles de KNN se encuentran en
 dentro del paquete de Python \code{scikit-learn}. Una red neuronal es compuesta
 de varias capas de procesamiento, donde cada capa está compuesta de unidades
 individuales (o \quotes{neuronas}) que propagan valores de acuerdo a su función
-de activación. Esta arquitectura es la que las permite \quotes{aprender}
+de activación. Esta arquitectura es la que les permite \quotes{aprender}
 relaciones en modelos no lineales como el de un sistema binario. Hasta el
 momento (PHOEBE version $\leq$2.4.13) el estimador de EBAI es el único capaz de
 estimar los parámetros de un sistema binario en contacto; un esquema de su
@@ -914,6 +916,9 @@ logaritmo natural de esta función, la cual se define en
 La \textbf{evidencia} se define como la verosimilitud del modelo $M$ integrado
 sobre todos los valores posibles de parámetros:
 
+% TODO: formatting new page
+\newpage
+
 \begin{eqfloat}[!ht]
 	\centering
 	\begin{equation}
@@ -992,9 +997,6 @@ distribuida} (\textbf{IID} por sus siglas en inglés) tras $n$ iteraciones:
 	\end{equation}
 \end{eqfloat}
 
-% TODO: maybe remove, present only for formatting
-\newpage
-
 Donde el peso de cada muestra se toma como $1/n$ debido a que las muestras se
 consideran IID. El proceso de generar cada muestra en la cadena de Markov
 consiste de un algoritmo probabilístico que solo depende de la muestra anterior;
@@ -1038,6 +1040,9 @@ en donde la nueva posición de una cadena depende otra cadena en el ensamble $S 
 $X_k$, primero se toma otro caminador del ensamble complementario $S_{[k]} =
 {X_j, j \neq k}$ del cual proponer una nueva posición $Y$:
 
+% TODO: formatting new page
+\newpage
+
 \begin{eqfloat}[!ht]
 	\centering
 	\begin{equation}
@@ -1063,9 +1068,6 @@ da un valor de $c = 2$, pero en principio es un parámetro ajustable del
 algoritmo para obtener mejores resultados según el problema en cuestión. Una vez
 obtenido una nueva posición se evalúa con un criterio parecido a aquel
 implementado en el algoritmo de Metropolis-Hastings:
-
-% TODO: maybe delete, only here for formatting
-\newpage
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -1192,8 +1194,8 @@ actuales de los parámetros en el bundle visto en la \refcode{codigoMuestreoPrio
 
 \begin{figure}[!ht]
 	\centering
-	\xincludegraphics[scale=0.35, label=\textbf{(a)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Gaussian.png}
-	\xincludegraphics[scale=0.35, label=\textbf{(b)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Uniform.png}
+	\xincludegraphics[scale=0.36, label=\textbf{(a)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Gaussian.png}
+	\xincludegraphics[scale=0.36, label=\textbf{(b)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Uniform.png}
 	\caption{Gráfica mostrando las distribuciones creadas por el código en la
 	\refcode{codigoMuestreoPriors}. Este \textit{corner plot} (su nombre en
 	inglés) permite ver las distribuciones de los parámetros individuales en el
