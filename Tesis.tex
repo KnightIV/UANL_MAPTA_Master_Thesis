@@ -1,17 +1,17 @@
 \documentclass[12pt,a4paper]{report}
-% \documentclass[12pt,a4paper]{unam-thesis}
+
+\usepackage[utf8]{inputenc}
 
 \usepackage{geometry}
 
 \usepackage{makecell}
-% \usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc}
 \renewcommand\theadfont{\bfseries\sffamily}
 
-\usepackage{fixltx2e}
 \usepackage{float}
 \usepackage{titlesec}
 \usepackage{amssymb,amsmath,mathtools}
-\usepackage{mhchem}
+\usepackage[version=4]{mhchem}
 \usepackage[]{graphicx} \graphicspath{ {Fig/} }
 \usepackage{caption}
 \usepackage[]{xcolor}
@@ -29,10 +29,13 @@
 \usepackage{titling}
 \usepackage{lstautogobble}
 
+\usepackage{manfnt}
 \usepackage{csquotes}
-% \usepackage[style=authoryear, natbib=true, backend=biber]{biblatex}
-\usepackage[style=authoryear]{biblatex}
-\addbibresource[]{ref.bib}
+\usepackage[style=apa]{biblatex}
+
+\DeclareDelimFormat[textcite]{finalnamedelim}{\addspace\&\space}
+
+\addbibresource{ref.bib}
 
 \ExplSyntaxOn
 \NewCoffin\imagecoffin
@@ -157,7 +160,6 @@
     basicstyle=\footnotesize\ttfamily,
     breakatwhitespace=false,
     breaklines=true,
-    % breaklines=false,
     captionpos=b,
     keepspaces=true,
     numbers=left,
@@ -201,9 +203,9 @@
 \newcommand{\quotes}[1]{``#1''}
 \newcommand{\code}[1]{\texttt{#1}}
 
-\newcommand{\citeyearparen}[1]{\Citeauthor{#1} (\cite*{#1})}
-\newcommand{\citetbookchapter}[2]{\Citeauthor{#1} (\cite*[\textcolor{MyLightBlue}{Capítulo #2}]{#1})}
-\newcommand{\citetbooksection}[2]{\Citeauthor{#1} (\cite*[\textcolor{MyLightBlue}{Sección #2}]{#1})}
+\newcommand{\citeyearparen}[1]{\textcite{#1}}
+\newcommand{\citetbookchapter}[2]{\textcite[\textcolor{MyLightBlue}{Capítulo #2}]{#1}}
+\newcommand{\citetbooksection}[2]{\textcite[\textcolor{MyLightBlue}{Sección #2}]{#1}}
 
 % https://tex.stackexchange.com/questions/11031/how-to-do-the-curvy-l-for-lagrangian-or-laplace-transforms#11144
 \newcommand{\Lagr}{\mathcal{L}}
@@ -297,6 +299,7 @@
 
 
 \begin{document}
+
 \title{Estudio Fotométrico de Variables Cataclísmicas}
 \author{Ramón Caballero Villegas}
 % \date{19th July 2017}
@@ -429,7 +432,6 @@ This research made use of ccdproc, an Astropy package for
 image reduction \citeyearparen{ccdproc241}.
 \clearpage
 
-% \bibliography{ref}
 \printbibliography
 
 \end{document}

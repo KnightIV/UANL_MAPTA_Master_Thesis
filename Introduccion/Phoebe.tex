@@ -1,14 +1,17 @@
 \chapter{PHOEBE - Modelo Computacional}
 
-Como se ha planteado, los sistemas binarios estelares ofrecen una oportunidad de
-analizar el comportamiento, la estructura, y la evolución estelar que sería imposible 
-deducir en estrellas aisladas. Sin embargo, el análisis analítico es una herramienta
-restringida en cuanto a la cantidad de información que puede extraer de una
-curva de luz; las ecuaciones que rigen un sistema binario no tienen una solución
-analítica. Para resolver este problema, se desarrollan códigos capaces de simular la
-física de un sistema binario, el cual partiendo de ciertos parámetros estelares
-y orbitales pueden reproducir los datos observacionales de un sistema
-equivalente en la bóveda celeste.
+Utilizando el modelo de Roche combinado con el modelo de transporte de radiación
+en el interior estelar, es posible generar una curva de luz observable sintética
+de un sistema binario estelar, dado los parámetros físicos del sistema. Para
+realizar esta tarea se utilizan códigos computacionales que integran las
+ecuaciones planteadas en el \refthesischapter{capituloSistemasBinarios}. El uso
+principal de estos modelos sintéticos computados es en la comparación con curvas
+reales observadas de sistemas binarios; los parámetros del modelo se pueden
+ajustar de tal manera que se encuentre la mejor combinación de valores que
+resulten en una curva sintética (fotométrica en el caso de una curva de luz,
+velocidades radiales, etc.) cuya diferencia con la curva observada sea la menor
+posible. El proceso del ajuste del modelo es laborioso, por lo cual se han
+desarrollado códigos que proporcionan herramientas para facilitar esta tarea.
 
 En el campo de sistemas binarios estelares, uno de los primeros códigos con
 mayor impacto es el código \textbf{Wilson-Devinney}, descrito por primera vez en
@@ -42,7 +45,7 @@ cuya funcionalidad depende de un servidor de PHOEBE (una instancia de
 \code{phoebe-server}) corriendo, de manera remota o local. Sin embargo, estas
 tienen sus limitaciones, y por lo general el equipo de PHOEBE recomiendan usar
 el paquete de Python de manera directa, escribiendo códigos en Python que llamen
-a funciones y manipulen los datos del modelo. Un código escrito y ejecutado no
+a funciones y manipulen los parámetros del modelo. Un código escrito y ejecutado no
 solo ofrece un mayor grado de libertad al momento de tratar los datos, si no que
 sirve como una receta que cualquiera puede analizar y ejecutar para obtener los
 mismos resultados de un experimento. Este trabajo de tesis unicamente hizo uso
@@ -83,20 +86,16 @@ contraparte real) y datos reales obtenidos del catálogo ZTF:
 \end{figure}
 
 A diferencia de otros códigos en el mundo de software, PHOEBE no utiliza mucho
-la programación orientada a objetos para manipular el modelo (por ejemplo,A
-diferencia de otros códigos en el mundo de software, PHOEBE no utiliza mucho la
-programación orientada a objetos para manipular el modelo (por ejemplo,
+la programación orientada a objetos para manipular el modelo (por ejemplo
 manipulando un objeto que represente la estrella primaria); la arquitectura de
 PHOEBE consolida todos los parámetros al nivel del bundle, tanto para tener
-acceso conveniente como para tener flexibilidad en cambiar el modelo de manera
+acceso conveniente para tener flexibilidad en cambiar el modelo de manera
 dinámica\textemdash por ejemplo agregando una componente de luz externa al
-sistema. manipulando un objeto que represente la estrella primaria); la
-arquitectura de PHOEBE consolida todos los parámetros al nivel del bundle, tanto
-para tener acceso conveniente como para tener flexibilidad en cambiar el modelo
-de manera dinámica\textemdash por ejemplo agregando una componente de luz
-externa al sistema. Los parámetros de un bundle están organizados en una
-jerarquía, en donde un identificador no es único en un solo nivel. Por ejemplo,
-para inspeccionar la temperatura efectiva de las estrellas:
+sistema. Los parámetros de un bundle están organizados en una jerarquía, en
+donde un identificador no es único en un solo nivel. Por ejemplo, el código para
+inspeccionar la temperatura efectiva de la estrella primaria y asignar un valor
+a la temperatura efectiva de la estrella secundaria se puede ver en la
+\refcode{codigoAsignandoTeffPhoebe}.
 
 \begin{figure}[!ht]
 	\begin{lstlisting}[language=Python, autogobble]
@@ -113,7 +112,15 @@ para inspeccionar la temperatura efectiva de las estrellas:
 	\label{codigoAsignandoTeffPhoebe}
 \end{figure}
 
-En la \refcode{codigoAsignandoTeffPhoebe} se puede ver la estructura de los parámetros de un bundle, en el cual existen más de un parámetro con el calificador (\code{qualifier} por su nombre en inglés y su nombre en el código) \code{teff}. Estos se diferencian por la componente (\code{component} en el código) a la que le pertenecen, en donde \code{primary} se refiere a la estrella primaria y \code{secondary} a la secundaria, por sus identificadores respectivos en inglés. Más información\textemdash incluyendo la información más actual en el caso de ver una versión de PHOEBE mayor de 2.4.13\textemdash se puede encontrar en la página de documentación de PHOEBE\footnote{\url{http://phoebe-project.org/docs/2.4/tutorials/general_concepts}}.
+Los parámetros de un bundle están organizados de tal manera que existen más de
+un parámetro con el calificador (\code{qualifier} por su nombre en inglés y su
+nombre en el código) \code{teff}. Estos se diferencian por la componente
+(\code{component} en el código) a la que le pertenecen, en donde \code{primary}
+se refiere a la estrella primaria y \code{secondary} a la secundaria, por sus
+identificadores respectivos en inglés. Más información\textemdash incluyendo la
+información más actual en el caso de ver una versión de PHOEBE diferente a
+2.4.13\textemdash se puede encontrar en la página de documentación de
+PHOEBE\footnote{\url{http://phoebe-project.org/docs/2.4/tutorials/general_concepts}}.
 
 \section{\quotes{Modelo Hacia Adelante}}
 
@@ -407,6 +414,9 @@ gravedad superficial y temperatura efectiva se puede ver en la
 	\label{figuraMallaPhoebeTeffLogg}
 \end{figure}
 
+% TODO: formatting new page
+\newpage
+
 \subsection{Radiación Emergente}
 
 Una vez determinada la distribución de parámetros superficiales es posible
@@ -555,6 +565,9 @@ PHOEBE. En el caso de tener incertidumbres que han sido subestimadas se
 introduce el termino $\sigma_{inf}$, donde al final se obtiene la incertidumbre
 $\sigma_{i}$:
 
+% TODO: formatting new page
+\newpage
+
 \begin{eqfloat}[!ht]
 	\centering
 	\begin{equation}
@@ -632,7 +645,6 @@ varias implementaciones de periodogramas para su uso en el ámbito de la
 astrofísica; ambos están disponibles dentro de PHOEBE en la forma de un
 estimador:
 
-% TODO: usar figure float o crear algo nuevo para solo bloques de código? pregunta a Dr.
 \begin{figure}[!ht]
 	\begin{lstlisting}[language=python, autogobble]
 	periodogram_freqs = phoebe.linspace(0.001, MAX_FREQ, NUM_FREQS)
@@ -753,7 +765,7 @@ hizo uso de 2 optimizadores principales: \textbf{el simplex de Nelder-Mead} y
 Descrito por primera vez por \citeyearparen{nelder_mead_simplex_1965}, el
 \textbf{simplex de Nelder-Mead} (NMS por sus siglas en inglés) es un algoritmo
 heurístico que explora el espacio de parámetros mediante un \textit{simplex}, un
-politopo compuesto de varios vertices que representan distintos puntos en la
+politopo compuesto de varios vértices que representan distintos puntos en la
 función que se busca optimizar. En el caso de PHOEBE, la función a optimizar es
 $\chi^2$; para esto es necesario evaluar el ajuste en cada punto del simplex, lo
 cual requiere calcular el modelo hacia adelante para cada punto de prueba. Esto
@@ -773,9 +785,9 @@ inclinación orbital, razón de masas, y cualquier otro incluido en el cálculo.
 método de NMS solo requiere evaluaciones de la función de costo en los puntos
 del simplex; esto lo hace un método adecuado para optimizar funciones altamente
 no-lineales a cambio de una baja eficiencia computacional 
-dependiendo del número de vertices a evaluar. En total, la cantidad
-de vertices empleados depende del número de dimensiones del modelo; en el caso
-de optimizar $n$ parámetros del sistema binario, NMS utilizará $n+1$ vertices, o
+dependiendo del número de vértices a evaluar. En total, la cantidad
+de vértices empleados depende del número de dimensiones del modelo; en el caso
+de optimizar $n$ parámetros del sistema binario, NMS utilizará $n+1$ vértices, o
 combinaciones de parámetros. Con cada iteración, el método manipula el simplex
 por medio de transformaciones geométricas, como lo muestra
 \citetbooksection{phoebeScientificReference}{6.4}. En el ajuste de un sistema
@@ -786,7 +798,7 @@ geométrico despreciable), o cuando hayan pasado un cierto número de iteracione
 en el caso que no haya sido completamente exitoso. Su uso se puede ver en la
 \refcode{codigoOptimizadorNMS}. Para más información de la implementación y uso
 del optimizador se puede hacer referencia a la documentación de
-SciPy\footnote{\url{https://docs.scipy.org/doc/scipy/reference/optimize.minimize-neldermead.html}}
+SciPy\footnote{\url{https://docs.scipy.org/doc/scipy/reference/optimize.minimize-neldermead.html}}.
 
 \begin{figure}[!ht]
 	\centering
@@ -804,7 +816,7 @@ SciPy\footnote{\url{https://docs.scipy.org/doc/scipy/reference/optimize.minimize
 	por el argumento \code{fit\_parameters} del resolvedor (\textit{solver} por
 	su categoría en inglés). Se especifica 50 como el máximo número de
 	iteraciones que tiene permitido correr el optimizador en dado caso que no
-	llegue a convergir a una solución; el criterio de convergencia se define por
+	llegue a converger a una solución; el criterio de convergencia se define por
 	los argumentos \code{xatol} y \code{fatol} que definen una tolerancia de
 	convergencia para los parámetros de entrada y la función de costo,
 	respectivamente.}
@@ -814,7 +826,7 @@ SciPy\footnote{\url{https://docs.scipy.org/doc/scipy/reference/optimize.minimize
 \subsubsection{Correcciones Diferenciales}
 
 Una de las formas más directas de explorar el espacio de parámetros y llegar a
-un valor optimo de la función de costo es por el método de \textbf{correcciones
+un valor óptimo de la función de costo es por el método de \textbf{correcciones
 diferenciales}. Este algoritmo trabaja evaluando derivadas parciales de la
 función; estas son evaluadas por medio de diferencias finitas como se ve en la
 \refequation{ecuacionDiferenciasFinitas}.
@@ -973,7 +985,7 @@ interés $m(\mathbf{\Theta_i})$:
 	\end{equation}
 \end{eqfloat}
 
-Dados suficientes iteraciones, la densidad $\rho(\mathbf{\Theta})$ estará
+Dadas suficientes iteraciones, la densidad $\rho(\mathbf{\Theta})$ estará
 distribuida de la misma forma que la distribución posterior
 $\mathcal{P}(\mathbf{\Theta})$; esto se puede integrar para llegar al
 \textit{valor esperado} de la distribución posterior, la cual es definida como:
@@ -1016,7 +1028,7 @@ densidad posterior no normalizada (antes de dividir por la evidencia
 $\mathcal{Z}$ para llegar a la función de densidad de probabilidad
 $\mathcal{P}$), y $\mathcal{Q}(\mathbf{\Theta}_1 ; \mathbf{\Theta}_2)$
 representa la función de densidad de propuestas, la cual calcula la probabilidad
-de obtener una nueva muestra $\mathbf{\Theta}'$ dado la muestra/posición actual
+de obtener una nueva muestra $\mathbf{\Theta}'$ dada la muestra/posición actual
 $\mathbf{\Theta}$. El factor $a$ representa la probabilidad de aceptar la nueva
 muestra $\mathbf{\Theta}'$: si $a \geq 1$, entonces se toma $\mathbf{\Theta}'$
 como la nueva posición de la cadena. Si $a <1$, se acepta la nueva muestra con
@@ -1035,7 +1047,7 @@ invarianza de transformaciones afines para generar cadenas de muestras con un
 tiempo menor de convergencia a la solución final. \code{emcee} implementa un
 algoritmo denominado el \textit{stretch move}, descrito en
 \citeyearparen{goodman_ensemble_samplers_affine_invariance_gw10_stretch_move_2010},
-en donde la nueva posición de una cadena depende otra cadena en el ensamble $S =
+en donde la nueva posición de una cadena depende de otra cadena en el ensamble $S =
 {X_k}$, para $k$ caminadores $X \in {X_1, X_2, ..., X_k}$. Dado un caminador
 $X_k$, primero se toma otro caminador del ensamble complementario $S_{[k]} =
 {X_j, j \neq k}$ del cual proponer una nueva posición $Y$:
@@ -1064,7 +1076,7 @@ Donde $Z$ es un valor aleatorio muestreado de una distribución $g(z = Z)$:
 
 Donde se define el conjunto $\mathrm{Cond}(z) = [1/c, c]$ dado un valor $c$;
 \citeyearparen{goodman_ensemble_samplers_affine_invariance_gw10_stretch_move_2010}
-da un valor de $c = 2$, pero en principio es un parámetro ajustable del
+dan un valor de $c = 2$, pero en principio es un parámetro ajustable del
 algoritmo para obtener mejores resultados según el problema en cuestión. Una vez
 obtenido una nueva posición se evalúa con un criterio parecido a aquel
 implementado en el algoritmo de Metropolis-Hastings:
@@ -1087,7 +1099,7 @@ K/2 \}$ y $S^{(2)} = \{ X_k; k = (K/2) + 1, ..., K \}$ para un ensamble total
 compuesto de $K$ caminadores. Esto permite actualizar la posición de todos los
 caminadores en un subconjunto $S^{(1)}$ o $S^{(2)}$ simultáneamente usando los
 caminadores en el subconjunto opuesto para proponer su nueva posición.
-\citeyearparen{foreman-mackey_emcee_2013} describe el proceso a mayor detalle,
+\citeyearparen{foreman-mackey_emcee_2013} describen el proceso a mayor detalle,
 mientras que la implementación se puede ver en su repositorio de
 GitHub\footnote{\url{https://github.com/dfm/emcee}}.
 
@@ -1115,16 +1127,17 @@ Esta baja tasa de pasos aceptados causa un largo \textit{tiempo de
 autocorrelación}, el cual describe el número de iteraciones necesarios para que
 una cadena \quotes{olvide} su posición inicial. El tiempo de autocorrelación
 parametriza la cantidad de muestras independientes en el ensamble de cadenas;
-por lo tanto el número de muestras independientes es dado por el número de
+por lo tanto el número de muestras independientes está dado por el número de
 iteraciones totales corridos en el muestreo dividido por el tiempo de
 autocorrelación. Para problemas como el modelado de un sistema binario en
 PHOEBE, este problema se puede mitigar con el uso de una mayor cantidad de
-caminadores (en el orden de 100s de caminadores) y el uso de una distribución
+caminadores (en el orden de cientos de caminadores) y el uso de una distribución
 adecuada de muestreo inicial.\
 
 Para correr un muestreo de parámetros en PHOEBE simplemente se necesita crear un
 nuevo resolvedor (\textit{solver} en la API de PHOEBE) del tipo \code{emcee}, en
-el cual se especifica las características del ensamble. Esto se puede ver en la \refcode{codigoMuestreoMCMC}.
+el cual se especifican las características del ensamble. Esto se puede ver en la
+\refcode{codigoMuestreoMCMC}.
 
 \begin{figure}[!ht]
 	\centering
