@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set release tag
-        run: echo "RELEASE_TAG=latest-${GITHUB_RUN_NUMBER}" >> "$GITHUB_ENV"
+        run: echo "RELEASE_TAG=latest" >> "$GITHUB_ENV"
       
       - name: Pull source
         uses: actions/checkout@v1
