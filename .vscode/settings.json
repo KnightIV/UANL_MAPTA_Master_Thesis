@@ -31,6 +31,9 @@
 		"extrínseco",
 		"extrínsecos",
 		"fillout",
+		"fotometría",
+		"Fotometría",
+		"fotómetros",
 		"fotósfera",
 		"granulación",
 		"Heinze",
@@ -59,6 +62,7 @@
 		"optimizadores",
 		"ortogonalidad",
 		"pasabanda",
+		"pasabandas",
 		"periastro",
 		"periodogram",
 		"planeación",
@@ -79,8 +83,10 @@
 		"subsección",
 		"superconjunción",
 		"Szkody",
+		"transmisividad",
 		"visualizador",
-		"ZAMS"
+		"ZAMS",
+		"Zwicky"
 	],
 	"todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^|%|\\\\)\\s*($TAGS)\\{*|^\\s*- \\[ \\])",
 }
