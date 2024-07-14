@@ -2,31 +2,31 @@
 
 \section{Gaia} \label{muestra:sec:gaia}
 
-Originalmente denominado como GAIA, la misión de \textbf{Gaia} fue lanzada por
+Originalmente denominado como GAIA, la misión \textbf{Gaia} fue lanzada por
 la \textbf{Agencia Espacial Europea} (\textbf{ESA}) el 19 de Diciembre del 2013, con el
 objetivo de generar un mapa tridimensional de la Galaxia.
 Esto incluye calcular las propiedades astrométricas y astrofísicas de sus
 fuentes observadas con mayor precisión que cualquier otro catálogo publicado
 previamente. Para lograr esto se utiliza un satélite espacial, el cual está
 denominado como \textit{Gaia}, ubicado en el punto de Lagrange L2 con respecto al
-sistema Sol-Tierra. Desde este punto la nave tiene una vista sin obstrucciones
+sistema Sol-Tierra. Desde este punto el satélite tiene una vista sin obstrucciones
 que le permite observar una cantidad impresionante de objetos, con \textapproxtilde
-1,000 millones de fuentes visibles con los instrumentos del satélite. [\citeyearparen{gaiaMission}] 
+1,000 millones de fuentes visibles. [\citeyearparen{gaiaMission}] 
 
 \subsection{Data Release 3}
 
 Para facilitar el acceso público a los datos recabados por la misión de \gaia la
-ESA ha escogido liberar los datos públicamente mediante los van recibiendo y
-procesando. Estos son conocidos como los \textit{Data Releases}. Este trabajo se
-basa en el \textbf{Data Release 3}, el cuál de ahora en adelante será denominado
-simplemente \textbf{GDR3}. Este catálogo está compuesto de las observaciones
-hechas por Gaia entre las fechas de 25 de Julio del 2014 y el 28 de Mayo del
-2017, un periodo de tiempo de 22 meses en total. GDR3 consiste
-de \num{1811709771} de fuentes individuales. 
+ESA ha escogido liberar los datos públicamente conforme los van recibiendo y
+procesando. Estos son conocidos como los \textit{Data Releases}. Este trabajo
+emplea el \textbf{Data Release 3} (\textbf{GDR3}) el cual está compuesto de las
+observaciones hechas por Gaia entre el 25 de Julio del 2014 y el 28 de Mayo del
+2017, un periodo de 22 meses en total. GDR3 consiste de información para
+\num{1811709771} de fuentes individuales, incluyendo parámetros astrométricos y
+datos fotométricos. 
 
-Los datos utilizados en este estudio fueron accedidos a través de el
+Los datos utilizados en este trabajo fueron obtenidos a través de
 \textit{Gaia Archive}\footnote{\url{https://gea.esac.esa.int/archive/}}, una
-herramienta libre publicada por la ESA. Este cuenta con una interfaz de
+herramienta libre publicada por la ESA. Esta cuenta con una interfaz de
 ADQL\footnote{\url{https://www.ivoa.net/documents/ADQL/20180112/PR-ADQL-2.1-20180112.html}},
 un lenguaje estructurado para hacer consultas a las tablas en la base de datos
 de Gaia. Aparte de las tablas publicadas por la ESA también se pueden acceder a
@@ -40,13 +40,12 @@ corrigiendo por errores sistemáticos en la medición del paralaje de las fuente
 \subsection{Fotometría}
 
 Compuesto de 2 tubos ópticos que comparten un mismo plano focal, el instrumento
-principal de Gaia fue hecho con el objetivo de escanear el cielo entero,
-sistemáticamente obteniendo observaciones de cada objeto que atraviesa su campo
-de visión y midiendo sus propiedades astrométricas (su paralaje, las componentes
-de su posición angular, y las componentes de su movimiento propio) a lo largo
-del tiempo utilizando observaciones hechas en diferentes tiempos. Información a
-detalle de los instrumentos abordo de Gaia se puede encontrar en la página web
-de la misma
+principal de Gaia fue fabricado con el objetivo de escanear el cielo entero,
+sistemáticamente obteniendo observaciones de cada objeto que pasa por su campo
+de visión, midiendo sus propiedades astrométricas (su paralaje, las componentes
+de su posición angular, y las componentes de su movimiento propio) en diferentes
+tiempos. Información a detalle de los instrumentos abordo de Gaia se puede
+encontrar en la página web de la misma
 misión\footnote{\url{https://www.cosmos.esa.int/web/gaia/instruments}}. 
 
 El instrumento fotométrico de Gaia consiste de una matriz de CCDs ubicada en el
@@ -55,7 +54,7 @@ el procesamiento del tránsito de un objeto; un esquema del plano focal se
 encuentra en la documentación en línea de
 Gaia\footnote{\url{https://www.cosmos.esa.int/web/gaia/focal-plane}}. Tres de
 los grupos de CCDs son los de mayor interés en cuanto a las mediciones
-fotométricas de Gaia: el \textit{Sky Mapper}, los cuales son responsables por
+fotométricas de Gaia: el \textit{Sky Mapper}, los cuales son responsables de
 detectar las fuentes que estén en tránsito del plano focal y de hacer una
 primera medición de la magnitud de la fuente en la pasabanda ancha $G$; y los
 \textit{fotómetros} \textit{azul} y \textit{rojo}, los cuales toman medidas
@@ -81,21 +80,21 @@ técnica con respecto a los campos de los datos.
 
 La colección de catálogos \textbf{Sloan Digital Sky
 Survey}\footnote{\url{https://www.sdss.org}} (de ahora en adelante será referido
-como \textbf{SDSS}) compila varias fuentes de datos astronómicos y astrofísicos
+como \textbf{SDSS}) compila varias fuentes de datos astronómicos
 en un sitio centralizado, con el objetivo de crear un mapa tridimensional del
 Universo con una precisión no vista antes. Estos incluyen imágenes de objetos
 astronómicos en varios colores, acompañados de un espectro obtenido como parte
-de esta misión. Para los finales del siglo XX habían surgido avances
+de esta misión. Para finales del siglo XX habían surgido avances
 tecnológicos que llegarían a revolucionar la astronomía observacional. De estos,
 los de mayor interés ocurrieron con los detectores de estado sólido y en la
-capacidad computacional de procesamiento. Partiendo de estos empezaron a
+capacidad computacional de procesamiento. Partiendo de estos se empezó a
 desarrollar la infraestructura necesaria para recabar datos fotométricos y
 espectroscópicos.
 
 El instrumento principal utilizado es el telescopio de 2.5m, ubicado en el
 observatorio \textit{Apache Point Observatory}, descrito a detalle en
-\citeyearparen{sdss2_5mTelescope}. Este telescopio de diseño de Ritchey-Chrétien
-alimenta dos instrumentos separados; una CCD multi-banda de ancha área, y un par
+\citeyearparen{sdss2_5mTelescope}. Este telescopio de diseño Ritchey-Chrétien
+alimenta dos instrumentos separados; un CCD multi-banda de gran área, y un par
 de espectrógrafos alimentados por fibra óptica. Su construcción empezó en 1998,
 pero no fue hasta el año 2000 que estuvo operacional.
 
@@ -115,8 +114,8 @@ otras galaxias y planetas gaseosos extra-solares.
 
 \section{Zwicky Transient Facility}
 
-El sondeo observacional \textbf{Zwicky Transient Facility} (\textbf{ZTF})
-[\citeyearparen{bellm_ztf_overview_performance_first_results_2018}] tiene de
+El censo observacional \textbf{Zwicky Transient Facility} (\textbf{ZTF})
+[\citeyearparen{bellm_ztf_overview_performance_first_results_2018}] tiene como
 objetivo observar el cielo del hemisferio norte con una cadencia no realizada
 antes por su predecesor el \textit{Palomar Transient Factory}. Las observaciones
 de ZTF se hacen desde el \textit{Observatorio Palomar}, ubicado en San Diego,
@@ -125,10 +124,10 @@ California, haciendo uso del telescopio Schmidt de 48 pulgadas (denominado
 cómputo el sondeo ZTF ofrece una gran mejora en el procesamiento de datos que le
 permite reducir el \quotes{tiempo muerto} entre exposiciones consecutivas,
 aumentando la resolución temporal de observación de fenómenos transitorios y de
-objetos variables. Observaciones de ZTF consisten de tres filtros únicos para
-este sondeo: \textit{ZTF-g}, \textit{ZTF-r}, y \textit{ZTF-i}, cuyas curvas de
+objetos variables. Observaciones de ZTF consisten de tres filtros únicos: 
+\textit{ZTF-g}, \textit{ZTF-r}, y \textit{ZTF-i}, cuyas curvas de
 transmisividad se pueden ver en la \reffigure{figuraZTFPasabandas}. La
-fotometría es calibrada con cada imagen utilizando estrellas de calibración del
+fotometría se calibra con cada imagen utilizando estrellas del
 catálogo de \textit{Pan-STARRS 1} para cada cuadrante, asegurando que se tenga
 un índice de color correcto. Tanto las imágenes tomadas para cada exposición
 como las mediciones de la fotometría reducida están disponibles en Data Releases
