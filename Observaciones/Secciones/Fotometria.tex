@@ -3,186 +3,172 @@
 Para este trabajo se realizó una campaña de observación durante los últimos
 meses del 2022, con la finalidad de observar el sistema durante una fase orbital
 completa. Las fechas y duraciones de cada día de observación se encuentra en la
-\reftable{observationSchedules}. Durante varias de estas noches de observación
-las condiciones del sitio fueron menos que ideal; tanto las condiciones
-meteorológicas como contratiempos causados por el equipo en si causaron
-interrupciones en la medición del brillo del sistema. Esto es esperado en un
-observatorio en proceso de desarrollo; a pesar de los problemas técnicos, se
-pudieron obtener datos de calidad aceptable. 
+\reftable{observationSchedules}. Varias de las noches de observaciones sufrieron
+de pobres condiciones del sitio, las cuales llegaron a afectar la calidad de las
+observaciones; tanto las condiciones meteorológicas como contratiempos causados
+por el equipo en si causaron interrupciones en las exposiciones contiguas y
+perturbaciones en las imágenes mayores a las que se puede corregir en el
+procesamiento de datos. Esto es esperado en un observatorio en proceso de
+desarrollo; a pesar de los problemas técnicos, se pudieron obtener datos de
+calidad aceptable. Los vientos fuertes en el cerro fueron un gran obstáculo
+debido a la nula protección del CCD montado al telescopio, ya que cualquier
+perturbación por parte del viento resultaba en una imagen inservible. Dado que
+las observaciones de este proyecto se realizaron en el 2022 estos problemas
+técnicos no suponen un problema para investigaciones posteriores.
+% TODO: confirma con Dr. Andrés si los problemas ya han sido resueltos
 
 % TODO: style table
 \begin{table}[!ht]
 	\centering
 	\begin{tabular}{|l|l|l|l|}
 		\hline
-		\thead{Fecha} & \thead{HJD Inicio +\textbf{\num{2459000}}} & \thead{Tiempo Expocisiones} & \thead{Duración} \\
+		\thead{Fecha (UTC)} & \thead{HJD Inicio +\textbf{\num{2459000}}} & \thead{Tiempo Expocisiones} & \thead{Duración} \\
 		\hline
-		2022-10-21 & 874.66 & $114 \cdot 60$ s & 2.59 h \\
+		2022-10-22 & 874.67 & $111 \cdot 60$ s & 2.67 h \\
 		\hline
-		2022-10-27 & 880.77 & $93 \cdot 60$ s & 1.86 h \\
+		2022-10-23 & 875.57 & $159 \cdot 60$ s & 5.28 h \\
 		\hline
-		2022-11-05 & 889.67 & $98 \cdot 60$ s & 2.02 h \\
+		2022-10-28 & 880.77 & $124 \cdot 60$ s & 2.11 h \\
 		\hline
-		2022-11-26 & 910.72 & $56 \cdot 60$ s & 1.55 h \\
+		2022-11-06 & 889.58 & $125 \cdot 60$ s & 4.25 h \\
+		% \hline
+		% 2022-11-26 & 910.72 & $56 \cdot 60$ s & 1.55 h \\
 		\hline
-		2022-12-06 & 920.55 & $243 \cdot 60$ s & 4.90 h \\
+		2022-12-07 & 920.55 & $231 \cdot 60$ s & 5.25 h \\
 		\hline
-		2022-12-07 & 921.56 & $163 \cdot 60$ s & 4.20 h \\
+		2022-12-08 & 921.57 & $138 \cdot 60$ s & 4.25 h \\
 		\hline
-		2022-12-08 & 922.53 & $188 \cdot 60$ s & 5.57 h \\
+		2022-12-09 & 922.54 & $127 \cdot 60$ s & 4.97 h \\
 		\hline
-		2022-12-09 & 923.54 & $119 \cdot 60$ s & 5.33 h \\
+		2022-12-10 & 923.54 & $129 \cdot 60$ s & 5.44 h \\
 		\hline
-		2022-12-10 & 924.53 & $122 \cdot 60$ s & 2.20 h \\
+		2022-12-11 & 924.53 & $122 \cdot 60$ s & 2.20 h \\
 		\hline
 
 	\end{tabular}
-	\caption{Fechas de observaciones fotométricas desde el OAU.}
+	\caption{Bitácora de fechas de observaciones fotométricas desde el OAU.}
 	\label{observationSchedules}
 \end{table}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=0.4]{Observaciones/Secciones/Figures/10-22 Sample Image.png}
-	\caption{Imagen del campo de \atoObjIdNoSpace, junto a 2 estrellas de comparación usadas en la fotometría diferencial marcadas en anillos rojos.}
-	\label{ccdImageField}
-\end{figure}
 
 \subsection{Estrellas de Comparación}
 
 Para determinar la magnitud diferencial de un objeto se necesita una estrella de
 comparación que yazca dentro del campo de la imagen de ciencias. Una manera de
-encontrar estrellas de referencias adecuadas es utilizando el
-\href{https://app.aavso.org/vsp/}{Variable Star Plotter} de la \textit{AAVSO};
-sin embargo, debido al diminuto campo de visión de nuestras imágenes
-(aproximadamente 1' de largo), no se encuentra alguna estrella standard
-registrada. Por lo tanto se utilizaron estrellas no variables de la base de
-datos de SIMBAD:
-\href{http://simbad.cds.unistra.fr/simbad/sim-id?Ident=%406898031&Name=TYC%203620-254-1&submit=submit}{TYC
-3620-254-1} y
-\href{http://simbad.cds.unistra.fr/simbad/sim-id?Ident=%406898038&Name=TYC%203620-332-1&submit=submit}{TYC
-3620-332-1}. Sus posiciones relativo a la estrella objetivo \atoObjId se puede
-ver en la figura \ref{ccdImageField}.
+encontrar estrellas de referencias adecuadas es utilizando el Variable Star
+Plotter\footnote{\url{https://app.aavso.org/vsp/}} de la \textit{AAVSO}; sin
+embargo, debido al diminuto campo de visión de nuestras imágenes
+(aproximadamente $1^{\prime}$ de largo), no se encuentra alguna estrella
+standard registrada. Por lo tanto para realizar la fotometría diferencial solo
+es necesario tener estrellas de comparación con un número de cuentas (flujo
+integrado) similar al objetivo principal. El campo visible de \atoObjId
+utilizando el equipo de OAU se puede ver en la \reffigure{figuraCcdCampo}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.5]{Observaciones/Secciones/Figures/Figura Campo Observado.png}
+	\caption{Imagen del campo de \atoObjId marcado con la etiqueta $1$ en, 
+	junto a las estrellas de referencia usadas en la fotometría diferencial 
+	marcadas en anillos rosas marcados con etiquetas del $2$ al $7$.}
+	\label{figuraCcdCampo}
+\end{figure}
 
 \subsection{Procesamiento de Imágenes}
 
 La limpieza de las imágenes incluyó la corrección de bias, darks, y flats por
 medio de imágenes de calibración, las cuales fueron tomadas cada noche de
-observación. Esta sustracción se realizó utilizando el paquete \code{ccdproc} en
-Python, haciendo uso de sus funciones dedicadas al procesamiento de imágenes de
-CCD \citeyearparen{ccdproc241}. El código relevante se puede encontrar en el notebook
-\href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/photometry_clean.ipynb}{\code{photometry\_clean.ipynb}}.
-Una vez que las mediciones hayan sido corregidas de errores sistemáticos, fue
-necesario trasladar los datos dentro de las imágenes para que \atoObjId quede en
-el centro del campo, facilitando la fotometría por apertura. Dentro del mismo
-notebook
-\href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/photometry_clean.ipynb}{\code{photometry\_clean.ipynb}}
-se ejecutó una tarea de \textit{plate solving} para cada imagen calibrada; el
-proceso de \textit{plate solve}, llevado a cabo utilizando \textit{Astrometry}
-\citeyearparen{astrometry}, toma como referencia estrellas dentro del campo de la
-imagen, comparando contra una base de datos pre-definida para determinar las
-coordenadas físicas que corresponden a una imagen. Esta información va
-encapsulada dentro de los metadatos del archivo FITS, conocido como
-\textbf{World Coordinate System} (\textbf{WCS}). Una vez que una imagen sea
-resuelta se puede proyectar a las coordenadas de otra imagen, efectivamente
-\quotes{apilando} el sistema a observar.
+observación. Esto fue realizado utilizando tareas standard de IRAF
+[\citeyearparen{tody_iraf_1986}]. Cada imagen fue revisada manualmente para
+determinar si era de suficiente calidad para hacer una medición adecuada. Se
+analizó la forma que proyecta el objeto en la imagen del CCD; solo las imágenes
+cuyo perfil se aproxima a un circulo fueron aceptadas para realizar el proceso
+de fotometría diferencial.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.44]{Observaciones/Secciones/Figures/Pixel Radial Profile - Gaussian.png}
-	\caption{Perfil Gaussiano de \atoObjId. Esta imagen fue generada en el
-	notebook
-	\href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/iraf/qphot_params_helper.ipynb}{\code{qphot\_params\_helper.ipynb}},
-	en donde se toma un corte transversal los pixeles del centro de la imagen
-	del sistema. A este perfil radial se hace un ajuste de modelo Gaussiano con
-	la finalidad de determinar un tamaño adecuado de aperturas basado en la
-	anchura del modelo.}
-	\label{pixelGaussProfile}
+	\includegraphics[scale=0.4]{Observaciones/Secciones/Figures/Figura Pixel Perfil Contorno.png}
+	\caption{Isógrama de las cuentas registradas del flujo de \atoObjId para un
+	corte de $14 \times 14$ pixeles, donde el color más claro denota una mayor
+	cantidad de cuentas.}
+	\label{figuraPixelContorno}
 \end{figure}
 
+Una vez que las mediciones fueran corregidas, fue necesario trasladar los datos
+dentro de las imágenes para que \atoObjId quede en el centro del campo,
+facilitando la fotometría por apertura. Utilizando el script
+\href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/shift_images.py}{\code{shift\_images.py}}
+se ejecutó una tarea de \textit{plate solving} para cada imagen calibrada; el
+proceso de \textit{plate solve}, llevado a cabo utilizando el programa
+\textit{Astrometry} [\citeyearparen{astrometry}], toma como referencia estrellas
+dentro del campo de la imagen comparando contra una base de datos pre-definida
+para determinar las coordenadas físicas que corresponden a una imagen. Esta
+información va encapsulada dentro de los metadatos del archivo FITS, conocido
+como \textbf{World Coordinate System} (\textbf{WCS}). Una vez que una imagen sea
+resuelta se puede proyectar a las coordenadas de otra imagen, posicionando la
+estrella variable en una posición única dentro del encuadro de cada imagen,
+facilitando el uso de coordenadas en pixeles para definir las aperturas de
+medición fotométrica.
+
 Utilizando las imágenes proyectadas se obtuvo el brillo de \atoObjId utilizando
-la tarea \code{qphot} de IRAF, dando como resultado magnitudes y flujos
-instrumentales del sistema. Para elegir el mejor tamaño de apertura para cada
-día se realizó un análisis del comportamiento del brillo de ambas estrellas de
-referencia; ya que estas se conocen que son estrellas singulares que carecen de
-variabilidad intrínseca esperamos que sus magnitudes a lo largo del tiempo no
-muestren cambios significativos. Al mismo tiempo, debido a las condiciones
-variables durante cada noche de observación no todas las magnitudes medidas
-resultaron útiles debido a una imagen barrida. Para no tener que descartar toda
-una noche de observación se implementó un proceso de \textit{sigma clipping}, en
-el cual se descartan aquellas observaciones que caen fuera de un rango aceptable
-pre-determinado, tomando TYC 3620-332-1 como estrella de referencia. El proceso
-completo se encuentra en el código
-\href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/iraf/qphot_sigma_clip.ipynb}{\code{qphot\_sigma\_clip.ipynb}}.
+la tarea \code{qphot} de IRAF, dando como resultado magnitudes instrumentales
+del sistema. La apertura en tamaño de pixeles se definió en base a la anchura a
+media altura (\textit{full-width at half-maximum}) de \atoObjId para cada
+imagen, utilizando la tarea \code{imexam} de IRAF. Este se usó como el radio de
+la apertura circular, junto a una apertura anular para sustraer el brillo de
+fondo del cielo, el cual se utilizó para las 7 estrellas marcadas en la
+\reffigure{figuraCcdCampo}. Las magnitudes instrumentales medidas se pueden ver
+en la \reffigure{figuraCurvaLuzInstrumentalTodas}. A pesar de que todos los
+objetos muestran un comportamiento variable, esto no es una característica
+intrínseca de todos los sistemas. En particular, la estrella de comparación se
+considera que emite un flujo relativamente constante a comparación del sistema
+variable \atoObjIdNoSpace; por lo tanto, las variaciones vistas en su curva de
+luz se deben a perturbaciones atmosféricas e instrumentales, lo cual nos permite
+eliminar estos efectos por medio de la fotometría diferencial.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.48]{Observaciones/Secciones/Figures/Sigma Clip.png}
-	\caption{Resultado del sigma clipping para el 6 de diciembre. Este proceso
-		se ejecutó para cada fecha de observación, con el fin de eliminar solo
-		los datos más problemáticos. La línea base fue construida usando una
-		técnica de media recorrida, para solo descartar aquellos datos cuya
-		variación local es significante.}
-	\label{sigmaClipSingleDate}
+	\includegraphics[scale=0.4]{Observaciones/Secciones/Figures/Figura Magnitud Instrumental Todas.png}
+	\caption{Magnitudes instrumentales reportada por IRAF mediante la técnica de
+	fotometría de apertura. De los 7 objetos resaltados en la
+	\reffigure{figuraCcdCampo} se distinguen el objeto principal \atoObjId con
+	la etiqueta $1$, y la estrella de referencia utilizada para determinar la
+	magnitud diferencial de \atoObjIdNoSpace. }
+	\label{figuraCurvaLuzInstrumentalTodas}
 \end{figure}
 
 \subsection{Fotometría Diferencial}
-% TODO: upload raw data to GitHub repo and link here
 Para obtener una magnitud diferencial de \atoObjId se necesita de una estrella
-de referencia cuya magnitud en el visible es conocida y bien estudiada.
-\compstarId ha sido observada por varios sondeos, por lo cual se ha medido su
-magnitud en el visible de 11.57. Utilizando esta estrella conocida podemos
-calcular la magnitud diferencial de \atoObjId con la \refequation{observaciones:fotometriadiferencial:magdiferencialec}. Una gran ventaja de
-la fotometría diferencial a comparación de magnitudes absolutas es que llega a
-minimizar los efectos causados por obstrucciones del cielo, como nubes
-intermitentes o celdas turbulentas en la atmósfera. Los resultados para un día
-de observación se encuentra en la \reffigure{differentialMagDec7}, donde se
-puede apreciar la variabilidad de \atoObjId comparado con ambas estrellas de
-referencia. Este proceso se repite para cada noche de observación, al final
-obteniendo una curva de luz del sistema visto en la
-\reffigure{iturbideAtoLightCurve}. El código completo se encuentra en
-\href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/iturbide/iraf/qphot_sigma_clip.ipynb}{\code{qphot\_sigma\_clip.ipynb}}.
+de referencia de la cual se observe un flujo constante. Aparte del requisito de
+ser una fuente constante, una estrella de referencia ideal sería del mismo color
+que el sistema variable \atoObjIdNoSpace; sin embargo, en casos como el de este
+estudio se puede despreciar este último requisito debido al bajo número de
+opciones disponibles dentro del campo visible. Del campo visible en la
+\reffigure{figuraCcdCampo} se eligió el objeto número $5$ como la estrella de
+referencia. Su curva de luz instrumental se puede ver más a detalle en la
+\reffigure{figuraCurvaLuzInstrumentalReferencia}. Por último, la curva de luz de
+magnitud diferencial para \atoObjId se obtiene restando la magnitud instrumental
+del objeto de referencia $5$ de la magnitud instrumental medido para
+\atoObjIdNoSpace, el cual resulta en la curva de luz vista en la
+\reffigure{figuraIturbideAtoLightCurve}. Las imágenes calibradas se encuentran
+como un \textit{Release} dentro del repositorio de GitHub del código de este
+proyecto de investigación, junto a los datos de la fotometría de
+apertura.\footnote{\url{https://github.com/KnightIV/UANL_MAPTA_Observaciones/releases/tag/data}}
 
-% Aquí se calcula el
-% error en las magnitudes instrumentales con la diferencia entre la magnitud
-% medida de TYC 3620-332-1 y su magnitud en el visible reportada en SIMBAD
-\begin{eqfloat}[!ht]
-	\begin{equation} \label{observaciones:fotometriadiferencial:magdiferencialec}
-		\begin{split}
-			& E_{\mathrm{inst}} = V_{\mathrm{\compstarIdNoSpace}} - V_{\mathrm{\compstarIdNoSpace}, \mathrm{inst}} \\
-			& V_{\mathrm{\atoObjId}} = V_{\mathrm{\atoObjId}, \mathrm{inst}} - E_{\mathrm{inst}}
-		\end{split}
-	\end{equation}
-	\caption{Ecuación para obtener la magnitud diferencial de \atoObjIdNoSpace.
-	El primer paso es calcular el error en las magnitudes diferenciales medidas,
-	$E_{\mathrm{inst}}$ utilizando la magnitud conocida de nuestra estrella de
-	comparación, \compstarIdNoSpace, $ V_{\mathrm{\compstarIdNoSpace}}$ y
-	restando la magnitud instrumental medida de las imágenes de observación. Una
-	vez obtenido el error este se resta de la magnitud instrumental de
-	\atoObjIdNoSpace, $V_{\mathrm{\atoObjId}, \mathrm{inst}}$, obteniendo su
-	magnitud diferencial en el visible $V_{\mathrm{\atoObjId}}$.}
-\end{eqfloat}
-	
-\begin{figure}[!ht] 
+\begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.5]{Observaciones/Secciones/Figures/Differential Magnitude 12-07.png}
-	\caption{Magnitud diferencial para \atoObjId junto a las magnitudes de TYC
-	3620-332-1 y TYC 3620-254-1. Esta segunda estrella fue utilizada como
-	estrella de campo, para corroborar que la resta descrita en la ecuación
-	\ref{observaciones:fotometriadiferencial:magdiferencialec} adecuadamente
-	eliminó los errores sistemáticos en otra estrella de referencia.}
-	\label{differentialMagDec7}
+	\includegraphics[scale=0.39]{Observaciones/Secciones/Figures/Figura Magnitud Instrumental Estrella Referencia.png}
+	\caption{Magnitud instrumental de la estrella de referencia utilizada para
+	determinar la magnitud diferencial de \atoObjIdNoSpace. La variabilidad en
+	la curva de luz se atribuye a factores extrínsecos del sistema.}
+	\label{figuraCurvaLuzInstrumentalReferencia}
 \end{figure}
 
 \begin{figure}[!ht]
 	\centering
-	\xincludegraphics[scale=0.4, label=\textbf{(a)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Full LC.png}
-	\xincludegraphics[scale=0.4, label=\textbf{(b)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Hour Sync LC.png}
-	\caption{Magnitud diferencial de \atoObjIdNoSpace. Ambas gráficas muestran
-	los errores de medición, las cuales fueron más altas de lo ideal debido a
-	las condiciones del sitio. \textbf{a)} Curva de luz completa, con cada día
-	de observación. \textbf{b)} Curva de luz segmentada por día. Aquí se logra
+	\xincludegraphics[scale=0.38, label=\textbf{(a)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Full LC.png}
+	\xincludegraphics[scale=0.3, label=\textbf{(b)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Hour Sync LC.png}
+	\caption{Magnitud diferencial de \atoObjIdNoSpace. \textbf{(a)} Curva de luz
+	completa. \textbf{(b)} Curva de luz segmentada por día, con la cual se logra
 	apreciar la cadencia de observación, viendo como cada día se logra observar
 	una fase diferente del sistema.}
-	\label{iturbideAtoLightCurve}
+	\label{figuraIturbideAtoLightCurve}
 \end{figure}
