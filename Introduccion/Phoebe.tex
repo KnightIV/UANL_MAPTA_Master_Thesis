@@ -32,7 +32,7 @@ mejoras realizadas en esta segunda versión mayor en comparación con versiones
 menores a 2.0, las cuales utilizaban el código WD como el motor principal del
 modelo.
 
-\section{Estructura de PHOEBE}
+\section{Estructura de PHOEBE} \label{intro:phoebe:estructura_phoebe}
 
 PHOEBE es un paquete de software escrito en Python para generar modelos de
 sistemas binarios estelares generales, partiendo del modelo de Roche y modelos
@@ -607,6 +607,8 @@ indica un ajuste satisfactorio si $\lambda \approx 1$:
 	\begin{equation}
 		\lambda \coloneq \frac{\chi^2}{N_{\textrm{tot}}}
 	\end{equation}
+	\blankcaption
+	\label{ecuacionLambdaCostoPhoebe}
 \end{eqfloat}
 
 Sin embargo, el modelo descrito en la literatura, y que
@@ -697,7 +699,7 @@ aproximar por la diferencia de profundidad entre el eclipse primario y
 secundario). Este estimador solo es capaz de analizar sistemas separados, por lo
 cual no se utilizó en este trabajo de tesis.
 
-\subsubsection{EBAI - Eclipsing Binaries via Artificial Intelligence}
+\subsubsection{EBAI - Eclipsing Binaries via Artificial Intelligence} \label{intro:phoebe:problema_inverso:ebai}
 \textbf{EBAI} es una red neuronal artificial que hace uso de métodos de
 aprendizaje automático como \textit{K-Nearest Neighbors} para mapear una curva
 de luz observacional a parámetros físicos de un sistema binario estelar. El
@@ -760,7 +762,7 @@ parámetros y llegar a un mínimo de la función de costo. Este trabajo de tesis
 hizo uso de 2 optimizadores principales: \textbf{el simplex de Nelder-Mead} y
 \textbf{correcciones diferenciales}.
 
-\subsubsection{Simplex de Nelder-Mead}
+\subsubsection{Simplex de Nelder-Mead} \label{intro:phoebe:nelder_mead}
 
 Descrito por primera vez por \citeyearparen{nelder_mead_simplex_1965}, el
 \textbf{simplex de Nelder-Mead} (NMS por sus siglas en inglés) es un algoritmo
@@ -823,7 +825,7 @@ SciPy\footnote{\url{https://docs.scipy.org/doc/scipy/reference/optimize.minimize
 	\label{codigoOptimizadorNMS}
 \end{figure}
 
-\subsubsection{Correcciones Diferenciales}
+\subsubsection{Correcciones Diferenciales} \label{intro:phoebe:correcciones_diferenciales}
 
 Una de las formas más directas de explorar el espacio de parámetros y llegar a
 un valor óptimo de la función de costo es por el método de \textbf{correcciones
@@ -856,9 +858,8 @@ permite correr este optimizador por varias iteraciones de manera directa; esto
 obliga al operador a analizar la solución propuesta por el algoritmo y decidir
 si es una solución aceptable. Si es necesario ejecutar más iteraciones, el mismo
 resolvedor es capaz de correr de nuevo, utilizando los valores adoptados de la
-iteración pasada.
 
-\subsection{Muestreo de la Función de Densidad de Probabilidad Posterior}
+\subsection{Muestreo de la Función de Densidad de Probabilidad Posterior} \label{intro:phoebe:problema_inverso:muestreo}
 
 El modelo resultante de los optimizadores en teoría resulta en el mejor ajuste a
 los datos observacionales, lo cual es indicado por la métrica de $\chi^2$. Sin
@@ -923,6 +924,8 @@ logaritmo natural de esta función, la cual se define en
 	\begin{equation}
 		\ln{P(\textbf{D} | \mathbf{\Theta}_{M}, M)} = -0.5 \chi^2
 	\end{equation}
+	\blankcaption
+	\label{ecuacionLnLikelihoodMcmc}
 \end{eqfloat}
 
 La \textbf{evidencia} se define como la verosimilitud del modelo $M$ integrado
