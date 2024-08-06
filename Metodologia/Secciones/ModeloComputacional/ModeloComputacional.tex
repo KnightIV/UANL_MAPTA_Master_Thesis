@@ -389,20 +389,20 @@ en un modelo sintético de PHOEBE.
 		% \rowcolor{blue}
 		\thead{Parámetro}                        & \thead{Valor optimizado} \\
 		\hline
-		\code{teffratio@binary}                  & 1.05923       \\
+		\code{teffratio@binary}                  & 1.06676       \\
 		\hline
-		\code{incl@binary}                       & 69.65312 deg  \\
+		\code{incl@binary}                       & 68.42157 deg  \\
 		\hline
-		\code{fillout\_factor@contact\_envelope} & 0.11717       \\
+		\code{fillout\_factor@contact\_envelope} & 0.07892       \\
 		\hline
-		\code{q@binary}                          & 1.81910       \\
+		\code{q@binary}                          & 1.10457       \\
 		\hline
 	\end{tabular}
 	\caption{Valores optimizados utilizando un optimizador de correcciones diferenciales.}
 	\label{tablaOptDcResultados}
 \end{table}
 
-Después de 1 iteración se obtuvieron los parámetros vistos en la
+Después de 17 iteración se obtuvieron los parámetros vistos en la
 \reftable{tablaOptDcResultados}, de los cuales se generó las curvas sintéticas
 vistas en la \reffigure{figuraOptDcResultadosZtf}. El optimizador de
 correcciones diferenciales no se utilizó para ajustar los parámetros de la
@@ -443,7 +443,7 @@ Una vez que se haya establecido esta configuración del bundle se aplicó un
 optimizador de tipo NMS para ajustar los tres parámetros mencionados en el
 párrafo pasado. Como valor inicial se ajustó manualmente la temperatura efectiva
 de la primaria a $4600 \ \mathrm{K}$, el cual se determinó por medio de
-experimentación manual. Después de 153 iteraciones el optimizador logró
+experimentación manual. Después de 174 iteraciones el optimizador logró
 converger a la solución dada en la \reftable{tablaOptNmTeffResultados}. Dado que
 estos parámetros principalmente afectan el factor de escala de las curvas de
 luz, los demás parámetros del sistema se mantuvieron fijos, manteniendo la forma
@@ -457,11 +457,11 @@ de las curvas de luz.
 		% \rowcolor{blue}
 		\thead{Parámetro}                        & \thead{Valor optimizado} \\
 		\hline
-		\code{teff@primary}							& 4182.73513 K  \\
+		\code{teff@primary}							& 4203.69115 K  \\
 		\hline
-		\code{teffratio@binary}						& 1.05438       \\
+		\code{teffratio@binary}						& 1.05213       \\
 		\hline
-		\code{pblum@primary@lcZtfG}					& 3.54844 W       \\
+		\code{pblum@primary@lcZtfG}					& 4.78643 W       \\
 		\hline
 	\end{tabular}
 	\caption{Valores optimizados para la temperatura efectiva de la estrella
@@ -469,7 +469,7 @@ de las curvas de luz.
 	escala necesario para ajustar a la curva fotométrica. La temperatura
 	efectiva de la secundaria está constreñida por la temperatura efectiva de la
 	primaria y la razón de temperaturas; dado estos parámetros, la temperatura
-	efectiva secundaria es igual a 4410.180984673636 K.}
+	efectiva secundaria es igual a 4422.837561158592 K.}
 	\label{tablaOptNmTeffResultados}
 \end{table}
 
@@ -550,3 +550,61 @@ MCMC.
 \end{figure}
 
 \subsection{Distribuciones Priores}
+
+Para poder muestrear el espacio de parámetros, el algoritmo MCMC requiere de una
+región inicial a partir de cual inicializar las posiciones de cada caminador.
+Estas distribuciones iniciales también actúa como una guía; al principio del
+muestreo los caminadores en su mayoría no saldrán de las regiones de
+concentración de estas distribuciones. La forma de las priores dejará de
+importar tanto entre más iteraciones logre correr la cadena, de la cual se
+estimará la distribución posterior de densidad de cada parámetro.
+
+PHOEBE ofrece unas herramientas para los tipos de distribuciones más comunes en
+este trabajo: la distribución uniforme y la distribución Gaussiana (normal).
+Para el muestreo de \atoObjId se utilizaron distribuciones uniformes para los
+parámetros ajustables del bundle\textemdash todos aquellos que han sido
+ajustados a lo largo de la optimización de parámetros. Una distribución uniforme
+no tiene un significado físico intrínseco más allá de comunicar una falta de
+información del problema. En nuestro caso, las priores sirven para marcar un
+límite práctico para cada parámetro, tanto para evitar que los caminadores se
+pierdan en espacios que produzcan un resultado no físico, cómo para constreñir
+el volumen de interés a lo más cercano de los parámetros óptimos derivados en el
+proceso de optimización. 
+
+Se crearon 3 colecciones de distribuciones en el bundle de PHOEBE para delimitar
+los parámetros ajustables del modelo: 1 para los parámetros de interés del
+sistema binario, 1 para los parámetros que rigen la mancha estelar en la
+componente secundaria, y 1 que restringe el factor de escala en la pasabanda
+ZTF:g. Las colecciones individuales de distribuciones priores se pueden ver en
+la \reffigure{figuraColeccionesPrioresZtf}, la
+\refthesissection{apendice:modelo_computacional_graficas:dist_priores_completas}
+muestra todos los priores utilizados para el proceso de MCMC.
+
+\begin{figure}[!ht]
+	\centering
+	\xincludegraphics[scale=0.29, label=\textbf{a)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Binaria.png}
+	\xincludegraphics[scale=0.345, label=\textbf{b)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Mancha.png}
+	\xincludegraphics[scale=0.85, label=\textbf{c)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Luminosidad ZTF.png}
+	\caption{Distribuciones priores utilizadas como límites iniciales a cada
+	caminador. Se separaron en 3 distintas colecciones por cuestiones de
+	organización dentro del código: \textbf{a)} los parámetros principales del
+	sistema solar que afectan la forma de la curva fotométrica sintética en
+	orden de izquierda a derecha y de arriba a abajo: la temperatura efectiva de
+	la componente primaria ($T_{1}$), la razón de temperaturas ($T_2/T_1$), el
+	factor de relleno ($f$), la inclinación orbital ($i_{\mathrm{orb}}$), y la
+	razón de masas ($q$). \textbf{b)} los parámetros de la mancha estelar en la
+	componente secundaria que se introdujo para tomar en cuenta el efecto
+	O'Connell: su posición con respecto al origen del sistema de coordenadas en
+	la secundaria (la longitud y latitud de la mancha), el radio angular, y la
+	razón de temperatura de la mancha con respecto a la temperatura efectiva
+	local de la superficie de la componente secundaria. \textbf{c)} la
+	luminosidad en la pasabanda ZTF:g, la cual determina el factor de escala de
+	las curvas de luz; este parámetro fue incluido en el muestreo para permitir
+	integrar sobre este \textit{parámetro molesto}, ya que tiene un efecto
+	significativo en la curva sintética pero no es un parámetro que nos interese
+	medir directamente.}
+	\label{figuraColeccionesPrioresZtf}
+\end{figure}
+
+\section{Distribuciones de Probabilidad Posterior}
+
