@@ -582,22 +582,22 @@ muestra todos los priores utilizados para el proceso de MCMC.
 
 \begin{figure}[!ht]
 	\centering
-	\xincludegraphics[scale=0.29, label=\textbf{a)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Binaria.png}
-	\xincludegraphics[scale=0.345, label=\textbf{b)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Mancha.png}
-	\xincludegraphics[scale=0.85, label=\textbf{c)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Luminosidad ZTF.png}
+	\xincludegraphics[scale=0.29, label=\textbf{(a)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Binaria.png}
+	\xincludegraphics[scale=0.345, label=\textbf{(b)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Mancha.png}
+	\xincludegraphics[scale=0.85, label=\textbf{(c)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Luminosidad ZTF.png}
 	\caption{Distribuciones priores utilizadas como límites iniciales a cada
 	caminador. Se separaron en 3 distintas colecciones por cuestiones de
-	organización dentro del código: \textbf{a)} los parámetros principales del
+	organización dentro del código: \textbf{(a)} los parámetros principales del
 	sistema solar que afectan la forma de la curva fotométrica sintética en
 	orden de izquierda a derecha y de arriba a abajo: la temperatura efectiva de
 	la componente primaria ($T_{1}$), la razón de temperaturas ($T_2/T_1$), el
 	factor de relleno ($f$), la inclinación orbital ($i_{\mathrm{orb}}$), y la
-	razón de masas ($q$). \textbf{b)} los parámetros de la mancha estelar en la
+	razón de masas ($q$). \textbf{(b)} los parámetros de la mancha estelar en la
 	componente secundaria que se introdujo para tomar en cuenta el efecto
 	O'Connell: su posición con respecto al origen del sistema de coordenadas en
 	la secundaria (la longitud y latitud de la mancha), el radio angular, y la
 	razón de temperatura de la mancha con respecto a la temperatura efectiva
-	local de la superficie de la componente secundaria. \textbf{c)} la
+	local de la superficie de la componente secundaria. \textbf{(c)} la
 	luminosidad en la pasabanda ZTF:g, la cual determina el factor de escala de
 	las curvas de luz; este parámetro fue incluido en el muestreo para permitir
 	integrar sobre este \textit{parámetro molesto}, ya que tiene un efecto
@@ -606,5 +606,278 @@ muestra todos los priores utilizados para el proceso de MCMC.
 	\label{figuraColeccionesPrioresZtf}
 \end{figure}
 
-\section{Distribuciones de Probabilidad Posterior}
+\subsection{Inicializando el Muestreo MCMC}
 
+Una vez que se hayan determinado las distribuciones priores que utilizar para
+inicializar la cadena se puede empezar el muestreo. Se emplearon 160 caminadores
+en total; en general, es mejor tener la mayor cantidad de caminadores posible
+tal que sea mayor que la cantidad de parámetros que se van a explorar (10
+parámetros vs. 160 caminadores). Esto también está restringido por el cómputo
+disponible. El \textit{stretch-move} algoritmo descrito por
+\citeyearparen{foreman-mackey_emcee_2013} muestra que un ensamble no es
+completamente paralelizable, por lo tanto no es necesario restringir la cantidad
+de caminadores estrictamente al número de procesadores (hilos) disponibles en
+una computadora. 
+
+El muestreo MCMC se corrió en un servidor propiedad del Dr. Carlos Esteban
+Chávez Pech de la Facultad de Ingeniería Mecánica y Eléctrica en la Universidad
+Autónoma de Nuevo León. Este servidor cuenta con 4 CPUs físicos AMD Opteron(tm)
+Processor 6376, el cual suma a 64 procesadores virtuales disponibles al sistema
+operativo (y por ende al código MCMC). La computadora está equipada con 32 GB de
+memoria RAM\textemdash a pesar que el mayor costo del muestreo es en el cómputo
+directo, la cantidad de memoria requerida aumenta rápidamente entre más
+caminadores se utilizan debido a la copia de datos necesaria por el proceso de
+paralelización por medio del módulo \code{multiprocessing} de Python. El
+muestreo final de este trabajo utilizó 13 GB de memoria, el cual fue asignado
+por el código al principio del proceso, manteniéndose estable por el resto del
+tiempo de cómputo.
+
+Para poder estar revisando el progreso del muestreo se configuró el resolvedor
+para guardar su cadena actual después de cada 5 iteraciones. Cada iteración en
+promedio tardó entre 850 a 950 segundos por terminar, lo cual resultaba en un
+reporte de progreso aproximadamente cada hora y media. Esto también actúa como
+un respaldo; si el proceso termina de manera errónea es posible reiniciar el
+muestreo partiendo de la última iteración registrada en el archivo de progreso. 
+
+\subsection{Monitoreo del Muestreo}
+
+\subsubsection{Tiempo de Autocorrelación}
+
+Un proceso de MCMC se puede considerar finalizado una vez que los caminadores
+hayan convergido a una región particular en el espacio de parámetros. Debido al
+proceso estocástico que cada caminador emplea para determinar su camino por el
+espacio de parámetros, es esperado\textemdash y deseado\textemdash que en algún
+momento vuelva a navegar el mismo camino que recorrió en iteraciones pasadas.
+Cada nuevo conjunto de parámetros $\mathbf{\Theta}_i$ en una cadena
+$\left\{\mathbf{\Theta}_1 \rightarrow ... \rightarrow \mathbf{\Theta}_i
+\rightarrow ... \rightarrow \mathbf{\Theta}_n \right\}$ tiene una mayor
+probabilidad de estar correlacionado con las posiciones previas
+$\mathbf{\Theta}_{i - 1}$. Esto no es deseado, debido a que tener varias
+muestras correlacionadas nos impide obtener una estimación adecuada de la
+distribución posterior [\citeyearparen{speagle_conceptual_intro_mcmc_2020}].
+Para determinar el grado de correlación entre cada paso en la cadena se utiliza
+el \textbf{tiempo de autocorrelación} (\textbf{autocorrelation time} en inglés),
+el cual se mide por medio de la autocovarianza que muestra la cadena utilizando
+un desfase $t$.
+
+\begin{eqfloat}[!ht]
+	\begin{equation}
+		C_f(t) = \lim_{n \rightarrow \infty} \left[\frac{1}{n} \sum_{i=1}^{n}{(\mathbf{\Theta}_i - \bar{\mathbf{\Theta}}) \cdot (\mathbf{\Theta}_{i+t} - \bar{\mathbf{\Theta}})}\right]
+	\end{equation}
+	\blankcaption
+	\label{ecuacionAutocovarianza}
+\end{eqfloat}
+
+Utilizando la \refequation{ecuacionAutocovarianza} se calcula la covarianza
+entre el vector de parámetros $\mathbf{\Theta}_i$ para la iteración $i$ y el
+valor de la cadena después de $t$ iteraciones. El valor de $C_f(t)$ es mayor
+cuando $t = 0$; cada valor está directamente correlacionado con si mismo al ser
+idénticos. De lo contrario, el valor teórico mínimo ocurre cuando los parámetros
+obtenidos en la iteración $i$ y $i+t$ son completamente independientes. Se
+define una función de autocorrelación $A(t)$ para un desfase $t$:
+
+\begin{eqfloat}[!ht]
+	\begin{equation}
+		A(t) \equiv \frac{C_f(t)}{C_f(0)}
+	\end{equation}
+\end{eqfloat}
+
+Del cual se define el \textbf{tiempo de autocorrelación integrado} $\tau_f$
+por \citeyearparen{foreman-mackey_emcee_2013}:
+
+\begin{eqfloat}[!ht]
+	\begin{equation}
+		\tau_f \equiv \sum_{t = -\infty}^{\infty} A(t) - 1 = \sum_{t = -\infty}^{\infty} \frac{C_f(t)}{C_f(0)} - 1 = 2 \sum_{t = 1}^{\infty} A(t)
+	\end{equation}
+	\blankcaption
+	\label{ecuacionAutocorrIntegrado}
+\end{eqfloat}
+
+El término $-1$ se introduce para restar el caso de $A(0) = 1$. La integración
+se restringe solo para $t > 0$; se multiplica por 2 debido a la simetría $A(t) =
+A(-t)$ [\citeyearparen{speagle_conceptual_intro_mcmc_2020}]. 
+
+Dentro de PHOEBE existen funciones para calcular $\tau_f$ para cada parámetro en
+la muestra; por lo tanto, la \refequation{ecuacionAutocovarianza} sería evaluada
+para un parámetro a la vez, dándonos el número de iteraciones requeridas para
+obtener muestras independientes de cada parámetro. En el código
+\href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/phoebe_model/sampling/mcmc_utils.py}{\code{mcmc\_utils.py}}
+se define la función \code{printParameterAutocorrTimes}, la cual imprime el
+tiempo de autocorrelación de cada parámetro dada una cadena MCMC en la forma de
+una solución. Un ejemplo se puede ver en la
+\reffigure{codigoParamAutoCorrSalida}.
+
+% TODO: replace with final solution
+\begin{figure}[!ht]
+	\centering
+\begin{lstlisting}
+Parameter autocorrelation times 
+	Total iterations: 465 (131 burnin) 
+	Avg. autocorr time: 47.22028105437427 
+	Avg. IIDs: 7.073231936408811
+---------------------------------------------------------------
+teff@primary@star@component
+	Autocorrelation time: 31.434501067709036
+	IIDs ([iters - burnin]/autocorr_time): 10.625268054376729
+teffratio@binary@orbit@component
+	Autocorrelation time: 21.366271511782326
+	IIDs ([iters - burnin]/autocorr_time): 15.632114373151971
+fillout_factor@contact_envelope@envelope@component
+	Autocorrelation time: 54.501126163049854
+	IIDs ([iters - burnin]/autocorr_time): 6.128313734303019
+incl@binary@orbit@component
+	Autocorrelation time: 29.773153661983663
+	IIDs ([iters - burnin]/autocorr_time): 11.218159950132302
+q@binary@orbit@component
+	Autocorrelation time: 65.7180243303593
+	IIDs ([iters - burnin]/autocorr_time): 5.082319552410896
+pblum@primary@lcZtfG@lc@dataset
+	Autocorrelation time: 65.32641769723654
+	IIDs ([iters - burnin]/autocorr_time): 5.1127860944092305
+colat@secondary_spot@secondary@spot@feature
+	Autocorrelation time: 64.50039631001717
+	IIDs ([iters - burnin]/autocorr_time): 5.178262756629427
+long@secondary_spot@secondary@spot@feature
+	Autocorrelation time: 38.025785518192954
+	IIDs ([iters - burnin]/autocorr_time): 8.783513488240814
+radius@secondary_spot@secondary@spot@feature
+	Autocorrelation time: 43.34151061708348
+	IIDs ([iters - burnin]/autocorr_time): 7.706238090103639
+relteff@secondary_spot@secondary@spot@feature
+	Autocorrelation time: 58.21562366632833
+	IIDs ([iters - burnin]/autocorr_time): 5.737291451421557
+\end{lstlisting}
+	% TODO: update number of iterations when output is updated
+	\caption{Datos de salida de la función \code{printParameterAutocorrTimes}
+	después de 465 iteraciones, de las cuales 131 son utilizadas de
+	\quotes{burn-in.} El número de muestras independientes (IIDs) es calculado
+	restando el número de iteraciones del periodo de quemado.}
+	\label{codigoParamAutoCorrSalida}
+\end{figure}
+
+\subsubsection{Fracción de Pasos Aceptados}
+
+Para explorar el espacio de parámetros cada caminador decide entre moverse a una
+nueva posición o quedarse en su posición actual. Dado que el paso que toma cada
+caminador es determinado de manera aleatoria varios pasos van a ser rechazados
+en una dada iteración en la cadena. La fracción de saltos aceptados a
+iteraciones se le conoce como la \textbf{fracción de pasos aceptados}
+(\textbf{acceptance fractions} en inglés).
+\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}
+recomiendan esta fracción esté en el rango de 0.2 a 0.5 para todos los
+caminadores en la cadena. Valores mayores a 0.5 este indican que los caminadores
+están explorando sin sentido, ya que no están siendo guiados por la función de
+costo. Al contrario, valores menores a 0.2 son indicadores de que la gran
+mayoría de los saltos propuestos han sido rechazados, lo cual resulta en un
+cadena con muy pocas muestras independientes de las cuales estimar la
+distribución posterior de densidad [\citeyearparen{foreman-mackey_emcee_2013}].
+La \reffigure{figuraFraccionPasosAceptados} se utilizó para diagnosticar si el
+muestreo estaba explorando el espacio de parámetros de manera adecuada o si
+estaba siendo restringido por la función de costo.
+
+% TODO: update number of iterations when output is updated
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.41]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Acceptance Fractions.png}
+	\caption{Fracción de pasos aceptados (eje \code{x}) para cada caminador (eje
+	\code{y}) en el muestreo después de 865 iteraciones. El rango ideal de 0.2 a
+	0.5 está marcado por la región amarilla. Aquellos caminadores que no estén
+	dentro de este rango están resaltados por barras rojas.}
+	\label{figuraFraccionPasosAceptados}
+\end{figure}
+
+% TODO: revisa titulo
+% TODO: actualiza con últimos resultados
+\subsection{Resultados - Funciones de Densidad de Probabilidad a Posteriori}
+
+Las funciones de densidad de probabilidad (PDFs por sus siglas en inglés) se
+pueden revisar tanto a lo largo del proceso utilizando los archivos de progreso,
+como hasta el final que haya terminado de correr el número de iteraciones
+configuradas en el resolvedor. Utilizando la distribución de las muestras en la
+cadena se puede determinar las incertidumbres de cada parámetro y al mismo
+tiempo inspeccionar de manera visual las correlaciones que existen entre
+diferentes parámetros. La \reffigure{figuraMcmcZtfResultadosPrimarios} muestra
+estas distribuciones.
+
+% TODO: actualiza con últimos resultados y número iteraciones
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.32]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Resultados.png}
+	\caption{Gráfica mostrando las muestras en la cadena después de 865
+	iteraciones, marginalizando sobre la luminosidad de la pasabanda ZTF:g en la
+	muestra. Los parámetros que se restringen mayormente por una curva
+	fotométrica (la razón de temperaturas $T_2/T_1$ y la inclinación $i$)
+	muestran una forma Gaussiana de la cual se puede obtener incertidumbres
+	adecuadamente. La temperatura relativa de la mancha estelar \code{relteff}
+	muestra una forma Gaussiana sesgada. Las correlaciones más significativas se
+	pueden apreciar en esta figura; $T_2/T_1$\textemdash $T_1$ y
+	$\mathrm{long}_{\mathrm{spot}}$\textemdash $T_{\mathrm{spot}}/T_2$ muestran
+	una correlación aproximadamente lineal.}
+	\label{figuraMcmcZtfResultadosPrimarios}
+\end{figure}
+
+La luminosidad se incluyó como un parámetro de molestia, el cual afecta el
+modelo sintético resultante, pero no es un parámetro que nos interese medir.
+Para los parámetros de interés se marginaliza (integra) sobre todos los
+parámetros de molestia, incluyéndolos como parámetros que muestrear. La figura
+completa incluyendo la luminosidad de pasabanda de ZTF:g se puede ver en el
+apéndice en la \reffigure{figuraPhoebeMcmcResultadosCompletos}. Todas las
+distribuciones posteriores en la cadena muestran una forma asimétrica, algunas
+más pronunciadas que otras. PHOEBE reporta el valor promedio obtenido en la
+muestra y 2 intervalos de confianza, los cuales se reportan en la
+\reftable{tablaMcmcResultadosIncertidumbres}.
+
+% TODO: actualiza con número de iteraciones
+{\renewcommand{\arraystretch}{1.5}%
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|P{2.5cm}|P{4cm}|}
+		\hline
+		% \rowcolor{blue}
+		\thead{Parámetro}                        & \thead{Valor} \\
+		\hline
+		$T_{ 1 }$ & $4211.7^{ +11.0 }_{ -9.6 } ~\mathrm{K}$ \\
+		\hline 
+		$T_2 / T_1 $ & $1.0531^{ +0.0023 }_{ -0.0026 } \mathrm{}$ \\
+		\hline 
+		$f$ & $0.0679^{ +0.0077 }_{ -0.0072 } \mathrm{}$ \\
+		\hline 
+		$i_\mathrm{ orb }$ & $67.69^{ +0.12 }_{ -0.12 } \mathrm{{}^{\circ}}$ \\
+		\hline 
+		$q$ & $0.712^{ +0.117 }_{ -0.089 } \mathrm{}$ \\
+		\hline 
+		$\mathrm{ Lat }_{\mathrm{spot}}$ & $57.2^{ +7.4 }_{ -6.1 } \mathrm{{}^{\circ}}$ \\
+		\hline 
+		$\mathrm{ Lon }_{\mathrm{spot}}$ & $80.6^{ +1.7 }_{ -1.6 } \mathrm{{}^{\circ}}$ \\
+		\hline 
+		$\mathrm{ Radius }_{\mathrm{spot}}$ & $31.4^{ +4.4 }_{ -4.9 } \mathrm{{}^{\circ}}$ \\
+		\hline 
+		$T_{\mathrm{spot}} / T_2$ & $0.7999^{ +0.013 }_{ -0.0088 } \mathrm{}$ \\
+		\hline 
+	\end{tabular}
+	\caption{Valores obtenidos de la cadena de Markov junto a sus incertidumbres
+	asimétricas. Estos valores fueron calculados después de 955 iteraciones.}
+	\label{tablaMcmcResultadosIncertidumbres}
+\end{table}}
+
+% TODO: formatting new page
+\newpage
+
+\subsection{Incertidumbres en el Modelo Hacia Adelante}
+
+Utilizando las distribuciones posteriores es posible visualizar la dispersión en
+el modelo sintético. Esto se hace con el parámetro \code{sample\_from} del
+cómputo en uso, en el cual se puede especificar las distribuciones de las cuales
+obtener muestras individuales, calculando un modelo hacia adelante de estos
+valores obtenidos. En la \reffigure{figuraMcmcZtfModeloDispersionPosterior} se
+puede apreciar la dispersión (en las regions oscurecidas) del modelo promedio,
+el cual surge como resultado de las incertidumbres de cada parámetro.
+
+% TODO: actualiza cuando corran más iteraciones
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.51]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Modelo.png}
+	\caption{Modelo sintético generado por PHOEBE utilizando muestras de la
+	estimación de la distribución posterior obtenida mediante el proceso MCMC. Este modelo fue calculado con 50 muestras en total del espacio de parámetros.}
+	\label{figuraMcmcZtfModeloDispersionPosterior}
+\end{figure}

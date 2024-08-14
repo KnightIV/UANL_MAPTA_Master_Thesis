@@ -29,6 +29,10 @@
 \usepackage{titling}
 \usepackage{lstautogobble}
 
+% centering table column values: https://tex.stackexchange.com/questions/157389/how-to-center-column-values-in-a-table#157400 
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
 \usepackage{manfnt}
 \usepackage{csquotes}
 \usepackage[style=apa]{biblatex}
@@ -410,6 +414,7 @@
 \input{Muestra/Muestra.tex}
 \input{Observaciones/Observaciones}
 \input{Metodologia/Metodologia.tex}
+\input{Conclusion/Conclusion.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix
 \appendix
