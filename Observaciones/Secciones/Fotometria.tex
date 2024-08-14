@@ -6,13 +6,13 @@ completa. Las fechas y duraciones de cada día de observación se encuentra en l
 \reftable{observationSchedules}. Varias de las noches de observaciones sufrieron
 de pobres condiciones del sitio, las cuales llegaron a afectar la calidad de las
 observaciones; tanto las condiciones meteorológicas como contratiempos causados
-por el equipo en si causaron interrupciones en las exposiciones contiguas y
+por el equipo en si causaron interrupciones en las exposiciones continuas y
 perturbaciones en las imágenes mayores a las que se puede corregir en el
 procesamiento de datos. Esto es esperado en un observatorio en proceso de
 desarrollo; a pesar de los problemas técnicos, se pudieron obtener datos de
-calidad aceptable. Los vientos fuertes en el cerro fueron un gran obstáculo
+calidad aceptable. Los vientos fuertes fueron un gran obstáculo
 debido a la nula protección del CCD montado al telescopio, ya que cualquier
-perturbación por parte del viento resultaba en una imagen inservible. Dado que
+perturbación por parte del viento resultaba en una imagen defectuosa. Dado que
 las observaciones de este proyecto se realizaron en el 2022 estos problemas
 técnicos no suponen un problema para investigaciones posteriores.
 % TODO: confirma con Dr. Andrés si los problemas ya han sido resueltos
@@ -20,7 +20,7 @@ técnicos no suponen un problema para investigaciones posteriores.
 % TODO: style table
 \begin{table}[!ht]
 	\centering
-	\begin{tabular}{|l|l|l|l|}
+	\begin{tabular}{|c|c|c|c|}
 		\hline
 		\thead{Fecha (UTC)} & \thead{HJD Inicio +\textbf{\num{2459000}}} & \thead{Tiempo Expocisiones} & \thead{Duración} \\
 		\hline
@@ -53,14 +53,14 @@ técnicos no suponen un problema para investigaciones posteriores.
 \subsection{Estrellas de Comparación}
 
 Para determinar la magnitud diferencial de un objeto se necesita una estrella de
-comparación que yazca dentro del campo de la imagen de ciencias. Una manera de
+comparación dentro del campo de la imagen de ciencias. Una manera de
 encontrar estrellas de referencias adecuadas es utilizando el Variable Star
 Plotter\footnote{\url{https://app.aavso.org/vsp/}} de la \textit{AAVSO}; sin
-embargo, debido al diminuto campo de visión de nuestras imágenes
+embargo, debido al pequeño campo de visión de nuestras imágenes
 (aproximadamente $1^{\prime}$ de largo), no se encuentra alguna estrella
 standard registrada. Por lo tanto para realizar la fotometría diferencial solo
 es necesario tener estrellas de comparación con un número de cuentas (flujo
-integrado) similar al objetivo principal. El campo visible de \atoObjId
+integrado) similar al objeto de interés. El campo visible de \atoObjId
 utilizando el equipo de OAU se puede ver en la \reffigure{figuraCcdCampo}.
 
 \begin{figure}[!ht]
@@ -110,7 +110,7 @@ medición fotométrica.
 
 Utilizando las imágenes proyectadas se obtuvo el brillo de \atoObjId utilizando
 la tarea \code{qphot} de IRAF, dando como resultado magnitudes instrumentales
-del sistema. La apertura en tamaño de pixeles se definió en base a la anchura a
+del sistema. La apertura en tamaño de pixeles se definió en base al ancho a
 media altura (\textit{full-width at half-maximum}) de \atoObjId para cada
 imagen, utilizando la tarea \code{imexam} de IRAF. Este se usó como el radio de
 la apertura circular, junto a una apertura anular para sustraer el brillo de
@@ -143,15 +143,25 @@ que el sistema variable \atoObjIdNoSpace; sin embargo, en casos como el de este
 estudio se puede despreciar este último requisito debido al bajo número de
 opciones disponibles dentro del campo visible. Del campo visible en la
 \reffigure{figuraCcdCampo} se eligió el objeto número $5$ como la estrella de
-referencia. Su curva de luz instrumental se puede ver más a detalle en la
-\reffigure{figuraCurvaLuzInstrumentalReferencia}. Por último, la curva de luz de
-magnitud diferencial para \atoObjId se obtiene restando la magnitud instrumental
-del objeto de referencia $5$ de la magnitud instrumental medido para
-\atoObjIdNoSpace, el cual resulta en la curva de luz vista en la
-\reffigure{figuraIturbideAtoLightCurve}. Las imágenes calibradas se encuentran
-como un \textit{Release} dentro del repositorio de GitHub del código de este
+referencia. Su curva de luz instrumental se puede ver a mayor detalle en la
+\reffigure{figuraCurvaLuzInstrumentalReferencia}. La magnitud diferencial $m_d$
+de \atoObjId se obtiene restando la magnitud instrumental del objeto de
+referencia 5 $m_{\mathrm{inst, 5}}$ de la magnitud instrumental medido de
+\atoObjId $m_{\mathrm{inst, \atoObjId}}$ utilizando la
+\refequation{ecuacionMagnitudDiferencial}, cuya curva de luz resultante se puede
+ver en la \reffigure{figuraIturbideAtoLightCurve}. Las imágenes calibradas se
+encuentran como un \textit{Release} dentro del repositorio de GitHub este
 proyecto de investigación, junto a los datos de la fotometría de
 apertura.\footnote{\url{https://github.com/KnightIV/UANL_MAPTA_Observaciones/releases/tag/data}}
+
+\begin{eqfloat}[!ht]
+	\begin{equation}
+		m_d = m_{\mathrm{inst, \atoObjId}} - m_{\mathrm{inst, 5}}
+	\end{equation}
+	\blankcaption
+	\vspace{-0.5em}
+	\label{ecuacionMagnitudDiferencial}
+\end{eqfloat}
 
 \begin{figure}[!ht]
 	\centering

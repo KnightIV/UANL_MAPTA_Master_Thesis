@@ -9,15 +9,16 @@ periodo orbital usando \textbf{periodogramas}: herramientas utilizadas para
 generar un espectro de potencias para una serie de tiempo periódica. Para series
 de tiempo cuyo muestreo no es uniforme en el tiempo (como es común de
 observaciones astronómicas) se utiliza el periodograma \textbf{Lomb-Scargle},
-derivado de la transformada de Fourier y descrito por
-\citeyearparen{vanderplas_understanding_lomb_scargle_periodogram_2018}. En
-particular se utiliza una generalización del periodograma Lomb-Scargle que se
-utiliza para ajustar curvas de luz en diferentes bandas al mismo tiempo; el
-periodograma de \textit{Lomb-Scargle multibanda} utiliza un modelo de Fourier
-truncado que describe la variabilidad en común de todas las bandas en las que se
-observó el sistema, y a este le suma un modelo de ajustes de Fourier truncados
-para cada banda individual, el cual ajusta la variabilidad vista en los residuos
-del ajuste del término en común
+derivado de la transformada de Fourier por
+\citeyearparen{lomb_least-squares_frequency_analysis_1976} y
+\citeyearparen{scargle_studies_time_series_fourier_1982}. En particular se
+utiliza una generalización del periodograma Lomb-Scargle para
+ajustar curvas de luz en diferentes bandas al mismo tiempo; el periodograma de
+\textit{Lomb-Scargle multibanda} utiliza un modelo de Fourier truncado que
+describe la variabilidad en común de todas las bandas en las que se observó el
+sistema, y a este le suma un modelo de ajustes de Fourier truncados para cada
+banda individual, el cual ajusta la variabilidad vista en los residuos del
+ajuste del término en común
 [\citeyearparen{vanderplas_periodograms_lombscargle_multiband_2015}]. Usando un
 mallado suficientemente fino para explorar el espacio de frecuencias se puede
 encontrar la frecuencia de mayor potencia, indicando el periodo orbital del
@@ -43,7 +44,7 @@ dos valles en el espacio fase, cada uno correspondiendo a los eclipses de la
 componente primaria y la secundaria respectivamente. La curva de luz en fase la
 cual muestra ambos eclipses se puede ver en la
 \reffigure{figuraGaiaIturbideZtfCurvasFase}. El periodo orbital encontrado es de
-8.005584950787622 horas. Se hizo uso de la implementación del periodograma
+$8.00558 \pm 0.00013$ horas. Se hizo uso de la implementación del periodograma
 Lomb-Scargle para multiples bandas de \code{astropy}, utilizando la clase
 \href{https://docs.astropy.org/en/stable/timeseries/lombscarglemb.html}{\code{LombScargleMultiband}}.
 El código donde se realizó el análisis se encuentra en el Notebook

@@ -115,13 +115,13 @@ estimación de parámetros. El estimador \textbf{EBAI-KNN} puede que obtenga
 diferentes soluciones del sistema dependiendo de la curva de luz utilizada; por
 lo cual se esperaba que obtuviera diferentes resultados dependiendo de las curvas
 de entrada. Para obtener un panorama completo de las posibles soluciones
-fotométricas so ejecutaron varios estimadores de PHOEBE, cada uno operando sobre
+fotométricas se ejecutaron varios estimadores de PHOEBE, cada uno operando sobre
 una diferente combinación de curvas de luz; se corrió un estimador por cada
 curva de luz individual, al igual que unos estimadores que tuvieron de entrada
 una combinación de curvas de luz de Gaia, Iturbide, y ZTF, con la finalidad de
 experimentar con las capacidades de PHOEBE. El experimento completo junto a sus
 curvas de luz sintéticas correspondientes se pueden ver en el Notebook
-antedicho, acompañado de las gráficas resultantes de cada estimador.
+antes mencionado, acompañado de las gráficas resultantes de cada estimador.
 
 \subsection{Elección del Modelo Inicial}
 
@@ -217,7 +217,7 @@ parámetros del modelo en la \reftable{ebaiKnnInitialEstimationsValues}.
 \section{Optimización de Parámetros}
 
 Como se puede ver en la \reffigure{figuraEstimacionInicialModelo} el modelo
-inicial de PHOEBE no se ajusta perfectamente bien a los dados datos
+inicial de PHOEBE no se ajusta perfectamente bien a los datos
 observacionales, visto en los residuos de cada curva de luz. En la siguiente
 etapa del proyecto se emplea un muestreo MCMC, el cual en teoría es capaz de
 determinar el mínimo global del espacio de parámetros, pero a un costo
