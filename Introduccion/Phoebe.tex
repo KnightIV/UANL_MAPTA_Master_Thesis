@@ -310,7 +310,7 @@ apoyen esta teoría; al contrario, existen sistemas como las estrellas
 \quotes{heartbeat} (nombrado por su parecido a una lectura de un
 electrocardiograma) cuya variabilidad se debe a la distorsión de sus superficies
 por fuerzas de marea en órbitas excéntricas
-\citeyearparen{thompson_class_eccentric_binaries_tidal_distortion_heartbeat_2012}.
+[\citeyearparen{thompson_class_eccentric_binaries_tidal_distortion_heartbeat_2012}].
 Como consecuencia, PHOEBE adopta un mecanismo para preservar el volumen del
 sistema; al momento de muestrear la superficie para generar la malla
 superficial, PHOEBE elige la superficie equipotencial que más se acerque al
@@ -498,7 +498,7 @@ la pasa banda con la siguiente ecuación:
 Donde $I_{\mathrm{pb}}$ como $\mathcal{S}$ son funciones que toman de parámetro
 de entrada las propiedades termodinámicas de la estrella, incluyendo incluso
 efectos extrínsecos al sistema como la extinción interestelar
-\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}. La intensidad
+[\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}]. La intensidad
 $I_{\mathrm{pb}}$ definida en la \refequation{ecuacionIntensidadPasabanda} solo
 es apropiada para simular un detector calibrado por flujo de estrellas
 estándares; para medir la intensidad con respecto al número de fotones
@@ -636,10 +636,11 @@ observacionales. Para utilizar estos estimadores es necesario primero encontrar
 el periodo orbital del sistema, el cual comúnmente corresponde a la segunda
 harmonica de la frecuencia dominante de un periodograma; los algoritmos
 principales utilizados en la literatura son \textit{Lomb-Scargle}
-\citeyearparen{vanderplas_understanding_lomb_scargle_periodogram_2018} el cual ajusta
+[\citeyearparen{lomb_least-squares_frequency_analysis_1976}, 
+\citeyearparen{scargle_studies_time_series_fourier_1982}] el cual ajusta
 un modelo sinusoidal a una serie de tiempo (cuyas muestras no requieren haber
 sido tomadas en intervalos regulares del tiempo) y \textit{Box Least Squares}
-(abreviado como BLS) \citeyearparen{kovacs_bls_periodogram_periodic_transits_2002},
+(abreviado como BLS) [\citeyearparen{kovacs_bls_periodogram_periodic_transits_2002}],
 un algoritmo diseñado para casos donde la señal de los eclipses es pequeña a
 comparación con el flujo de base del sistema, por ejemplo los sistemas cuya
 duración de eclipses estelares es mucho menor que el periodo orbital. Existen
@@ -764,7 +765,7 @@ hizo uso de 2 optimizadores principales: \textbf{el simplex de Nelder-Mead} y
 
 \subsubsection{Simplex de Nelder-Mead} \label{intro:phoebe:nelder_mead}
 
-Descrito por primera vez por \citeyearparen{nelder_mead_simplex_1965}, el
+Desarrollado por \citeyearparen{nelder_mead_simplex_1965}, el
 \textbf{simplex de Nelder-Mead} (NMS por sus siglas en inglés) es un algoritmo
 heurístico que explora el espacio de parámetros mediante un \textit{simplex}, un
 politopo compuesto de varios vértices que representan distintos puntos en la

@@ -831,7 +831,7 @@ muestra y 2 intervalos de confianza, los cuales se reportan en la
 {\renewcommand{\arraystretch}{1.5}%
 \begin{table}[!ht]
 	\centering
-	\begin{tabular}{|P{2.5cm}|P{4cm}|}
+	\begin{tabular}{|P{3cm}|P{4cm}|}
 		\hline
 		% \rowcolor{blue}
 		\thead{Parámetro}                        & \thead{Valor} \\
@@ -860,9 +860,6 @@ muestra y 2 intervalos de confianza, los cuales se reportan en la
 	\label{tablaMcmcResultadosIncertidumbres}
 \end{table}}
 
-% TODO: formatting new page
-\newpage
-
 \subsection{Incertidumbres en el Modelo Hacia Adelante}
 
 Utilizando las distribuciones posteriores es posible visualizar la dispersión en
@@ -878,6 +875,8 @@ el cual surge como resultado de las incertidumbres de cada parámetro.
 	\centering
 	\includegraphics[scale=0.51]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Modelo.png}
 	\caption{Modelo sintético generado por PHOEBE utilizando muestras de la
-	estimación de la distribución posterior obtenida mediante el proceso MCMC. Este modelo fue calculado con 50 muestras en total del espacio de parámetros.}
+	estimación de la distribución posterior obtenida mediante el proceso MCMC.
+	Este modelo fue calculado con 100 muestras en total de las distribuciones
+	posteriores.}
 	\label{figuraMcmcZtfModeloDispersionPosterior}
 \end{figure}

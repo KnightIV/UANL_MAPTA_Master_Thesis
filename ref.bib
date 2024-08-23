@@ -918,3 +918,86 @@ ADS Bibcode: 1959cbs..book.....K},
 {ADS} Bibcode: 1982ApJ...263..835S},
 	keywords = {Astronomy, Fourier Transformation, Frequency Response, Power Spectra, Signal Detection, Signal To Noise Ratios, Spectrum Analysis, Statistical Distributions, Time Series Analysis}
 }
+
+@article{de_angeli_gdr3_processing_and_validation_bprp_spectra_2023,
+	title = {Gaia Data Release 3. Processing and validation of {BP}/{RP} low-resolution spectral data},
+	volume = {674},
+	issn = {0004-6361},
+	url = {https://ui.adsabs.harvard.edu/abs/2023A&A...674A...2D},
+	doi = {10.1051/0004-6361/202243680},
+	abstract = {Context. Blue ({BP}) and Red ({RP}) Photometer low-resolution spectral data are one of the exciting new products in Gaia Data Release 3 (Gaia {DR}3). These data have also been used to derive astrometry and integrated photometry in Gaia Early Data Release 3 and astrophysical parameters and Solar System object reflectance spectra in Gaia {DR}3. Aims: In this paper, we give an overview of the processing techniques that allow raw satellite data of multiple transits per source to be converted into combined spectra calibrated to an internal reference system, resulting in low-resolution {BP} and {RP} mean spectra. We describe how we overcome challenges due to the complexity of the on-board instruments and to the various observation strategies. Furthermore, we show highlights from our scientific validation of the results. This work covers the internal calibration of {BP}/{RP} spectra to a self-consistent mean instrument, while the calibration of the {BP}/{RP} spectra to the absolute reference system of physical flux and wavelength is covered by one of the accompanying Gaia {DR}3 papers. Methods: We calibrate about 65 billion individual transit spectra onto the same mean {BP}/{RP} instrument through a series of calibration steps, including background subtraction, calibration of the {CCD} geometry, and an iterative procedure for the calibration of {CCD} efficiency as well as variations of the line-spread function and dispersion across the focal plane and in time. The calibrated transit spectra are then combined for each source in terms of an expansion into continuous basis functions. We discuss the configuration of these basis functions. Results: Time-averaged mean spectra covering the optical to near-infrared wavelength range [330, 1050] nm are published for approximately 220 million objects. Most of these are brighter than G = 17.65 but some {BP}/{RP} spectra are published for sources down to G = 21.43. Their signal-to-noise ratio (S/N) varies significantly over the wavelength range covered, and with magnitude and colour of the observed objects, with sources around G = 15 having a S/N above 100 in some wavelength ranges. The top-quality {BP}/{RP} spectra are achieved for sources with magnitudes 9 {\textless} G {\textless} 12, with S/N reaching 1000 in the central part of the {RP} wavelength range. Scientific validation suggests that the internal calibration was generally successful. However, there is some evidence for imperfect calibrations at the bright end G {\textless} 11, where calibrated {BP}/{RP} spectra can exhibit systematic flux variations that exceed their estimated flux uncertainties. We also report that, due to long-range noise correlations, {BP}/{RP} spectra can exhibit wiggles when sampled in pseudo-wavelength. Conclusions: The Gaia {DR}3 data products are the expansion coefficients and corresponding covariance matrices for {BP} and {RP} separately. Users are encouraged to work with the data in this format, with full covariance information showing that correlations between coefficients are typically very low. Documentation and instructions on how to access and use {BP}/{RP} spectral data from the archive are also provided.},
+	pages = {A2},
+	journaltitle = {Astronomy and Astrophysics},
+	author = {De Angeli, F. and Weiler, M. and Montegriffo, P. and Evans, D. W. and Riello, M. and Andrae, R. and Carrasco, J. M. and Busso, G. and Burgess, P. W. and Cacciari, C. and Davidson, M. and Harrison, D. L. and Hodgkin, S. T. and Jordi, C. and Osborne, P. J. and Pancino, E. and Altavilla, G. and Barstow, M. A. and Bailer-Jones, C. A. L. and Bellazzini, M. and Brown, A. G. A. and Castellani, M. and Cowell, S. and Delchambre, L. and De Luise, F. and Diener, C. and Fabricius, C. and Fouesneau, M. and Frémat, Y. and Gilmore, G. and Giuffrida, G. and Hambly, N. C. and Hidalgo, S. and Holland, G. and Kostrzewa-Rutkowska, Z. and van Leeuwen, F. and Lobel, A. and Marinoni, S. and Miller, N. and Pagani, C. and Palaversa, L. and Piersimoni, A. M. and Pulone, L. and Ragaini, S. and Rainer, M. and Richards, P. J. and Rixon, G. T. and Ruz-Mieres, D. and Sanna, N. and Sarro, L. M. and Rowell, N. and Sordo, R. and Walton, N. A. and Yoldas, A.},
+	urldate = {2024-08-20},
+	date = {2023-06-01},
+	note = {{ADS} Bibcode: 2023A\&A...674A...2D},
+	keywords = {Astrophysics - Instrumentation and Methods for Astrophysics, catalogs, instrumentation: photometers, instrumentation: spectrographs, surveys, techniques: photometric, techniques: spectroscopic}
+}
+
+@article{carrasco_internal_calibration_gdr3_bprp_low_resolution_spectra_2021,
+	title = {Internal calibration of Gaia {BP}/{RP} low-resolution spectra},
+	volume = {652},
+	issn = {0004-6361},
+	url = {https://ui.adsabs.harvard.edu/abs/2021A&A...652A..86C},
+	doi = {10.1051/0004-6361/202141249},
+	abstract = {Context. The full third Gaia data release will provide, for the first time, the calibrated spectra obtained with the blue and red Gaia slitless spectrophotometers ({BP} and {RP}, respectively). Gaia is a very complex mission and cannot be considered as a single instrument, but rather as many instruments. The two lines of sight with wide fields of view introduce strong variations of the observations across the large focal plane with more than one hundred different detectors. The main challenge when facing Gaia spectral calibration is that no lamp spectra or flat fields are available during the mission. Also, the significant size of the line spread function with respect to the dispersion of the prisms produces alien photons contaminating neighbouring positions of the spectra. This makes the calibration special and different from standard approaches. Aims: This work gives a detailed description of the internal calibration model for the spectrophotometric data used to obtain the content of the Gaia catalogue. The main purpose of the internal calibration is to bring all the epoch spectra onto a common flux and pixel (pseudo-wavelength) scale, taking into account variations over the focal plane and with time, producing a mean spectrum from all the observations of the same source. Methods: In order to describe all observations on a common mean flux and pseudo-wavelength scale, we constructed a suitable representation of the internally calibrated mean spectra via basis functions, and we described the transformation between non-calibrated epoch spectra and calibrated mean spectra via a discrete convolution, parametrising the convolution kernel to recover the relevant coefficients. Results: The model proposed here for the internal calibration of the Gaia spectrophotometric observations is able to combine all observations into a mean instrument to allow the comparison of different sources and observations obtained with different instrumental conditions along the mission and the generation of mean spectra from a number of observations of the same source. We derived a calibration model that can handle the self-calibrating nature of the problem. The output of this model provides the internal mean spectra, not as a sampled function (flux and wavelength), but as a linear combination of basis functions, although sampled spectra can easily be derived from them.},
+	pages = {A86},
+	journaltitle = {Astronomy and Astrophysics},
+	author = {Carrasco, J. M. and Weiler, M. and Jordi, C. and Fabricius, C. and De Angeli, F. and Evans, D. W. and van Leeuwen, F. and Riello, M. and Montegriffo, P.},
+	urldate = {2024-08-21},
+	date = {2021-08-01},
+	note = {{ADS} Bibcode: 2021A\&A...652A..86C},
+	keywords = {Astrophysics - Instrumentation and Methods for Astrophysics, galaxies: general, instrumentation: spectrographs, space vehicles: instruments, stars: general, techniques: spectroscopic}
+}
+
+@article{roulston_pyhammer2_classifying_stars_binaries_stellar_templates_2020,
+	title = {Classifying Single Stars and Spectroscopic Binaries Using Optical Stellar Templates},
+	volume = {249},
+	issn = {0067-0049, 1538-4365},
+	url = {http://arxiv.org/abs/2006.01199},
+	doi = {10.3847/1538-4365/aba1e7},
+	abstract = {Stellar spectral classification is a fundamental tool of modern astronomy, providing insight into physical characteristics such as effective temperature, surface gravity, and metallicity. Accurate and fast spectral typing is an integral need for large all-sky spectroscopic surveys like the {SDSS} and {LAMOST}. Here, we present the next version of {PyHammer}, stellar spectral classification software that uses optical spectral templates and spectral line index measurements. {PyHammer} v2.0 extends the classification power to include carbon (C) stars, {DA} white dwarf ({WD}) stars, and also double-lined spectroscopic binaries ({SB}2). This release also includes a new empirical library of luminosity-normalized spectra that can be used to flux calibrate observed spectra, or to create synthetic {SB}2 spectra. We have generated physically reasonable {SB}2 combinations as templates, adding to {PyHammer} the ability to spectrally type {SB}2s. We test classification success rates on {SB}2 spectra, generated from the {SDSS}, across a wide range of spectral types and signal-to-noise ratios. Within the defined range of pairings described, more than \$95{\textbackslash}\%\$ of {SB}2s are correctly classified.},
+	pages = {34},
+	number = {2},
+	journaltitle = {The Astrophysical Journal Supplement Series},
+	shortjournal = {{ApJS}},
+	author = {Roulston, Benjamin R. and Green, Paul G. and Kesseli, Aurora Y.},
+	urldate = {2024-08-23},
+	date = {2020-08-01},
+	eprinttype = {arxiv},
+	eprint = {2006.01199 [astro-ph]},
+	keywords = {Astrophysics - Solar and Stellar Astrophysics}
+}
+
+@article{kesseli_pyhammer1_empirical_template_stellar_spectra_classification_2017,
+	title = {An Empirical Template Library of Stellar Spectra for a Wide Range of Spectral Classes, Luminosity Classes, and Metallicities Using {SDSS} {BOSS} Spectra},
+	volume = {230},
+	issn = {0067-0049},
+	url = {https://ui.adsabs.harvard.edu/abs/2017ApJS..230...16K},
+	doi = {10.3847/1538-4365/aa656d},
+	abstract = {We present a library of empirical stellar spectra created using spectra from the Sloan Digital Sky Survey’s Baryon Oscillation Spectroscopic Survey. The templates cover spectral types O5 through L3, are binned by metallicity from -2.0 dex through +1.0 dex, and are separated into main-sequence (dwarf) stars and giant stars. With recently developed M dwarf metallicity indicators, we are able to extend the metallicity bins down through the spectral subtype M8, making this the first empirical library with this degree of temperature and metallicity coverage. The wavelength coverage for the templates is from 3650 to 10200 Å at a resolution of better than R ∼ 2000. Using the templates, we identify trends in color space with metallicity and surface gravity, which will be useful for analyzing large data sets from upcoming missions like the Large Synoptic Survey Telescope. Along with the templates, we are releasing a code for automatically (and/or visually) identifying the spectral type and metallicity of a star.},
+	pages = {16},
+	journaltitle = {The Astrophysical Journal Supplement Series},
+	author = {Kesseli, Aurora Y. and West, Andrew A. and Veyette, Mark and Harrison, Brandon and Feldman, Dan and Bochanski, John J.},
+	urldate = {2024-08-23},
+	date = {2017-06-01},
+	note = {Publisher: {IOP}
+{ADS} Bibcode: 2017ApJS..230...16K},
+	keywords = {Astrophysics - Astrophysics of Galaxies, Astrophysics - Solar and Stellar Astrophysics, catalogs, stars: abundances, stars: fundamental parameters, stars: general, techniques: spectroscopic}
+}
+
+@misc{wadhwa_effective_temperature_light_curve_solutions_cbs_2023,
+	title = {Effective Temperature and the Light Curve Solution of Contact Binary Systems},
+	url = {http://arxiv.org/abs/2309.16946},
+	doi = {10.48550/arXiv.2309.16946},
+	abstract = {With increasing number of contact binary discoveries and the recognition that luminous red novae are the result of contact binary merger events, there has been a significant increase in the number of light curve solutions appearing in the literature. One of the key elements of such solutions is the assignment and fixing of the effective temperature of the primary component (T1). Sometimes much is made of the assigned value with expectation of significantly different light curve solutions even though theoretical considerations suggest that absolute value of T1 has little influence on the geometric elements of the light curve solution. In this study we show that assigning T1 over a range of 1000K has no significant influence on the light curve solutions of two extreme low mass ratio contact binary systems. In addition, we explore the use of photometric spectral energy distribution as a potential standard for assigning T1 in the absence of spectroscopic observations.},
+	number = {{arXiv}:2309.16946},
+	publisher = {{arXiv}},
+	author = {Wadhwa, Surjit and Tothill, Nick and Filipovic, Miroslav and De Horta, Ain},
+	urldate = {2024-08-23},
+	date = {2023-09-28},
+	eprinttype = {arxiv},
+	eprint = {2309.16946 [astro-ph]},
+	keywords = {Astrophysics - Solar and Stellar Astrophysics}
+}
