@@ -1,6 +1,6 @@
 \chapter{Modelo Computacional} \label{metodologia:modelocomputacional}
 
-Usando todas las curvas de luz disponible para el sistema \atoObjId se puede
+Usando todas las curvas de luz disponible para \atoObjId se puede
 generar un modelo computacional cuyos parámetros físicos resultan en una curva
 de luz sintética que explique de manera adecuada las curvas fotométricas
 observadas. Este método al final daría como resultado una \textit{solución
@@ -12,7 +12,7 @@ sistemas binarios estelares, no se puede garantizar que esta sea la única
 combinación de parámetros que mejor ajusten el modelo a los datos, aunque esta
 posibilidad es mitigada utilizando las herramientas disponibles en PHOEBE.
 
-\section{Preparación del Modelo}
+\section{Preparación del Modelo} \label{metodologia:modelocomputacional:preparacion_modelo}
 
 El modelo en PHOEBE (llamado \textit{bundle} en inglés por el nombre de la clase
 \code{phoebe.Bundle}) necesita ser preparado al principio para empezar el
@@ -172,9 +172,9 @@ parámetros del modelo en la \reftable{ebaiKnnInitialEstimationsValues}.
 
 \begin{figure}[!ht]
 	\centering
-	\xincludegraphics[scale=0.41]{Metodologia/Secciones/ModeloComputacional/Figures/ebaiKnnIturbideNorm.png}
-	\xincludegraphics[scale=0.41]{Metodologia/Secciones/ModeloComputacional/Figures/ebaiKnnGaiaRaw.png}
-	\xincludegraphics[scale=0.41]{Metodologia/Secciones/ModeloComputacional/Figures/ebaiKnnZtf.png}
+	\xincludegraphics[scale=0.36]{Metodologia/Secciones/ModeloComputacional/Figures/ebaiKnnIturbideNorm.png}
+	\xincludegraphics[scale=0.36]{Metodologia/Secciones/ModeloComputacional/Figures/ebaiKnnGaiaRaw.png}
+	\xincludegraphics[scale=0.36]{Metodologia/Secciones/ModeloComputacional/Figures/ebaiKnnZtf.png}
 
 	\caption{Modelos sintéticos del modelo utilizando los parámetros estimados
 	por \code{ebai\_knn\_ztf\_gaia\_solver} junto a los residuos en los flujos
@@ -214,7 +214,7 @@ parámetros del modelo en la \reftable{ebaiKnnInitialEstimationsValues}.
 	\label{ebaiKnnInitialEstimationsValues}
 \end{table}
 
-\section{Optimización de Parámetros}
+\section{Optimización de Parámetros} \label{metodologia:modelocomputacional:optimizacion}
 
 Como se puede ver en la \reffigure{figuraEstimacionInicialModelo} el modelo
 inicial de PHOEBE no se ajusta perfectamente bien a los datos
@@ -242,8 +242,8 @@ desde el OAU. Al tener observaciones simultaneas en diferentes pasabandas
 también es posible determinar las temperaturas efectivas de las componentes
 estelares. 
 
-El primer optimizador NMS corrigió la razón de temperaturas efectivas
-\code{teffratio} (el cual sirve para modificar la luminosidad relativa de la
+El primer optimizador NMS corrigió la razón de temperaturas efectivas 
+(el cual sirve para modificar la luminosidad relativa de la
 estrella secundaria con respecto a la primaria, ajustando la profundidad del
 eclipse secundario con respecto al eclipse primario), el factor de relleno
 \code{fillout\_factor} (que sirve como una parametrización de la razón de radios
@@ -279,7 +279,7 @@ solución dada en la \reftable{tablaOptNmResultados}.
 
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.5]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Opt NM Resultados ZTF.png}
+	\includegraphics[scale=0.44]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Opt NM Resultados ZTF.png}
 	\caption{Modelo sintético generado utilizando los parámetros dados por el
 	optimizador NMS, vistos en la \reftable{tablaOptNmResultados}, utilizando el
 	tiempo de superconjunción corregido.}
@@ -411,7 +411,7 @@ optimizador NMS para después explorar utilizando MCMC.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.5]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Opt DC Resultados ZTF.png}
+	\includegraphics[scale=0.45]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Opt DC Resultados ZTF.png}
 	\caption{Modelo sintético junto a el residuo de flujo tomando en cuenta una
 	mancha estelar fría en la componente secundaria (vista en la
 	\reffigure{figuraMallaManchaNm}) y utilizando los parámetros resultados del
@@ -419,7 +419,7 @@ optimizador NMS para después explorar utilizando MCMC.
 	\label{figuraOptDcResultadosZtf}
 \end{figure}
 
-\section{Ajuste de Luminosidad y Temperatura Efectiva}
+\section{Ajuste de Luminosidad y Temperatura Efectiva} \label{metodologia:modelocomputacional:ajuste_luminosidad_teff}
 
 Utilizando las curvas calibradas de ZTF en ambas pasabandas se determinó la
 temperatura efectiva del sistema partiendo unicamente de las curvas
@@ -473,7 +473,7 @@ de las curvas de luz.
 	\label{tablaOptNmTeffResultados}
 \end{table}
 
-\section{Muestreo MCMC}
+\section{Muestreo MCMC} \label{metodologia:modelocomputacional:mcmc}
 
 Una vez que se haya obtenido el conjunto de parámetros que mejor ajustan el
 modelo sintético a los datos observacionales se busca obtener las incertidumbres
@@ -487,7 +487,7 @@ descrito en la \refthesissubsection{intro:phoebe:problema_inverso:muestreo}.
 Antes de correr el proceso de muestreo se preparó el bundle de la siguiente
 manera.
 
-\subsection{Eliminación de Observaciones Erróneas}
+\subsection{Eliminación de Observaciones Erróneas} \label{metodologia:modelocomputacional:mcmc:eliminacion_errores}
 
 PHOEBE utiliza la probabilidad logarítmica ($\mathrm{lnprobability}$) del modelo
 sintético como la \textit{función de merito} para el muestreo. Esta se define en
@@ -529,8 +529,8 @@ MCMC.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.27]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Malas Observaciones ZTF:r.png}
-	\includegraphics[scale=0.27]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Malas Observaciones ZTF:g.png}
+	\includegraphics[scale=0.24]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Malas Observaciones ZTF:r.png}
+	\includegraphics[scale=0.24]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Malas Observaciones ZTF:g.png}
 	\caption{Resultados de aplicar el criterio de eliminación para las curvas de
 	luz de ZTF, donde la figura superior corresponde a la pasabanda ZTF:r y la
 	inferior a ZTF:g. Se optó por codificar este criterio en el código en vez de
@@ -543,11 +543,15 @@ MCMC.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.5]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Modelo Sin Malas Observaciones ZTF.png}
+	\includegraphics[scale=0.44]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Modelo Sin Malas Observaciones ZTF.png}
 	\caption{Modelo sintético en las pasabandas de ZTF calculado después de
 	eliminar las observaciones más problemáticas de las curvas observadas.}
 	\label{figuraModeloSinMalasObservacionesZtf}
 \end{figure}
+
+% TODO: formatting new page
+\newpage
+\clearpage
 
 \subsection{Distribuciones Priores}
 
@@ -582,9 +586,9 @@ muestra todos los priores utilizados para el proceso de MCMC.
 
 \begin{figure}[!ht]
 	\centering
-	\xincludegraphics[scale=0.29, label=\textbf{(a)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Binaria.png}
-	\xincludegraphics[scale=0.345, label=\textbf{(b)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Mancha.png}
-	\xincludegraphics[scale=0.85, label=\textbf{(c)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Luminosidad ZTF.png}
+	\xincludegraphics[scale=0.25, label=\textbf{(a)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Binaria.png}
+	\xincludegraphics[scale=0.32, label=\textbf{(b)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Mancha.png}
+	\xincludegraphics[scale=0.77, label=\textbf{(c)}, labelbox=true, pos=ne, fontsize=\Large]{Metodologia/Secciones/ModeloComputacional/Figures/Figura Prior Params Luminosidad ZTF.png}
 	\caption{Distribuciones priores utilizadas como límites iniciales a cada
 	caminador. Se separaron en 3 distintas colecciones por cuestiones de
 	organización dentro del código: \textbf{(a)} los parámetros principales del
@@ -595,16 +599,17 @@ muestra todos los priores utilizados para el proceso de MCMC.
 	razón de masas ($q$). \textbf{(b)} los parámetros de la mancha estelar en la
 	componente secundaria que se introdujo para tomar en cuenta el efecto
 	O'Connell: su posición con respecto al origen del sistema de coordenadas en
-	la secundaria (la longitud y latitud de la mancha), el radio angular, y la
-	razón de temperatura de la mancha con respecto a la temperatura efectiva
-	local de la superficie de la componente secundaria. \textbf{(c)} la
+	la secundaria (su longitud y latitud), el radio angular, y la
+	razón de temperatura de la mancha a la temperatura efectiva
+	de la superficie estelar. \textbf{(c)} la
 	luminosidad en la pasabanda ZTF:g, la cual determina el factor de escala de
-	las curvas de luz; este parámetro fue incluido en el muestreo para permitir
-	integrar sobre este \textit{parámetro molesto}, ya que tiene un efecto
-	significativo en la curva sintética pero no es un parámetro que nos interese
-	medir directamente.}
+	las curvas de luz de ZTF.}
 	\label{figuraColeccionesPrioresZtf}
 \end{figure}
+
+% TODO: formatting new page
+\newpage
+\clearpage
 
 \subsection{Inicializando el Muestreo MCMC}
 
@@ -735,7 +740,7 @@ pblum@primary@lcZtfG@lc@dataset
 	Autocorrelation time: 65.32641769723654
 	IIDs ([iters - burnin]/autocorr_time): 5.1127860944092305
 colat@secondary_spot@secondary@spot@feature
-	Autocorrelation time: 64.50039631001717
+	Autocorrelation time: 64.5003963|1717
 	IIDs ([iters - burnin]/autocorr_time): 5.178262756629427
 long@secondary_spot@secondary@spot@feature
 	Autocorrelation time: 38.025785518192954
@@ -778,7 +783,7 @@ estaba siendo restringido por la función de costo.
 % TODO: update number of iterations when output is updated
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.41]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Acceptance Fractions.png}
+	\includegraphics[scale=0.36]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Acceptance Fractions.png}
 	\caption{Fracción de pasos aceptados (eje \code{x}) para cada caminador (eje
 	\code{y}) en el muestreo después de 865 iteraciones. El rango ideal de 0.2 a
 	0.5 está marcado por la región amarilla. Aquellos caminadores que no estén
@@ -786,9 +791,44 @@ estaba siendo restringido por la función de costo.
 	\label{figuraFraccionPasosAceptados}
 \end{figure}
 
+\subsubsection{Errores en el Espacio de Parámetros}
+
+Es inevitable que mientras los caminadores exploren el espacio de parámetros
+encuentren una combinación de valores que resulten en un modelo inválido, ya sea
+por limitaciones técnicas de PHOEBE o porque esa combinación en particular
+resulta en un sistema físicamente imposible. Estos resultan en errores, y por
+ende PHOEBE los trata como pasos fallidos. El resolvedor de tipo MCMC de PHOEBE
+es capaz de mantener un registro de todas las muestras fallidas y mostrarlas en
+una gráfica, para poder identificar fácilmente cualquier región de interés. En
+la \reffigure{figuraMcmcMuestrasFallidas} se puede ver todas las muestras
+fallidas en la cadena de este modelo.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.26]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC Failed.png}
+	\caption{Muestras obtenidas del proceso MCMC que resultaron en una falla del modelo hacia adelante, después de 2870 iteraciones.}
+	\label{figuraMcmcMuestrasFallidas}
+\end{figure}
+
+La gran mayoría de fallas en las muestras son consecuencia de valores inválidos
+dado la atmósfera estelar de
+\citeyearparen{castelli_kurucz_new_model_atmospheres_2004}, representados por
+las marcas azules, específicamente con respecto al oscurecimiento al limbo. No
+se modificó ningún parámetro para mitigar estos errores, principalmente debido a
+que no muestran una frontera claramente definida. Las marcas de color azul
+oscuras indican una falta de triángulos en la malla de la superficie estelar;
+esto se mitigó aumentando el número de triángulos del modelo por medio del
+parámetro \code{ntriangles} para permitir que los caminadores exploraran
+regiones del espacio de parámetros que requieran una mayor resolución espacial,
+como la frontera del factor de relleno $f = 0$. No se implementó alguna solución
+para el resto de los errores debido a su baja cantidad, lo cual indica que no
+son un problema significativo para seguir explorando el espacio de parámetros de
+manera adecuada. 
+
 % TODO: revisa titulo
 % TODO: actualiza con últimos resultados
-\subsection{Resultados - Funciones de Densidad de Probabilidad a Posteriori}
+% TODO: incluye datos de convergencia
+\subsection{Resultados - Funciones de Densidad de Probabilidad a Posteriori} \label{metodologia:modelocomputacional:mcmc:resultados}
 
 Las funciones de densidad de probabilidad (PDFs por sus siglas en inglés) se
 pueden revisar tanto a lo largo del proceso utilizando los archivos de progreso,
@@ -802,7 +842,7 @@ estas distribuciones.
 % TODO: actualiza con últimos resultados y número iteraciones
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.32]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Resultados.png}
+	\includegraphics[scale=0.29]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Resultados.png}
 	\caption{Gráfica mostrando las muestras en la cadena después de 865
 	iteraciones, marginalizando sobre la luminosidad de la pasabanda ZTF:g en la
 	muestra. Los parámetros que se restringen mayormente por una curva
@@ -827,13 +867,12 @@ más pronunciadas que otras. PHOEBE reporta el valor promedio obtenido en la
 muestra y 2 intervalos de confianza, los cuales se reportan en la
 \reftable{tablaMcmcResultadosIncertidumbres}.
 
-% TODO: actualiza con número de iteraciones
+% TODO: actualiza con últimos resultados y número de iteraciones
 {\renewcommand{\arraystretch}{1.5}%
 \begin{table}[!ht]
 	\centering
 	\begin{tabular}{|P{3cm}|P{4cm}|}
 		\hline
-		% \rowcolor{blue}
 		\thead{Parámetro}                        & \thead{Valor} \\
 		\hline
 		$T_{ 1 }$ & $4211.7^{ +11.0 }_{ -9.6 } ~\mathrm{K}$ \\
@@ -873,10 +912,10 @@ el cual surge como resultado de las incertidumbres de cada parámetro.
 % TODO: actualiza cuando corran más iteraciones
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.51]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Modelo.png}
+	\includegraphics[scale=0.45]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC ZTF Modelo.png}
 	\caption{Modelo sintético generado por PHOEBE utilizando muestras de la
 	estimación de la distribución posterior obtenida mediante el proceso MCMC.
-	Este modelo fue calculado con 100 muestras en total de las distribuciones
+	Este modelo fue calculado con 50 muestras en total de las distribuciones
 	posteriores.}
 	\label{figuraMcmcZtfModeloDispersionPosterior}
 \end{figure}

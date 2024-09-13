@@ -41,8 +41,8 @@ Ambos espectros se pueden ver en la \reffigure{figuraEspectrosApo}.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.45]{Conclusion/Figures/Figura APO Spectrum 2.png}
-    \includegraphics[scale=0.45]{Conclusion/Figures/Figura APO Spectrum 1.png}
+    \includegraphics[scale=0.4]{Conclusion/Figures/Figura APO Spectrum 2.png}
+    \includegraphics[scale=0.4]{Conclusion/Figures/Figura APO Spectrum 1.png}
     \caption{Espectros tomados de \atoObjId por la Dra. Paula Szkody desde APO.}
     \label{figuraEspectrosApo}
 \end{figure}
@@ -63,7 +63,7 @@ espectros individuales en la \reffigure{figuraEspectrosApo}.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.45]{Conclusion/Figures/Figura APO Spectrum Average.png}
+    \includegraphics[scale=0.4]{Conclusion/Figures/Figura APO Spectrum Average.png}
     \caption{Espectro promedio de \atoObjIdNoSpace, utilizando el flujo promedio en cada longitud de onda de ambos espectros en la \reffigure{figuraEspectrosApo}.}
     \label{figuraEspectroApoPromedio}
 \end{figure}
@@ -171,9 +171,9 @@ está compuesto de estrellas tipo K, con una metalicidad de $-0.5 \mathrm{dex}$.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.5]{Conclusion/Figures/Figura PyHammer APO.png} \\
+    \includegraphics[scale=0.43]{Conclusion/Figures/Figura PyHammer APO.png} \\
     \vspace{0.6em}
-    \includegraphics[scale=0.5]{Conclusion/Figures/Figura PyHammer GDR3.png}
+    \includegraphics[scale=0.43]{Conclusion/Figures/Figura PyHammer GDR3.png}
     \caption{Resultados del análisis usando PyHammer para el espectro de APO y
     de Gaia DR3 en la gráfica superior e inferior, respectivamente. Partiendo de
     una estimación inicial automática por PyHammer se ajustó el tipo espectral y
@@ -184,7 +184,7 @@ está compuesto de estrellas tipo K, con una metalicidad de $-0.5 \mathrm{dex}$.
 
 Los resultados del análisis de PyHammer coinciden con la temperatura efectiva
 derivada usando PHOEBE y las curvas fotométricas de ZTF, dado el rango de
-temperaturas efectivas de estrellas tipo K de aproximadamente $3900 - 5300
+temperaturas efectivas de estrellas tipo K de aproximadamente $3900 - 5300 \
 \mathrm{K}$. Sin embargo, mucho cuidado es necesario al interpretar estos
 resultados. El espectro de Gaia, a pesar de ser el más completo, es de muy baja
 resolución espectral, lo cual causa la perdida de información de las líneas de
@@ -207,5 +207,176 @@ varios espectros del sistema a lo largo del tiempo se podría construir una curv
 de velocidades radiales, la cual se podría ingresar al modelo en PHOEBE
 directamente.
 
+% TODO: formatting new page
+\newpage
+\clearpage
+
+\section{Correlaciones Entre Parámetros}
+
+Una de las mayores dificultades en el ajuste de un modelo de un sistema binario
+es debido a las correlaciones entre distintos parámetros del modelo. Algunas
+correlaciones son esperadas desde un principio; por ejemplo, en un sistema
+binario en contacto existe una correlación fundamental entre la razón de masa
+$q$ y el factor de escala de la luminosidad en una pasabanda. Un pequeño ejemplo
+se puede ver en la \reffigure{figuraRazonMasaLuminosidadSintetico}; esta
+relación se manifiesta en una correlación lineal como se puede ver en la
+\reffigure{figuraQ_LuminosidadPdfCorrelacion}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.4]{Conclusion/Figures/Figura q-Luminosidad Relacion.png}
+    \caption{Modelo sintético en la pasabanda Johnson:V de un sistema binario en
+    contacto en PHOEBE, manteniendo fijo el factor de relleno en $f = 0.3$. Se
+    puede observar como el flujo sintético calculado va aumentando a pesar de
+    mantener fijo el factor de escala de la luminosidad en la
+    pasabanda\textemdash la cual corresponde al parámetro
+    \code{pblum}\textemdash debido en parte al constreñimiento de los radios
+    estelares a la razón de masa.}
+    \label{figuraRazonMasaLuminosidadSintetico}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.8]{Conclusion/Figures/Figura q-Luminosidad PDF Correlacion.png}
+    \caption{Gráfica de correlación entre la razón de masa $q$ y el factor de
+    escala de luminosidad en la pasabanda ZTF:g \code{pblum@lcZtfG}.}
+    \label{figuraQ_LuminosidadPdfCorrelacion}
+\end{figure}
+
+Esta correlación presenta un gran problema para la solución fotométrica del
+sistema: la los valores presentados en la
+\refthesissection{metodologia:modelocomputacional:mcmc:resultados} no
+representan una solución única, por la cual cualquier combinación de valores de
+la razón de masa y \code{pblum@lcZtfG} que caigan en esta línea pueden llegar a
+ajustar el modelo. Esta dependencia se podría eliminar por completo haciendo uso
+de flujos absolutos (por ejemplo, el trabajo hecho por
+\citeyearparen{odesse_using_computational_models_params_kepler_binaries_2022}),
+lo cual por definición dejaría fijo el factor de escala del flujo sintético en
+1. Al mismo tiempo esto haría que el modelo sintético sea sensible a cualquier
+parámetro que afecte la luminosidad absoluta del sistema, como las masas de las
+componentes y temperaturas efectivas, el cual permitiría muestrear estos
+parámetros y obtener distribuciones de densidad de probabilidad de ellos.
+
+% TODO: escribe de las demás correlaciones una vez que el modelo haya convergido
+
+\section{Extinción Interestelar}
+
+Como se mencionó en la
+\refthesissection{metodologia:modelocomputacional:ajuste_luminosidad_teff}, se
+utilizó la fotometría de ZTF para determinar la temperatura efectiva del sistema
+binario, específicamente los flujos normalizados tal que la información del
+color del sistema no se pierda en la conversión de magnitudes. Sin embargo,
+cuando se realizó este mismo proceso utilizando los flujos de Gaia DR3 (dados en
+cuentas de electrones por segundo), se obtuvo un diferente resultado, una
+temperatura efectiva inconsistente con el resultado de ZTF. Para intentar
+explicar esta discrepancia investigamos el efecto de la extinción interestelar
+debido al polvo en la línea de visión de \atoObjIdNoSpace.
+
+Para analizar el efecto del polvo en las observaciones fotométricas de Gaia se utilizó el paquete de Python \code{dustmaps}\footnote{\url{https://github.com/gregreen/dustmaps}}, el cual contiene información de varios mapas de polvo hechos en la literatura. 
+
 \section{Multi-Modalidad de la PDF Posterior}
 
+Durante el transcurso de este proyecto se llevaron a cabo varias pruebas e
+intentos de ajuste del modelo de PHOEBE a los datos observacionales. El primer
+ajuste al que se llegó de manera satisfactoria dio como resultado una
+combinación distinta de parámetros; el código relevante se encuentra en una
+versión previa en el repositorio de GitHub\footnote{El commit con identificador
+18d244a4ac8e5f7e17d0a625156af0e9105245f4 muestra la versión del código más
+actual con la solución alterna del modelo.}. Las correlaciones entre parámetros
+se pueden ver en la figura \reffigure{figuraAltMcmcResultadosZtf}, junto a los
+valores e incertidumbres correspondientes en la
+\reftable{tablaMcmcResultadosIncertidumbresAlt}. Para este modelo se adoptaron
+diferentes parámetros iniciales de los estimadores corridos\textemdash por
+ejemplo, el tiempo de superconjunción se dejó fijo en $-0.0375 \ d$, lo cual
+causa que la curva de luz en fase esté centrado en el eclipse más profundo,
+afectando el parámetro de razón de temperatura\textemdash lo cual al optimizar y
+finalmente muestrear llevó el modelo a una región distinta del espacio de
+parámetros. Este muestreo se configuró con 160 caminadores en total, igual que
+el muestreo descrito en la
+\refthesissection{metodologia:modelocomputacional:mcmc}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.27]{Conclusion/Figures/Figura Alt Solucion MCMC ZTF.png}
+    \caption{Gráfica de correlación de una solución alterna que se obtuvo
+    utilizando las curvas de ZTF. Incluye el parámetro de molestia
+    \code{pblum@lcZtfG}.}
+    \label{figuraAltMcmcResultadosZtf}
+\end{figure}
+
+{\renewcommand{\arraystretch}{1.5}%
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|P{3cm}|P{4cm}|}
+		\hline
+		\thead{Parámetro}                        & \thead{Valor} \\
+		\hline
+        $T_{1}$ & $4421.5^{ +6.9 }_{ -7.0 } ~\mathrm{K}$ \\
+        \hline
+        $T_2 / T_1$ & $0.9621^{ +0.0032 }_{ -0.003 } \mathrm{}$ \\
+        \hline
+        $f$ & $0.0413^{ +0.0102 }_{ -0.0094 } \mathrm{}$ \\
+        \hline
+        $i_{\mathrm{orb}}$ & $67.84^{ +0.17 }_{ -0.18 } \mathrm{{}^{\circ}}$ \\
+        \hline
+        $q$ & $1.52^{ +0.19 }_{ -0.12 } \mathrm{}$ \\
+        \hline
+        $\mathrm{ Lat }_{\mathrm{spot}}$ & $74.0^{ +9.9 }_{ -10.4 } \mathrm{{}^{\circ}}$ \\
+        \hline
+        $\mathrm{ Lon }_{\mathrm{spot}}$ & $240.7^{ +2.0 }_{ -2.3 } \mathrm{{}^{\circ}}$ \\
+        \hline
+        $\mathrm{ Radius }_{\mathrm{spot}}$ & $27.3^{ +5.2 }_{ -3.7 } \mathrm{{}^{\circ}}$ \\
+        \hline
+        $T_{\mathrm{spot}} / T_2$ & $0.8415^{ +0.0125 }_{ -0.0064 } \mathrm{}$ \\
+        \hline
+	\end{tabular}
+	\caption{Valores e incertidumbres de solución alterna al modelo de PHOEBE.}
+	\label{tablaMcmcResultadosIncertidumbresAlt}
+\end{table}}
+
+Esta solución fue obtenida después de 6116 iteraciones en total. Sin embargo,
+esta solución no es completamente adecuada. El periodo de quemado fue de 4816;
+esto se debe a que los caminadores se encontraban atrapados en ciertas regiones
+del espacio de parámetros, nunca saliendo por su propia cuenta. La solución para
+este problema fue utilizar la capacidad del resolvedor MCMC de PHOEBE para
+adoptar el resultado del muestreo como las distribuciones priori de un nuevo
+muestreo MCMC. Con el fin de eliminar las muestras de los caminadores inmóviles
+se aproximaron las distribuciones posteriores de muestras a distribuciones
+continuas Gaussianas multi-dimensionales; a pesar de perder información de la
+forma discreta de las muestras\textemdash y al mismo tiempo introduce un sesgo
+en la forma inicial de las muestras\textemdash dados suficiente iteraciones los
+caminadores tendrán la oportunidad de explorar el espacio fuera de la región
+dada por las distribuciones a priori, siguiendo la forma de la distribución
+posterior. Debido a que solo se pudieron correr un total de 1345 para la última
+ronda de muestreo (el cual incluye 304 iteraciones del periodo de quemado, lo
+que eleva el tiempo de quemado total a 5120 iteraciones con solo 996 iteraciones
+utilizadas) no es posible decir que este muestreo ha convergido de manera
+adecuada.
+
+Debido a la falta de experiencia utilizando PHOEBE, la optimización del tiempo
+de cómputo de este muestreo inicial se llevó a cabo de una manera distinta. A
+parte del proceso de eliminación de observaciones erróneas que se realizó
+(descrito en la
+\refthesissubsection{metodologia:modelocomputacional:mcmc:eliminacion_errores}),
+se eliminaron la mitad de las observaciones de ambas curvas ZTF:g y ZTF:r,
+utilizando los \quotes{slices} de Python. A pesar de que este método redujo el
+tiempo de cómputo del modelo hacia adelante, tiene la desventaja de perder mucha
+información de observaciones individuales. Al mismo tiempo, esta optimización no
+tuvo el mismo efecto significativo que solo computar el modelo hacia adelante
+para una malla de fases orbitales determinadas (descrito en la
+\refthesissection{metodologia:modelocomputacional:preparacion_modelo}), lo cual
+resultó en tiempos promedios de $\sim 3600 \ \mathrm{seg}$ por iteración de MCMC
+contra un tiempo promedio de $\sim 500 \ \mathrm{seg}$ por iteración del último
+muestreo descrito en la \refthesissection{metodologia:modelocomputacional:mcmc}. 
+
+Este primer intento de explorar el espacio de parámetros se ejecutó en el
+servidor \quotes{Alziir} por parte del Instituto de Astronomía Ensenada de la
+Universidad Nacional Autónoma de México, en colaboración con el Dr. Raúl Michel
+Murillo. Esta computadora cuenta con un procesador AMD Opteron(tm) Processor
+6376 de 64 hilos, con un total de 512 GB de memoria RAM; una vez corriendo el
+código en el servidor, el proceso llegó a ocupar más de 50 GB de memoria. Debido
+al alto tiempo de cómputo para cada iteración, y la solución alterna dada en la
+\refthesissubsection{metodologia:modelocomputacional:mcmc:resultados}, esta
+solución se abandonó por el momento, pero debería de ser considerada en un
+trabajo a futuro en caso que se obtenga una nueva fuente de datos para
+constreñir el modelo. 

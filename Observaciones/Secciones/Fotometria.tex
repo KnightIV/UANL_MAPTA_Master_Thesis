@@ -10,12 +10,13 @@ por el equipo en si causaron interrupciones en las exposiciones continuas y
 perturbaciones en las imágenes mayores a las que se puede corregir en el
 procesamiento de datos. Esto es esperado en un observatorio en proceso de
 desarrollo; a pesar de los problemas técnicos, se pudieron obtener datos de
-calidad aceptable. Los vientos fuertes fueron un gran obstáculo
-debido a la nula protección del CCD montado al telescopio, ya que cualquier
-perturbación por parte del viento resultaba en una imagen defectuosa. Dado que
-las observaciones de este proyecto se realizaron en el 2022 estos problemas
-técnicos no suponen un problema para investigaciones posteriores.
-% TODO: confirma con Dr. Andrés si los problemas ya han sido resueltos
+calidad aceptable. Los vientos fuertes fueron un gran obstáculo debido a la nula
+protección del CCD montado al telescopio, ya que cualquier perturbación por
+parte del viento resultaba en una imagen defectuosa. Dado que las observaciones
+de este proyecto se realizaron en el 2022 solo el viento sigue siendo un
+problema para observaciones posteriores; todavía no se implementa una cúpula
+para proteger el telescopio del viento, pero el auto-enfocador y guiador están
+funcionando de manera apropiada.
 
 % TODO: style table
 \begin{table}[!ht]
@@ -108,7 +109,7 @@ estrella variable en una posición única dentro del encuadro de cada imagen,
 facilitando el uso de coordenadas en pixeles para definir las aperturas de
 medición fotométrica.
 
-Utilizando las imágenes proyectadas se obtuvo el brillo de \atoObjId utilizando
+Utilizando las imágenes proyectadas se obtuvo el brillo del objeto utilizando
 la tarea \code{qphot} de IRAF, dando como resultado magnitudes instrumentales
 del sistema. La apertura en tamaño de pixeles se definió en base al ancho a
 media altura (\textit{full-width at half-maximum}) de \atoObjId para cada
@@ -165,7 +166,7 @@ apertura.\footnote{\url{https://github.com/KnightIV/UANL_MAPTA_Observaciones/rel
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.39]{Observaciones/Secciones/Figures/Figura Magnitud Instrumental Estrella Referencia.png}
+	\includegraphics[scale=0.44]{Observaciones/Secciones/Figures/Figura Magnitud Instrumental Estrella Referencia.png}
 	\caption{Magnitud instrumental de la estrella de referencia utilizada para
 	determinar la magnitud diferencial de \atoObjIdNoSpace. La variabilidad en
 	la curva de luz se atribuye a factores extrínsecos del sistema.}
@@ -174,8 +175,8 @@ apertura.\footnote{\url{https://github.com/KnightIV/UANL_MAPTA_Observaciones/rel
 
 \begin{figure}[!ht]
 	\centering
-	\xincludegraphics[scale=0.38, label=\textbf{(a)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Full LC.png}
-	\xincludegraphics[scale=0.3, label=\textbf{(b)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Hour Sync LC.png}
+	\xincludegraphics[scale=0.42, label=\textbf{(a)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Full LC.png}
+	\xincludegraphics[scale=0.34, label=\textbf{(b)}, labelbox=true, pos=nw, fontsize=\large]{Observaciones/Secciones/Figures/Hour Sync LC.png}
 	\caption{Magnitud diferencial de \atoObjIdNoSpace. \textbf{(a)} Curva de luz
 	completa. \textbf{(b)} Curva de luz segmentada por día, con la cual se logra
 	apreciar la cadencia de observación, viendo como cada día se logra observar

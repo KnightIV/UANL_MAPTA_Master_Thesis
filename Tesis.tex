@@ -1,8 +1,9 @@
-\documentclass[12pt,a4paper]{report}
+% \documentclass[12pt,a4paper]{report}
+\documentclass{sty/uanl}
 
 \usepackage[utf8]{inputenc}
 
-\usepackage{geometry}
+% \usepackage{geometry}
 
 \usepackage{makecell}
 \usepackage[T1]{fontenc}
@@ -17,10 +18,13 @@
 \usepackage[]{xcolor}
 \usepackage{booktabs, multirow}
 \usepackage[normalem]{ulem}
-\usepackage[colorlinks,linkcolor=MyDarkBlue,urlcolor=blue,citecolor=blue]{hyperref}
+% \usepackage[colorlinks,linkcolor=MyDarkBlue,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{hyperref}
+    \hypersetup{breaklinks=true,colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
+% \usepackage{hyperref}
 \usepackage[nottoc]{tocbibind}
 \usepackage{url}
-\usepackage[spanish,es-nodecimaldot]{babel}
+% \usepackage[spanish,es-nodecimaldot,es-tabla]{babel}
 \usepackage[group-digits=true,group-minimum-digits=4]{siunitx}
 \usepackage{xcoffins}
 \usepackage{annotate-equations}
@@ -36,6 +40,8 @@
 \usepackage{manfnt}
 \usepackage{csquotes}
 \usepackage[style=apa]{biblatex}
+
+\usepackage{layout}
 
 \DeclareDelimFormat[textcite]{finalnamedelim}{\addspace\&\space}
 
@@ -161,8 +167,9 @@
     keywordstyle=\color{codeblue},
     numberstyle=\numberstyle,
     stringstyle=\color{codegold},
-    basicstyle=\footnotesize\ttfamily,
-    breakatwhitespace=false,
+    % basicstyle=\footnotesize\ttfamily,
+    basicstyle=\linespread{1.2}\footnotesize\ttfamily,
+    breakatwhitespace=true,
     breaklines=true,
     captionpos=b,
     keepspaces=true,
@@ -197,7 +204,6 @@
 \newcommand{\R}{\textsf{R}}
 \newcommand{\Fortran}{\textsf{Fortran}}
 
-% \newcommand{\comment}[1]{}
 \newcommand{\gaiaNoSpace}{\textit{Gaia}}
 \newcommand{\atoObjIdNoSpace}{ATO J339.9469+45.1464}
 \newcommand{\atoObjId}{\atoObjIdNoSpace \space}
@@ -209,8 +215,10 @@
 \newcommand{\Angstrom}{\textup{~\AA}}
 
 \newcommand{\citeyearparen}[1]{\textcite{#1}}
-\newcommand{\citetbookchapter}[2]{\textcite[\textcolor{MyLightBlue}{Capítulo #2}]{#1}}
-\newcommand{\citetbooksection}[2]{\textcite[\textcolor{MyLightBlue}{Sección #2}]{#1}}
+% \newcommand{\citetbookchapter}[2]{\textcite[\textcolor{MyLightBlue}{Capítulo #2}]{#1}}
+% \newcommand{\citetbooksection}[2]{\textcite[\textcolor{MyLightBlue}{Sección #2}]{#1}}
+\newcommand{\citetbookchapter}[2]{\textcite[Capítulo #2]{#1}}
+\newcommand{\citetbooksection}[2]{\textcite[Sección #2]{#1}}
 
 % https://tex.stackexchange.com/questions/11031/how-to-do-the-curvy-l-for-lagrangian-or-laplace-transforms#11144
 \newcommand{\Lagr}{\mathcal{L}}
@@ -236,19 +244,6 @@
     {\titlerule[1pt]\vspace{1pc}\huge}
 \titlespacing*{\part}{0pt}{0pt}{20pt}
 
-\titleformat{\chapter}[display]
-    {\color{ChapterBlue}\normalfont\LARGE\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}    
-\titleformat{\section}
-    {\color{SectionBlue}\normalfont\Large\bfseries}
-    {\color{SectionBlue}\thesection}{1em}{}
-\titleformat{\subsection}
-    {\color{SubSectionBlue}\normalfont\Large\bfseries}
-    {\color{SubSectionBlue}\thesubsection}{1em}{}
-\titleformat{\subsubsection}
-    {\color{SubSubSectionBlue}\normalfont\large\bfseries}
-    {\color{SubSubSectionBlue}\thesubsubsection}{1em}{}
-\DeclareCaptionFont{myblue}{\color{SubSectionBlue}}
-\captionsetup{labelfont={myblue,bf}}
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 %------------------------------------------------------------------------------------
@@ -270,15 +265,15 @@
 \DeclareCaptionLabelFormat{blank}{}
 \newcommand{\blankcaption}{\captionsetup{textformat=empty,labelformat=blank} \caption{} \vspace{-1.7em}}
 %------------------------------------------------------------------------------------
-\geometry{
-	paper=a4paper, % Change to letterpaper for US letter
-	inner=2.5cm, % Inner margin
-	outer=3cm, % Outer margin
-	bindingoffset=0.5cm, % Binding offset
-	top=2.5cm, % Top margin
-	bottom=3cm, % Bottom margin
-	%showframe, % Uncomment to show how the type block is set on the page
-}
+% \geometry{
+% 	paper=a4paper, % Change to letterpaper for US letter
+% 	inner=2.5cm, % Inner margin
+% 	outer=3cm, % Outer margin
+% 	bindingoffset=0.5cm, % Binding offset
+% 	top=2.5cm, % Top margin
+% 	bottom=3cm, % Bottom margin
+% 	%showframe, % Uncomment to show how the type block is set on the page
+% }
 %---------------------------------------------------------------------------------------
 % Equation float for captions: https://stackoverflow.com/questions/149479/adding-a-caption-to-an-equation-in-latex#149677
 \usepackage{float}
@@ -305,55 +300,150 @@
 
 \begin{document}
 
-\title{Estudio Fotométrico de Variables Cataclísmicas}
-\author{Ramón Caballero Villegas}
-% \date{19th July 2017}
+\def\titulo{Búsqueda y Estudio Fotométrico de Sistemas Binarios Eclipsantes}
+\def\autor{Ramón Caballero Villegas}
+\def\matricula{2125383}
+\def\grado{Maestría en Astrofísica Planetaria y Tecnologías Afines}
+% En caso de que el grado tenga orientación o especialidad llenar el siguiente
+% campo dejando un ESPACIO INICIAL, en caso contrario, dejar vacío
+\def\orientacion{}
+% Coloca el mes con mayúscula inicial
+\def\fecha{Octubre 2024}
 
-%----------------------------- Frontispiece
-\newgeometry{margin=0.8in}
-\begin{titlepage}
-    \begin{center}
-        \vspace*{0.2cm}
-        {\fontsize{19pt}{20pt}\selectfont \textbf{Universidad Autónoma de Nuevo León}\par}
+\def\asesor{Dr. Andrés Alberto Avilés Alvarado}
+\def\revisorA{Nombre del revisor A}
+\def\revisorB{Nombre del revisor B}
+% En el caso de que tu tesis sea de doctorado activa la variable cambiándola a \doctoradotrue
+% y define tus otros dos revisores
+\newif\ifdoctorado\doctoradofalse
+\def\revisorC{Nombre del revisor C}
+\def\revisorD{Nombre del revisor D}
+% El visto bueno siempre va
+\def\vobo{Dr. nombre del subdirector}
 
-        \noindent
-        \hrulefill
-        \vspace{0.8cm}
+%----------------------------- Titulo UANL
 
-        \Large
-        Facultad de Ciencias Físico Matemático
-        \Large
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Primer portada: UANL %
+%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
 
-        \vspace{5cm}
-        {\fontsize{25pt}{25}\textcolor{MyDarkBlue}{\textbf{Búsqueda y Estudio Fotométrico de Sistemas Binarios Eclipsantes}}}
+\begin{scshape}
+\begin{center}
+	{\Large \uanl} \\[5mm]
+	{\large \fcfm} \\[5mm]
+	{\large \pifi}
+	\vskip15mm
+	\includegraphics[height=55mm]{Figuras/uanl.png}
+	\vskip12mm
+	\begin{tabular}{p{11cm}}
+		\centering
+		{\large \titulo}
+	\end{tabular}
+	\vskip7mm
+	{por}\\[7mm]
+	{\large \autor}\\[7mm]
+        % Si en tu posgrado la tesis no es opcional (como sí lo es en licenciatura), no modifiques esta línea:
+	{como requisito parcial para obtener el grado de}\\[3mm]
+	\MakeUppercase{\grado}\\
+	\orientacion
+	\vfill
+	\fecha
+\end{center}
+\end{scshape}
 
-        \vspace{1cm}
-        {\fontsize{16pt}{16pt}Tesis de Maestría en Astrofísica Planetaria y
-            Tecnologías Afines}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Segunda portada: FIME %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
 
-        \vspace{4.5cm}
-        \begin{minipage}[t]{0.34\textwidth}
-            \begin{flushleft}
-                {\fontsize{16pt}{16pt}Presentada por: \\ \textbf{\textcolor{MyDarkBlue}{Ramón Caballero Villegas}}}
-            \end{flushleft}
-        \end{minipage}
-        \begin{minipage}[t]{0.44\textwidth}
-            \begin{flushright} \Large
-                Asesor: \\
-                \textbf{\textcolor{MyDarkBlue}{Dr. Andrés Alberto Avilés Alvarado}}
-            \end{flushright}
-        \end{minipage}\\
+\begin{scshape}
+\begin{center}
+	{\Large\uanl} \\[5mm]
+	{\large\fcfm} \\[5mm]
+	{\large\pifi}
+	\vskip16mm
+	\includegraphics[height=55mm]{Figuras/fcfm.png}
+	\vskip16mm
+	\begin{tabular}{p{11cm}}
+		\centering
+		{\large \titulo}
+	\end{tabular}
+	\vskip7mm
+	{por}\\[7mm]
+	{\large \autor}\\[7mm]
+        % Si en tu posgrado la tesis no es opcional (como sí lo es en licenciatura), no modifiques esta línea:
+	{como requisito parcial para obtener el grado de}\\[3mm]
+	\MakeUppercase{\grado}\\
+	\orientacion
+	\vfill
+	\fecha
+\end{center}
+\end{scshape}
 
-        \vfill
-        \noindent\hrulefill
-        \vspace{0.3cm}
-        \Large
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Carta del comité de tesis %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+\enlargethispage{5mm}
 
-        % Apelación {\textcolor{MyDarkBlue} {I}}
+{\renewcommand{\baselinestretch}{1.1}\selectfont
+\begin{center}\vspace*{-25mm}\hspace*{-10mm}
+\begin{minipage}{170.5mm}
+\hspace{-1.5mm}\includegraphics[height=20mm]{Figuras/uanl.png}\hfill\raise0mm\hbox{\includegraphics[height=20mm]{Figuras/fcfm.png}}
+\hrule\vspace{0.5mm}
+\scalebox{.5}{\MakeUppercase{\uanl}}\hfill\scalebox{.5}{\MakeUppercase{\fcfm}}\medskip
+\end{minipage}
+\vskip4mm{\sc\large\uanl\\\fcfm\\[3pt]\pifi}\vskip6mm
+\end{center}
 
-        Año Académico {\textcolor{MyDarkBlue} {2022-2023}}
-    \end{center}
-\end{titlepage}
+Los miembros del Comité de Tesis recomendamos que la Tesis <<\titulo>>, realizada por el alumno \autor, con número de matrícula \matricula, sea aceptada para su defensa como requisito parcial para obtener el grado de \grado\orientacion.
+\ifdoctorado\vskip10mm\else\vskip8mm\fi
+
+\begin{center}
+El Comité de Tesis\\
+\ifdoctorado\vskip15mm\else\vskip25mm\fi
+
+\ifdoctorado{%%%
+\begin{tabular}{p{37mm}p{21mm}p{12mm}p{21mm}p{37mm}}
+	\cline{2-4}
+	& \multicolumn{3}{c}{\asesor} & \\
+	& \multicolumn{3}{c}{Asesor}  & \\[15mm]
+	\cline{1-2} \cline{4-5}
+	\multicolumn{2}{c}{\revisorA} & & \multicolumn{2}{c}{\revisorB} \\
+	\multicolumn{2}{c}{Revisor}   & & \multicolumn{2}{c}{Revisor}   \\[17mm]
+	\cline{1-2} \cline{4-5}
+	\multicolumn{2}{c}{\revisorC} & & \multicolumn{2}{c}{\revisorD} \\
+	\multicolumn{2}{c}{Revisor}   & & \multicolumn{2}{c}{Revisor}   \\[2mm]
+	& \multicolumn{3}{c}{Vo. Bo.} & \\[14mm]
+	\cline{2-4}
+	& \multicolumn{3}{c}{\vobo}   & \\
+	& \multicolumn{3}{c}{Subdirector de Estudios de Posgrado}   & \\ &&&&
+\end{tabular}
+}\else{%%%
+\begin{tabular}{p{37mm}p{21mm}p{12mm}p{21mm}p{37mm}}
+	\cline{2-4}
+	& \multicolumn{3}{c}{\asesor} & \\
+	& \multicolumn{3}{c}{Asesor}  & \\[19mm]
+	\cline{1-2} \cline{4-5}
+	\multicolumn{2}{c}{\revisorA} & & \multicolumn{2}{c}{\revisorB} \\
+	\multicolumn{2}{c}{Revisor}   & & \multicolumn{2}{c}{Revisor}   \\[2mm]
+	& \multicolumn{3}{c}{Vo. Bo.} & \\[17mm]
+	\cline{2-4}
+	& \multicolumn{3}{c}{\vobo}   & \\
+	& \multicolumn{3}{c}{Subdirector de Estudios de Posgrado}   & \\ &&&&
+\end{tabular}
+}\fi%%%
+
+\vfill
+
+\snnl, \MakeLowercase{\fecha}
+
+\end{center}}
+
+
 % ------------------------------------DEDICATION
 % \restoregeometry
 % \vspace*{5cm}
@@ -366,9 +456,9 @@
 %\newpage
 %-------------------------------------ABSTRACT
 \thispagestyle{empty}
-\vspace*{5cm}
+% \vspace*{5cm}
 \renewcommand{\abstractname}{\color{MyDarkBlue}{Resumen}}
-\begin{abstract}
+% \begin{abstract}
     % TODO: new abstract about contact binaries
 
     % Las \textit{variables cataclísmicas} son un tipo de sistemas binarios con un
@@ -400,7 +490,7 @@
     % en el Municipio de Iturbide Nuevo León. Como resultado final de este trabajo
     % se presenta las curvas de luz de cada objeto, obteniendo de estas varios
     % parámetros efemérides de los sistemas.
-\end{abstract}
+% \end{abstract}
 %-------------------------------------INDEX
 \setcounter{page}{1}
 \tableofcontents

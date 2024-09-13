@@ -217,13 +217,14 @@ encontrar raíces como el de \textit{Newton-Raphson}:
 
 \begin{eqfloat}[!ht]
 	\centering
+	\vspace{1.3em}
 	\begin{equation}
 		\begin{split}
-			f(\varrho_{\perp}) = \eqnmark[MyDarkRed]{omega}{\frac{1}{\sqrt{\varrho_{\perp} + z^2}} + q \left(\frac{1}{\sqrt{\delta^2 + \varrho_{\perp}^2 + z^2 - 2 \varrho_{\perp} \delta \cos{\phi}}} - \frac{\varrho_{\perp} \cos{\phi}}{\delta^2} \right) + \frac{F^2 \left(1 + q\right) \varrho_{\perp}^2}{2}} \\
-			\eqnmark[MyDarkBlue]{omegaPol}{- \frac{1}{z_{\textrm{pol}}} - \frac{q}{\sqrt{z_{\textrm{pol}}^2 + \delta^2}}}
+			f(\varrho_{\perp}) = \eqnmark[MyDarkRed]{omega1}{\frac{1}{\sqrt{\varrho_{\perp} + z^2}} + q \left(\frac{1}{\sqrt{\delta^2 + \varrho_{\perp}^2 + z^2 - 2 \varrho_{\perp} \delta \cos{\phi}}} - \frac{\varrho_{\perp} \cos{\phi}}{\delta^2} \right)} \\
+			\eqnmark[MyDarkRed]{omega2}{+ \frac{F^2 \left(1 + q\right) \varrho_{\perp}^2}{2}} \eqnmark[MyDarkBlue]{omegaPol}{- \frac{1}{z_{\textrm{pol}}} - \frac{q}{\sqrt{z_{\textrm{pol}}^2 + \delta^2}}}
 		\end{split}
 	\end{equation}
-	\annotate[yshift=-0.3em]{below, left}{omega}{Potencial de Roche $\Omega$}
+	\annotate[yshift=0.8em]{above, left}{omega1}{Potencial de Roche $\Omega$}
 	\annotate[yshift=-0.2em]{below, left}{omegaPol}{Potencial de referencia en el polo $\Omega_{\mathrm{pol}}$}
 	\blankcaption
 	\vspace{0.4em}
@@ -232,7 +233,7 @@ encontrar raíces como el de \textit{Newton-Raphson}:
 
 Donde se define $z_{\mathrm{pol}} \equiv \varrho_{\mathrm{pol}}$ como el valor
 de referencia del radio al polo de la estrella
-\citetbooksection{phoebeScientificReference}{5.1.1}. Al hacer uso de la derivada
+[\citetbooksection{phoebeScientificReference}{5.1.1}]. Al hacer uso de la derivada
 $f' (\varrho_{\perp})$\textemdash la cual se puede obtener como lo muestra
 \citetbooksection{phoebeScientificReference}{5.1.1}\textemdash es posible
 implementar un método para encontrar las raíces de esta ecuación. El muestreo de la superficie se hace a intervalos regulares de latitud y longitud:
@@ -263,7 +264,7 @@ elementos en forma de triángulos equiláteros, tal como se muestra en la
 \reffigure{figuraMallaPhoebe}. 
 
 \begin{figure}[!ht]
-	\includegraphics[scale=0.45]{Introduccion/Figures/Figura Mallado Triangular_PHOEBE II Mesh.png}
+	\includegraphics[scale=0.4]{Introduccion/Figures/Figura Mallado Triangular_PHOEBE II Mesh.png}
 	\caption{Comparación la discretización superficial usando elementos
 	trapezoidales vs. triangulares en el polo estelar. Al utilizar elementos de
 	área superficial idéntica se nota que en el caso de elementos trapezoidales
@@ -333,15 +334,14 @@ en el polo estelar:
 
 Donde se define $r_{\mathrm{pol}}$ como el radio al polo estelar, $h =
 \sqrt{r_{\mathrm{pol}}^2 + d^2}$ es la distancia del polo estelar al centro de
-la estrella compañera, $\omega(t)$ es la velocidad angular como función del
-tiempo, y $d_{\perp,\textrm{rot}}$ es la distancia del polo estelar hacia el eje
-de rotación del sistema (su centro de masa)
+la estrella compañera, $\omega(t)$ es la velocidad angular en el tiempo $t$, y $d_{\perp,\textrm{rot}}$ es la distancia del polo estelar hacia el eje
+de rotación del sistema
 \citetbooksection{phoebeScientificReference}{5.2}. La gravedad superficial
 depende de manera indirecta de la fase orbital, debido al ajuste de la estrella
 a una superficie equipotencial a lo largo de la órbita del sistema. Este
 parámetro rige la distribución de material y energía en la estrella; las
-regiones de mayor gravedad superficial (en sistemas binarios eclipsantes suelen
-ser los polos estelares, debido a las fuerzas de marea que resultan en un radio
+regiones de mayor gravedad superficial (en sistemas binarios suelen
+ser los polos estelares debido a las fuerzas de marea que resultan en un radio
 ecuatorial mayor) con áreas más calientes que el resto de la superficie.
 \citetbooksection{phoebeScientificReference}{4.3} dice que el flujo
 monocromático para el rango de longitud de onda $[\lambda, \lambda +
@@ -355,10 +355,10 @@ temperatura efectiva:
 	\end{equation}
 \end{eqfloat}
 
-Donde $\sigma = 5.67 \times 10^{-8} \mathrm{W} \mathrm{m}^{-2} \mathrm{K}^{-4}$
+Donde $\sigma = 5.67 \times 10^{-8} \ \mathrm{W} \mathrm{m}^{-2} \mathrm{K}^{-4}$
 es la constante de Stefan-Boltzmann, $\bar{\kappa}$ es el coeficiente de
 opacidad de Rosseland (el cual describe la opacidad, o la probabilidad de un
-fotón de atravesar un medio\textemdash en este caso la superficie estelar),
+fotón de atravesar la superficie estelar),
 $\rho$ es la densidad del material en la fotósfera, $g$ es la aceleración
 gravitacional local, y $\beta$ es el \textit{coeficiente del oscurecimiento
 gravitacional}. El valor de $\beta$ en lo general se mantiene fijo dependiendo
@@ -413,9 +413,6 @@ gravedad superficial y temperatura efectiva se puede ver en la
 	vista en el índice \textbf{(b)}.}
 	\label{figuraMallaPhoebeTeffLogg}
 \end{figure}
-
-% TODO: formatting new page
-\newpage
 
 \subsection{Radiación Emergente}
 
@@ -564,9 +561,6 @@ observado $\sigma_{i,o}$, el cual se determina antes de ingresar los datos a
 PHOEBE. En el caso de tener incertidumbres que han sido subestimadas se
 introduce el termino $\sigma_{inf}$, donde al final se obtiene la incertidumbre
 $\sigma_{i}$:
-
-% TODO: formatting new page
-\newpage
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -765,14 +759,15 @@ hizo uso de 2 optimizadores principales: \textbf{el simplex de Nelder-Mead} y
 
 \subsubsection{Simplex de Nelder-Mead} \label{intro:phoebe:nelder_mead}
 
-Desarrollado por \citeyearparen{nelder_mead_simplex_1965}, el
-\textbf{simplex de Nelder-Mead} (NMS por sus siglas en inglés) es un algoritmo
-heurístico que explora el espacio de parámetros mediante un \textit{simplex}, un
-politopo compuesto de varios vértices que representan distintos puntos en la
-función que se busca optimizar. En el caso de PHOEBE, la función a optimizar es
-$\chi^2$; para esto es necesario evaluar el ajuste en cada punto del simplex, lo
-cual requiere calcular el modelo hacia adelante para cada punto de prueba. Esto
-se demuestra con la siguiente modificación a la \refequation{ecuacionChi2}:
+Desarrollado por \citeyearparen{nelder_mead_simplex_1965}, el \textbf{simplex de
+Nelder-Mead} (NMS por sus siglas en inglés) es un algoritmo heurístico que
+explora el espacio de parámetros mediante un \textit{simplex}, un politopo
+compuesto de varios vértices que representan distintos puntos en la función que
+se busca optimizar. En el caso de PHOEBE, la función a optimizar es $\chi^2$;
+para esto es necesario evaluar el ajuste en cada punto del simplex, lo cual
+requiere calcular el modelo hacia adelante para cada punto de prueba. Esto se
+demuestra con la siguiente modificación a la \refequation{ecuacionChi2}, visto
+en la \refequation{ecuacionChi2Params}.
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -783,7 +778,7 @@ se demuestra con la siguiente modificación a la \refequation{ecuacionChi2}:
 	\label{ecuacionChi2Params}
 \end{eqfloat}
 
-Donde $\mathbf{p}$ representa el vector de parámetros del modelo, como la
+$\mathbf{p}$ representa el vector de parámetros del modelo, como la
 inclinación orbital, razón de masas, y cualquier otro incluido en el cálculo. El
 método de NMS solo requiere evaluaciones de la función de costo en los puntos
 del simplex; esto lo hace un método adecuado para optimizar funciones altamente
@@ -859,6 +854,7 @@ permite correr este optimizador por varias iteraciones de manera directa; esto
 obliga al operador a analizar la solución propuesta por el algoritmo y decidir
 si es una solución aceptable. Si es necesario ejecutar más iteraciones, el mismo
 resolvedor es capaz de correr de nuevo, utilizando los valores adoptados de la
+iteración previa.
 
 \subsection{Muestreo de la Función de Densidad de Probabilidad Posterior} \label{intro:phoebe:problema_inverso:muestreo}
 
@@ -931,9 +927,6 @@ logaritmo natural de esta función, la cual se define en
 
 La \textbf{evidencia} se define como la verosimilitud del modelo $M$ integrado
 sobre todos los valores posibles de parámetros:
-
-% TODO: formatting new page
-\newpage
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -1020,6 +1013,9 @@ el algoritmo de \textbf{Metropolis-Hastings} descrito en en
 \citeyearparen{mackay_information_theory_inference_learning_algorithms_2003}
 adopta una muestra propuesta $\mathbf{\Theta}^*$ bajo la siguiente condición:
 
+% TODO: formatting new page
+\newpage
+
 \begin{eqfloat}[!ht]
 	\centering
 	\begin{equation}
@@ -1055,9 +1051,6 @@ en donde la nueva posición de una cadena depende de otra cadena en el ensamble 
 {X_k}$, para $k$ caminadores $X \in {X_1, X_2, ..., X_k}$. Dado un caminador
 $X_k$, primero se toma otro caminador del ensamble complementario $S_{[k]} =
 {X_j, j \neq k}$ del cual proponer una nueva posición $Y$:
-
-% TODO: formatting new page
-\newpage
 
 \begin{eqfloat}[!ht]
 	\centering
@@ -1211,8 +1204,8 @@ actuales de los parámetros en el bundle visto en la \refcode{codigoMuestreoPrio
 
 \begin{figure}[!ht]
 	\centering
-	\xincludegraphics[scale=0.36, label=\textbf{(a)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Gaussian.png}
-	\xincludegraphics[scale=0.36, label=\textbf{(b)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Uniform.png}
+	\xincludegraphics[scale=0.29, label=\textbf{(a)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Gaussian.png}
+	\xincludegraphics[scale=0.29, label=\textbf{(b)}, labelbox=true, pos=ne, fontsize=\Large]{Introduccion/Figures/Figura PHOEBE Priors Uniform.png}
 	\caption{Gráfica mostrando las distribuciones creadas por el código en la
 	\refcode{codigoMuestreoPriors}. Este \textit{corner plot} (su nombre en
 	inglés) permite ver las distribuciones de los parámetros individuales en el
@@ -1240,5 +1233,3 @@ tipo \code{sampler.emcee} cuyas distribuciones a priori sean la distribución de
 densidad producida por el muestreo previo. Información adicional del API de
 PHOEBE se ubica en su página de
 documentación\footnote{\url{http://phoebe-project.org/docs/2.4/tutorials/emcee}}.
-El muestreo empleado para este trabajo de tesis se encuentra en el
-\refthesischapter{metodologia:modelocomputacional}.
