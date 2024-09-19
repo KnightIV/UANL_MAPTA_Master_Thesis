@@ -229,10 +229,10 @@
 \definecolor{MyDarkRed}{rgb}{0.5,0.04,0} 
 \definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.08}
 
-\definecolor{ChapterBlue}{rgb}{0.16,0.32,0.75}
-\definecolor{SectionBlue}{rgb}{0.16,0.32,0.75}
-\definecolor{SubSectionBlue}{rgb}{0.0,0.53,0.74} 
-\definecolor{SubSubSectionBlue}{rgb}{0.0,0.58,0.65} 
+\definecolor{ChapterColor}{rgb}{0.16,0.32,0.75}
+\definecolor{SectionColor}{rgb}{0.16,0.32,0.75}
+\definecolor{SubSectionColor}{rgb}{0.0,0.53,0.74} 
+\definecolor{SubSubSectionColor}{rgb}{0.0,0.58,0.65} 
 %------------------------------------------------------------------------------------
 % styling part pages to fit abstract 
     % https://tex.stackexchange.com/questions/30432/styling-the-part-page 
@@ -250,15 +250,26 @@
 \newcommand{\myboldverb}[1]{{\color{MyDarkBlue}\bfseries{#1}}} % per enfasi in grassetto 
 \newcommand{\myverb}[1]{{\color{MyDarkBlue}\texttt{#1}}} % in evidenza
 \newcommand{\myurl}[1]{{\color{MyDarkGreen}\url{#1}}} % per url
-\newcommand{\refthesischapter}[1]{{\color{ChapterBlue}\textbf{Capítulo \ref{#1}}}}
-\newcommand{\refthesissection}[1]{{\color{SectionBlue}\textbf{Sección \ref{#1}}}}
-\newcommand{\refthesissubsection}[1]{{\color{SubSectionBlue}\textbf{Sección \ref{#1}}}}
-\newcommand{\refthesissubsubsection}[1]{{\color{SubSubSectionBlue}\textbf{Sección \ref{#1}}}}
-\newcommand{\reffigure}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
-\newcommand{\refcode}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
-\newcommand{\reftable}[1]{{\color{MyDarkGreen}\textbf{Tabla \ref{#1}}}}
-\newcommand{\refequation}[1]{{\color{MyDarkGreen}\textbf{Ecuación \ref{#1}}}}
-\newcommand{\refequations}[1]{{\color{MyDarkGreen}\textbf{Ecuaciones \ref{#1}}}}
+% \newcommand{\refthesischapter}[1]{{\color{ChapterColor}\textbf{Capítulo \ref{#1}}}}
+% \newcommand{\refthesissection}[1]{{\color{SectionColor}\textbf{Sección \ref{#1}}}}
+% \newcommand{\refthesissubsection}[1]{{\color{SubSectionColor}\textbf{Sección \ref{#1}}}}
+% \newcommand{\refthesissubsubsection}[1]{{\color{SubSubSectionColor}\textbf{Sección \ref{#1}}}}
+% \newcommand{\reffigure}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
+% \newcommand{\refcode}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
+% \newcommand{\reftable}[1]{{\color{MyDarkGreen}\textbf{Tabla \ref{#1}}}}
+% \newcommand{\refequation}[1]{{\color{MyDarkGreen}\textbf{Ecuación \ref{#1}}}}
+% \newcommand{\refequations}[1]{{\color{MyDarkGreen}\textbf{Ecuaciones \ref{#1}}}}
+
+\newcommand{\refthesischapter}[1]{{\textbf{Capítulo \ref{#1}}}}
+\newcommand{\refthesissection}[1]{{\textbf{Sección \ref{#1}}}}
+\newcommand{\refthesissubsection}[1]{{\textbf{Sección \ref{#1}}}}
+\newcommand{\refthesissubsubsection}[1]{{\textbf{Sección \ref{#1}}}}
+\newcommand{\reffigure}[1]{{\textbf{Figura \ref{#1}}}}
+\newcommand{\refcode}[1]{{\textbf{Figura \ref{#1}}}}
+\newcommand{\reftable}[1]{{\textbf{Tabla \ref{#1}}}}
+\newcommand{\refequation}[1]{{\textbf{Ecuación \ref{#1}}}}
+\newcommand{\refequations}[1]{{\textbf{Ecuaciones \ref{#1}}}}
+
 \newcommand{\textapproxtilde}{\raisebox{-0.55ex}{\textasciitilde}}
 
 % https://tex.stackexchange.com/questions/148634/no-caption-or-title-but-entry-in-list-of-figures#148637

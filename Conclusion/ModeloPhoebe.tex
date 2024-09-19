@@ -224,8 +224,8 @@ relación se manifiesta en una correlación lineal como se puede ver en la
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.4]{Conclusion/Figures/Figura q-Luminosidad Relacion.png}
-    \caption{Modelo sintético en la pasabanda Johnson:V de un sistema binario en
+    \includegraphics[scale=0.37]{Conclusion/Figures/Figura q-Luminosidad Relacion.png}
+    \caption{Modelo sintético en el pasabanda Johnson:V de un sistema binario en
     contacto en PHOEBE, manteniendo fijo el factor de relleno en $f = 0.3$. Se
     puede observar como el flujo sintético calculado va aumentando a pesar de
     mantener fijo el factor de escala de la luminosidad en la
@@ -239,7 +239,7 @@ relación se manifiesta en una correlación lineal como se puede ver en la
     \centering
     \includegraphics[scale=0.8]{Conclusion/Figures/Figura q-Luminosidad PDF Correlacion.png}
     \caption{Gráfica de correlación entre la razón de masa $q$ y el factor de
-    escala de luminosidad en la pasabanda ZTF:g \code{pblum@lcZtfG}.}
+    escala de luminosidad en el pasabanda ZTF:g \code{pblum@lcZtfG}.}
     \label{figuraQ_LuminosidadPdfCorrelacion}
 \end{figure}
 
@@ -257,7 +257,39 @@ parámetro que afecte la luminosidad absoluta del sistema, como las masas de las
 componentes y temperaturas efectivas, el cual permitiría muestrear estos
 parámetros y obtener distribuciones de densidad de probabilidad de ellos.
 
-% TODO: escribe de las demás correlaciones una vez que el modelo haya convergido
+Para cuantificar las correlaciones entre parámetros se ajustó una relación
+polinomio entre los parámetros muestreados. Este proceso se ejecutó para los
+pares de parámetros que mostraron una correlación obvia después de una
+inspección visual. Se intentó ajustar una función de grado 1 a 10, de los cuales
+se hizo un análisis de convergencia para determinar el menor grado del polinomio
+que mejor se ajusta a las muestras. La \reffigure{figuraCorrelacion_q_incl}
+muestra la correlación entre la razón de masa y la inclinación orbital del
+sistema muestreado; las demás correlaciones se pueden ver en el apéndice en la
+\refthesissection{apendice:modelo_computacional_graficas:correlaciones_parametros_muestreados}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.4]{Conclusion/Figures/Figura q-incl Correlacion Convergencia.png}
+    \includegraphics[scale=0.4]{Conclusion/Figures/Figura q-incl Correlacion.png}
+    \caption{Función polinomio ajustado a las muestras de la razón de masa
+    \code{q} y la inclinación orbital \code{incl@binary}, utilizando los valores
+    de la inclinación como el parámetro independiente\textemdash denotado como
+    $x$ de la línea solida roja\textemdash para ser consistente con las
+    relaciones que aparecen en la \reffigure{figuraMcmcZtfResultadosPrimarios}.
+    El ajuste del modelo llega a converger utilizando un polinomio de grado 3 de
+    acuerdo a la gráfica superior, el cual es reportado en la gráfica inferior.}
+    \label{figuraCorrelacion_q_incl}
+\end{figure}
+
+Los ajustes fueron hechos haciendo uso del módulo de regresión lineal de
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html}{\code{scikit-learn}}.
+Es importante notar que estas correlaciones aparecen debido a los datos que se
+usaron para alimentar el modelo; no es un fenómeno físico presente en el sistema
+binario. Cada correlación entre distintos parámetros indica la existencia de una
+solución fotométrica no única, dado que cualquier combinación de parámetros que
+cumplan con la función de correlación ajustada sería igual de correcta, salvo si
+se introducen nuevos datos que permitan restringir aún más los parámetros del
+sistema.
 
 \section{Extinción Interestelar}
 
@@ -267,12 +299,82 @@ utilizó la fotometría de ZTF para determinar la temperatura efectiva del siste
 binario, específicamente los flujos normalizados tal que la información del
 color del sistema no se pierda en la conversión de magnitudes. Sin embargo,
 cuando se realizó este mismo proceso utilizando los flujos de Gaia DR3 (dados en
-cuentas de electrones por segundo), se obtuvo un diferente resultado, una
-temperatura efectiva inconsistente con el resultado de ZTF. Para intentar
-explicar esta discrepancia investigamos el efecto de la extinción interestelar
-debido al polvo en la línea de visión de \atoObjIdNoSpace.
+cuentas de electrones por segundo), se obtuvo una temperatura efectiva
+inconsistente con el resultado de ZTF. Para intentar explicar esta discrepancia
+investigamos el efecto de la extinción interestelar debido al polvo en la línea
+de visión de \atoObjIdNoSpace.
 
-Para analizar el efecto del polvo en las observaciones fotométricas de Gaia se utilizó el paquete de Python \code{dustmaps}\footnote{\url{https://github.com/gregreen/dustmaps}}, el cual contiene información de varios mapas de polvo hechos en la literatura. 
+Para analizar el efecto del polvo en las observaciones fotométricas de Gaia se
+utilizó el paquete de Python
+\code{dustmaps}\footnote{\url{https://github.com/gregreen/dustmaps}}, el cual
+contiene información de varios mapas de polvo hechos en la literatura. Este
+paquete contiene mapas que toman en cuenta la distancia al objetivo, calculando
+la extinción que experimentaría la luz al pasar por el polvo presente en la
+línea de visión. Para este breve análisis se usó el mapa de polvo desarrollado
+por \citeyearparen{green_3d_dustmap_gaia_panstarrs_2mass_2019}, el cual utiliza
+fotometría de Pan-STARRS 1 y 2MASS en conjunto con las distancias determinadas
+utilizando el paralaje reportado en el catálogo de Gaia DR2 para modelar una
+distribución tridimensional del polvo interestelar.
+\citeyearparen{bailer-jones_estimating_distances_gaia_edr3_2021} corrige errores
+sistemáticos en las mediciones del paralaje, reportando distancias corregidas
+por medio de métodos probabilísticos, por lo cual decidimos utilizar su
+distancia reportada a \atoObjId en vez de una simple inversión del paralaje
+reportado por Gaia DR3\footnote{La distancia reportada se encuentra en la tabla
+\code{external.gaiaedr3\_distance} en el \textit{Gaia Archive}.}. El mapa de polvo
+sintético generado alrededor de \atoObjId se puede ver en la
+\reffigure{figuraMapaPolvoLandoltV}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.54]{Conclusion/Figures/Figura Mapa Polvo Landolt V.png}
+    \caption{Distribución del polvo interestelar alrededor de \atoObjId en la
+    pasabanda Landolt V, asumiendo $R_V = 3.1$. Este mapa presenta unidades de
+    extinción $A_V$, las cuales se obtuvieron utilizando el coeficiente $2.742$
+    reportado por
+    \citeyearparen{schlafly_measuring_reddening_sdss_calibrating_sfd_2011}. El
+    circulo rojo marca la ubicación de \atoObjIdNoSpace.}
+    \label{figuraMapaPolvoLandoltV}
+\end{figure}
+
+El exceso $E(B-V)$ es un parámetro libre en PHOEBE, el cual se puede utilizar
+para parametrizar el enrojecimiento del sistema binario. Al menos que ambas
+componentes estelares sean completamente idénticas y experimenten poca
+irradiación mutua y distorsión estelar, no es adecuado tratar la extinción
+interestelar como un efecto uniforme en toda la curva de luz de un sistema
+binario
+[\citeyearparen{jones_phoebe_iv_impact_interstellar_extinction_lcs_binaries_2020}].
+PHOEBE es capaz de calcular el valor de la extinción observada en cada fase
+orbital basado en el perfil espectral del modelo, la función de transmisión de
+el pasabanda de la curva de luz, y la ley de enrojecimiento empleada. Sin
+embargo, este método tiene la desventaja de no ser compatible con todas las
+pasabandas disponibles en PHOEBE, debido a que uno de los requisitos es que
+exista una variación particular \code{ext} en los servidores de PHOEBE. Por esta
+razón fue necesario tratar las curvas de luz de Gaia por separado de ZTF.
+
+Primero fue necesario ajustar el tiempo de superconjunción del modelo utilizando
+las curvas de luz de Gaia. Esto se debe a la presencia de un efecto sistemático
+en el tiempo de medición en la fotometría de Gaia; a pesar de que las curvas se
+ajusten adecuadamente al mismo periodo orbital, el eclipse principal del modelo
+queda desfasado con los datos observados. Tras correr un optimizador de tipo
+Nelder-Mead se encuentra el tiempo de superconjunción de los datos de Gaia de
+$0.03199 \ \mathrm{d}$ a comparación de $0.02589 \ \mathrm{d}$ para las curvas
+de ZTF e Iturbide. Después fue necesario eliminar la restricción del valor
+\code{ebv} del modelo por medio de la función \code{flip\_constraint} del
+modelo, restringiendo el valor de \code{Av} en su lugar. Esto nos permite
+ingresar de manera directa el valor que se obtiene del exceso en el visible de
+\code{dustmaps}, utilizando el módulo \code{BayestarQuery} y usando las
+coordenadas de \atoObjId junto a su distancia para obtener una muestra del
+enrojecimiento en valores de $E(B-V)$. El valor máximo de $0.16$ logró un mejor
+ajuste a los datos, como se puede ver en la
+\reffigure{figuraPhoebeGaiaExtinguido}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.45]{Conclusion/Figures/Figura Phoebe Gaia Extinguido.png}
+    \caption{Modelo de PHOEBE incorporando la extinción interestelar a los datos
+    de Gaia, utilizando un valor de $0.16$ de $E(B-V)$.}
+    \label{figuraPhoebeGaiaExtinguido}
+\end{figure}
 
 \section{Multi-Modalidad de la PDF Posterior}
 
