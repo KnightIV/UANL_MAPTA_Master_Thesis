@@ -1,4 +1,4 @@
-\chapter{Consideraciones del Modelo de PHOEBE}
+\chapter{Consideraciones del Modelo de PHOEBE} \label{conclusion:consideraciones_phoebe}
 
 El resultado final obtenido en el
 \refthesischapter{metodologia:modelocomputacional} está sujeto a varias
@@ -219,8 +219,8 @@ correlaciones son esperadas desde un principio; por ejemplo, en un sistema
 binario en contacto existe una correlación fundamental entre la razón de masa
 $q$ y el factor de escala de la luminosidad en una pasabanda. Un pequeño ejemplo
 se puede ver en la \reffigure{figuraRazonMasaLuminosidadSintetico}; esta
-relación se manifiesta en una correlación lineal como se puede ver en la
-\reffigure{figuraQ_LuminosidadPdfCorrelacion}.
+relación se manifiesta en una correlación aproximadamente lineal como se puede
+ver en la \reffigure{figuraQ_LuminosidadPdfCorrelacion}.
 
 \begin{figure}[!ht]
     \centering
@@ -244,7 +244,7 @@ relación se manifiesta en una correlación lineal como se puede ver en la
 \end{figure}
 
 Esta correlación presenta un gran problema para la solución fotométrica del
-sistema: la los valores presentados en la
+sistema: los valores presentados en la
 \refthesissection{metodologia:modelocomputacional:mcmc:resultados} no
 representan una solución única, por la cual cualquier combinación de valores de
 la razón de masa y \code{pblum@lcZtfG} que caigan en esta línea pueden llegar a
@@ -290,6 +290,8 @@ solución fotométrica no única, dado que cualquier combinación de parámetros
 cumplan con la función de correlación ajustada sería igual de correcta, salvo si
 se introducen nuevos datos que permitan restringir aún más los parámetros del
 sistema.
+
+% TODO: incluye matriz de covarianza
 
 \section{Extinción Interestelar}
 
@@ -376,7 +378,7 @@ ajuste a los datos, como se puede ver en la
     \label{figuraPhoebeGaiaExtinguido}
 \end{figure}
 
-\section{Multi-Modalidad de la PDF Posterior}
+\section{Multi-Modalidad de la PDF Posterior} \label{conclusion:consideraciones_phoebe:multimodalidad_pdf}
 
 Durante el transcurso de este proyecto se llevaron a cabo varias pruebas e
 intentos de ajuste del modelo de PHOEBE a los datos observacionales. El primer

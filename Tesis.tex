@@ -1,9 +1,6 @@
-% \documentclass[12pt,a4paper]{report}
 \documentclass{sty/uanl}
 
 \usepackage[utf8]{inputenc}
-
-% \usepackage{geometry}
 
 \usepackage{makecell}
 \usepackage[T1]{fontenc}
@@ -18,13 +15,10 @@
 \usepackage[]{xcolor}
 \usepackage{booktabs, multirow}
 \usepackage[normalem]{ulem}
-% \usepackage[colorlinks,linkcolor=MyDarkBlue,urlcolor=blue,citecolor=blue]{hyperref}
 \usepackage{hyperref}
     \hypersetup{breaklinks=true,colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
-% \usepackage{hyperref}
 \usepackage[nottoc]{tocbibind}
 \usepackage{url}
-% \usepackage[spanish,es-nodecimaldot,es-tabla]{babel}
 \usepackage[group-digits=true,group-minimum-digits=4]{siunitx}
 \usepackage{xcoffins}
 \usepackage{annotate-equations}
@@ -42,6 +36,9 @@
 \usepackage[style=apa]{biblatex}
 
 \usepackage{layout}
+
+\newenvironment{abstract}{}{}
+\usepackage{abstract}
 
 \DeclareDelimFormat[textcite]{finalnamedelim}{\addspace\&\space}
 
@@ -215,8 +212,6 @@
 \newcommand{\Angstrom}{\textup{~\AA}}
 
 \newcommand{\citeyearparen}[1]{\textcite{#1}}
-% \newcommand{\citetbookchapter}[2]{\textcite[\textcolor{MyLightBlue}{Capítulo #2}]{#1}}
-% \newcommand{\citetbooksection}[2]{\textcite[\textcolor{MyLightBlue}{Sección #2}]{#1}}
 \newcommand{\citetbookchapter}[2]{\textcite[Capítulo #2]{#1}}
 \newcommand{\citetbooksection}[2]{\textcite[Sección #2]{#1}}
 
@@ -250,15 +245,6 @@
 \newcommand{\myboldverb}[1]{{\color{MyDarkBlue}\bfseries{#1}}} % per enfasi in grassetto 
 \newcommand{\myverb}[1]{{\color{MyDarkBlue}\texttt{#1}}} % in evidenza
 \newcommand{\myurl}[1]{{\color{MyDarkGreen}\url{#1}}} % per url
-% \newcommand{\refthesischapter}[1]{{\color{ChapterColor}\textbf{Capítulo \ref{#1}}}}
-% \newcommand{\refthesissection}[1]{{\color{SectionColor}\textbf{Sección \ref{#1}}}}
-% \newcommand{\refthesissubsection}[1]{{\color{SubSectionColor}\textbf{Sección \ref{#1}}}}
-% \newcommand{\refthesissubsubsection}[1]{{\color{SubSubSectionColor}\textbf{Sección \ref{#1}}}}
-% \newcommand{\reffigure}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
-% \newcommand{\refcode}[1]{{\color{MyDarkGreen}\textbf{Figura \ref{#1}}}}
-% \newcommand{\reftable}[1]{{\color{MyDarkGreen}\textbf{Tabla \ref{#1}}}}
-% \newcommand{\refequation}[1]{{\color{MyDarkGreen}\textbf{Ecuación \ref{#1}}}}
-% \newcommand{\refequations}[1]{{\color{MyDarkGreen}\textbf{Ecuaciones \ref{#1}}}}
 
 \newcommand{\refthesischapter}[1]{{\textbf{Capítulo \ref{#1}}}}
 \newcommand{\refthesissection}[1]{{\textbf{Sección \ref{#1}}}}
@@ -466,42 +452,7 @@ El Comité de Tesis\\
 % ------------------------------------
 %\newpage
 %-------------------------------------ABSTRACT
-\thispagestyle{empty}
-% \vspace*{5cm}
-\renewcommand{\abstractname}{\color{MyDarkBlue}{Resumen}}
-% \begin{abstract}
-    % TODO: new abstract about contact binaries
-
-    % Las \textit{variables cataclísmicas} son un tipo de sistemas binarios con un
-    % comportamiento particular. Estas están compuestas comúnmente de una estrella
-    % \textit{enana blanca} y una de \textit{secuencia principal}, donde material
-    % fluye de la secuencia principal hacia la enana blanca, por lo cual se les
-    % llama sistemas en contacto. De esto surge el fenómeno de las explosiones
-    % \textit{nova}, en donde el material acrecido es lanzado de manera violenta
-    % al medio interestelar, causando un aumento en el brillo del sistema. Este
-    % abrillantamiento es una de las características más llamativas de las
-    % variables cataclísmicas, siendo un comportamiento volátil y periódico cuyo
-    % mecanismo no ha sido completamente explorado. 
-    % \\\newline
-    % \noindent A pesar de ser objetos de interés son relativamente pocas los
-    % sistemas identificados como VCs en la literatura. Hasta recientemente solo
-    % se han podido encontrar poco más de 1,000 VCs; esto limita posibles
-    % observaciones a una parte pequeña de la población en la Galaxia, lo cual
-    % causa un desacuerdo en los mecanismos en juego en la evolución de estos
-    % mismos. Cada nuevo sistema observado provee datos útiles que ayudan a
-    % desarrollar un modelo general no solo para las VCs, si no que también para
-    % la estructura y evolución de estrellas solas como nuestro Sol. 
-    % \\\newline
-    % \noindent Esta tesis tiene de objetivo encontrar candidatas a VCs dentro del
-    % catálogo de \gaiaNoSpace, implementando una búsqueda fotométrica basado en
-    % filtros de colores de las bandas del \textit{Sloan Digital Sky Survey}, con
-    % énfasis en encontrar sistemas previamente no observados. De los sistemas
-    % candidatos se llevo a cabo un estudio fotométrico desde el Observatorio
-    % Astronómico Universitario de la Universidad Autónoma de Nuevo León, ubicado
-    % en el Municipio de Iturbide Nuevo León. Como resultado final de este trabajo
-    % se presenta las curvas de luz de cada objeto, obteniendo de estas varios
-    % parámetros efemérides de los sistemas.
-% \end{abstract}
+\include{Resumen}
 %-------------------------------------INDEX
 \setcounter{page}{1}
 \tableofcontents
@@ -523,7 +474,7 @@ El Comité de Tesis\\
 \input{Apendice/GaiaADQL.tex}
 \input{Apendice/ModeloComputacionalGraficasAdicionales.tex}
 %-------------------------------------REFERENCES
-\chapter*{Agradecimientos}
+\chapter*{Acknowledgements}
 This work has made use of data from the European Space Agency (ESA) mission
 \textit{Gaia} (\url{https://www.cosmos.esa.int/gaia}), processed by the Gaia
 Data Processing and Analysis Consortium (DPAC,
@@ -554,5 +505,6 @@ image reduction \citeyearparen{ccdproc241}.
 \clearpage
 
 \printbibliography
+\label{lastpage}
 
 \end{document}
