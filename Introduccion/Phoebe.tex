@@ -175,7 +175,8 @@ Roche. Sin embargo, se requiere un tratamiento adicional del modelo de Roche; la
 \refequation{ecuacionRocheExcentricaAsincronica} viene definida en coordenadas
 esféricas, lo cual causaría una distribución no uniforme en el tamaño de los
 elementos superficiales no deseada (aparte de causar un tipo de \quotes{costura}
-a lo largo del ecuador de la estrella \citetbooksection{phoebeScientificReference}{5.1.1}).
+a lo largo del ecuador de la estrella
+(\citetbooksection{phoebeScientificReference}{5.1.1})).
 
 Para resolver este problema, se transforma la
 \refequation{ecuacionRocheExcentricaAsincronica} a un sistema de coordenadas
@@ -233,7 +234,7 @@ encontrar raíces como el de \textit{Newton-Raphson}:
 
 Donde se define $z_{\mathrm{pol}} \equiv \varrho_{\mathrm{pol}}$ como el valor
 de referencia del radio al polo de la estrella
-[\citetbooksection{phoebeScientificReference}{5.1.1}]. Al hacer uso de la derivada
+(\citetbooksection{phoebeScientificReference}{5.1.1}). Al hacer uso de la derivada
 $f' (\varrho_{\perp})$\textemdash la cual se puede obtener como lo muestra
 \citetbooksection{phoebeScientificReference}{5.1.1}\textemdash es posible
 implementar un método para encontrar las raíces de esta ecuación. El muestreo de la superficie se hace a intervalos regulares de latitud y longitud:
@@ -300,7 +301,7 @@ la distancia no constante entre ambas componentes estelares. Uno de los
 principios del modelo de Roche es que las superficies estelares se ajustan al
 campo de fuerzas instantáneo del sistema, el cual va cambiando a escalas de
 tiempo significativamente menores que el periodo orbital
-\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}. Esto causaría un
+(\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}). Esto causaría un
 cambio apreciable en los radios estelares, debido a que las superficies
 equipotenciales del campo no son constantes en volumen. En teoría, si una
 estrella se rige a solo las superficies equipotenciales del mismo valor en cada
@@ -311,7 +312,7 @@ apoyen esta teoría; al contrario, existen sistemas como las estrellas
 \quotes{heartbeat} (nombrado por su parecido a una lectura de un
 electrocardiograma) cuya variabilidad se debe a la distorsión de sus superficies
 por fuerzas de marea en órbitas excéntricas
-[\citeyearparen{thompson_class_eccentric_binaries_tidal_distortion_heartbeat_2012}].
+(\citeyearparen{thompson_class_eccentric_binaries_tidal_distortion_heartbeat_2012}).
 Como consecuencia, PHOEBE adopta un mecanismo para preservar el volumen del
 sistema; al momento de muestrear la superficie para generar la malla
 superficial, PHOEBE elige la superficie equipotencial que más se acerque al
@@ -336,7 +337,7 @@ Donde se define $r_{\mathrm{pol}}$ como el radio al polo estelar, $h =
 \sqrt{r_{\mathrm{pol}}^2 + d^2}$ es la distancia del polo estelar al centro de
 la estrella compañera, $\omega(t)$ es la velocidad angular en el tiempo $t$, y $d_{\perp,\textrm{rot}}$ es la distancia del polo estelar hacia el eje
 de rotación del sistema
-\citetbooksection{phoebeScientificReference}{5.2}. La gravedad superficial
+(\citetbooksection{phoebeScientificReference}{5.2}). La gravedad superficial
 depende de manera indirecta de la fase orbital, debido al ajuste de la estrella
 a una superficie equipotencial a lo largo de la órbita del sistema. Este
 parámetro rige la distribución de material y energía en la estrella; las
@@ -495,7 +496,7 @@ la pasa banda con la siguiente ecuación:
 Donde $I_{\mathrm{pb}}$ como $\mathcal{S}$ son funciones que toman de parámetro
 de entrada las propiedades termodinámicas de la estrella, incluyendo incluso
 efectos extrínsecos al sistema como la extinción interestelar
-[\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}]. La intensidad
+(\citeyearparen{prsa_phoebe_increased_model_fidelity_mesh_2016}). La intensidad
 $I_{\mathrm{pb}}$ definida en la \refequation{ecuacionIntensidadPasabanda} solo
 es apropiada para simular un detector calibrado por flujo de estrellas
 estándares; para medir la intensidad con respecto al número de fotones
@@ -630,11 +631,11 @@ observacionales. Para utilizar estos estimadores es necesario primero encontrar
 el periodo orbital del sistema, el cual comúnmente corresponde a la segunda
 harmonica de la frecuencia dominante de un periodograma; los algoritmos
 principales utilizados en la literatura son \textit{Lomb-Scargle}
-[\citeyearparen{lomb_least-squares_frequency_analysis_1976}, 
+(\citeyearparen{lomb_least-squares_frequency_analysis_1976}, 
 \citeyearparen{scargle_studies_time_series_fourier_1982}] el cual ajusta
 un modelo sinusoidal a una serie de tiempo (cuyas muestras no requieren haber
 sido tomadas en intervalos regulares del tiempo) y \textit{Box Least Squares}
-(abreviado como BLS) [\citeyearparen{kovacs_bls_periodogram_periodic_transits_2002}],
+(abreviado como BLS) (\citeyearparen{kovacs_bls_periodogram_periodic_transits_2002}),
 un algoritmo diseñado para casos donde la señal de los eclipses es pequeña a
 comparación con el flujo de base del sistema, por ejemplo los sistemas cuya
 duración de eclipses estelares es mucho menor que el periodo orbital. Existen
@@ -680,7 +681,7 @@ obtenido la curva de luz en fase\textemdash es posible ajustar una función
 analítica compuesta de 2 funciones Gaussianas, un término coseno, un término
 constante, o cualquier combinación de estas que mejor se ajusten a los datos
 observacionales, generando en total 7 modelos
-\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}. Utilizando un
+(\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}). Utilizando un
 ajuste de mínimos cuadrados a las curvas en fase, una vez estimado los tiempos
 de los eclipses, se determina el mejor modelo usando un criterio. Del modelo
 final se obtienen valores iniciales tanto para propiedades orbitales del

@@ -16,8 +16,8 @@ multi-modal que considerar.
 
 \section{Datos Espectroscópicos}
 
-En el transcurso de este proyecto se buscó entre otras fuentes adicionales para
-intentar encontrar observaciones espectroscópicas de \atoObjId que pudieran
+Durante el desarrollo de este proyecto se buscaron fuentes adicionales con 
+observaciones espectroscópicas de \atoObjId que pudieran ayudar a
 constreñir otros parámetros del sistema, como la temperatura efectiva del
 sistema (la cual se dejaría como parámetro fijo en vez de utilizar la diferencia
 de color en el flujo de ZTF) o la masa de la estrella primaria, la cual no se
@@ -30,12 +30,13 @@ espectro obtenido del catálogo Gaia DR3.
 
 \subsection{Apache Point Observatory}
 
-Desde el \textit{Observatorio Apache Point} (\textit{Apache Point Observatory})
-la Dra. Szkody logró observar a \atoObjId con el telescopio \textbf{ARC 3.5m}
-con el espectrógrafo \textbf{KOSMOS}, un espectrógrafo de baja resolución ($R
-\sim 2200$) con una rendija de 0.86 pulgadas en la posición \textit{Alta}, la
-cual resulta en un rango de longitudes de onda de $4150 - 7050 \Angstrom$. La
-información técnica de KOSMOS se encuentra en la documentación en línea de
+A través de una colaboración la Dra. Szkody logró observar a \atoObjId desde el
+\textit{Observatorio Apache Point} (\textit{Apache Point Observatory}) con el
+telescopio \textbf{ARC 3.5m} utilizando el espectrógrafo \textbf{KOSMOS}, un
+espectrógrafo de baja resolución ($R \sim 2200$) con una rendija de 0.86
+pulgadas en la posición \textit{Alta}, la cual resulta en un rango de longitudes
+de onda de $4150 - 7050 \Angstrom$. La información técnica de KOSMOS se
+encuentra en la documentación en línea de
 KOSMOS\footnote{\url{https://www.apo.nmsu.edu/arc35m/Instruments/KOSMOS/userguide.html}}.
 Ambos espectros se pueden ver en la \reffigure{figuraEspectrosApo}.
 
@@ -76,7 +77,7 @@ millones de las fuentes observadas. Gaia cuenta con un arreglo de
 espectro-fotómetros BP y RP (los cuales corresponden a las pasabandas
 \textit{Gaia:BP} y \textit{Gaia:RP} respectivamente) que cubren los rangos $[330
 - 680] \ \mathrm{nm}$ para BP y $[640 - 1050] \ \mathrm{nm}$ para RP
-[\citeyearparen{carrasco_internal_calibration_gdr3_bprp_low_resolution_spectra_2021}].
+(\citeyearparen{carrasco_internal_calibration_gdr3_bprp_low_resolution_spectra_2021}).
 Cada transito de un objeto por el campo de visión de Gaia contribuye al espectro
 promedio de baja resolución; la resolución espectral varía con la longitud de
 onda observada, yendo de 100 a 30 para el rango espectral de BP y de 100 a 70
@@ -103,7 +104,7 @@ base $\varphi$ para una fuente $s$:
 
 Donde $k$ denota una unidad de calibración (un intervalo de parámetros continuos
 cuya variación es baja
-[\citeyearparen{carrasco_internal_calibration_gdr3_bprp_low_resolution_spectra_2021}]),
+(\citeyearparen{carrasco_internal_calibration_gdr3_bprp_low_resolution_spectra_2021})),
 $b_s$ son los coeficientes que contienen la información necesaria para construir
 el espectro BP/RP de la fuente, y $A_k$ es el modelo del instrumento. La función
 de base elegida por su ortogonalidad, su convergencia a 0 dado un valor de
@@ -185,7 +186,7 @@ está compuesto de estrellas tipo K, con una metalicidad de $-0.5 \mathrm{dex}$.
 Los resultados del análisis de PyHammer coinciden con la temperatura efectiva
 derivada usando PHOEBE y las curvas fotométricas de ZTF, dado el rango de
 temperaturas efectivas de estrellas tipo K de aproximadamente $3900 - 5300 \
-\mathrm{K}$. Sin embargo, mucho cuidado es necesario al interpretar estos
+\mathrm{K}$. Sin embargo, se debe tener mucho cuidado al interpretar estos
 resultados. El espectro de Gaia, a pesar de ser el más completo, es de muy baja
 resolución espectral, lo cual causa la perdida de información de las líneas de
 emisión y absorción que permitirían una clasificación adecuada del sistema. El
@@ -199,7 +200,7 @@ onda más largas del espectro medido, algo que no se observa en el de Gaia y que
 no tenemos una explicación satisfactoria en este trabajo. Dado que la
 temperatura efectiva de la componente primaria no tiene un efecto significativo
 en la morfología de la curva de luz de un sistema binario en contacto
-[\citeyearparen{wadhwa_effective_temperature_light_curve_solutions_cbs_2023}] no
+(\citeyearparen{wadhwa_effective_temperature_light_curve_solutions_cbs_2023}) no
 es necesario descartar todo el modelo de PHOEBE para \atoObjIdNoSpace. Un
 análisis a mayor profundidad con datos espectroscópicos de mayor precisión
 ayudaría a constreñir parámetros adicionales del modelo. En el caso de tener
@@ -289,9 +290,7 @@ binario. Cada correlación entre distintos parámetros indica la existencia de u
 solución fotométrica no única, dado que cualquier combinación de parámetros que
 cumplan con la función de correlación ajustada sería igual de correcta, salvo si
 se introducen nuevos datos que permitan restringir aún más los parámetros del
-sistema.
-
-% TODO: incluye matriz de covarianza
+sistema. 
 
 \section{Extinción Interestelar}
 
@@ -309,8 +308,8 @@ de visión de \atoObjIdNoSpace.
 Para analizar el efecto del polvo en las observaciones fotométricas de Gaia se
 utilizó el paquete de Python
 \code{dustmaps}\footnote{\url{https://github.com/gregreen/dustmaps}}, el cual
-contiene información de varios mapas de polvo hechos en la literatura. Este
-paquete contiene mapas que toman en cuenta la distancia al objetivo, calculando
+contiene información de varios mapas de polvo existentes en la literatura. Este
+paquete contiene mapas que toman en cuenta la distancia al objeto, calculando
 la extinción que experimentaría la luz al pasar por el polvo presente en la
 línea de visión. Para este breve análisis se usó el mapa de polvo desarrollado
 por \citeyearparen{green_3d_dustmap_gaia_panstarrs_2mass_2019}, el cual utiliza
@@ -344,14 +343,15 @@ componentes estelares sean completamente idénticas y experimenten poca
 irradiación mutua y distorsión estelar, no es adecuado tratar la extinción
 interestelar como un efecto uniforme en toda la curva de luz de un sistema
 binario
-[\citeyearparen{jones_phoebe_iv_impact_interstellar_extinction_lcs_binaries_2020}].
+(\citeyearparen{jones_phoebe_iv_impact_interstellar_extinction_lcs_binaries_2020}).
 PHOEBE es capaz de calcular el valor de la extinción observada en cada fase
-orbital basado en el perfil espectral del modelo, la función de transmisión de
-el pasabanda de la curva de luz, y la ley de enrojecimiento empleada. Sin
+orbital basado en el perfil espectral del modelo, la función de transmisión del 
+pasabanda de la curva de luz, y la ley de enrojecimiento empleada. Sin
 embargo, este método tiene la desventaja de no ser compatible con todas las
 pasabandas disponibles en PHOEBE, debido a que uno de los requisitos es que
 exista una variación particular \code{ext} en los servidores de PHOEBE. Por esta
-razón fue necesario tratar las curvas de luz de Gaia por separado de ZTF.
+razón fue necesario tratar las curvas de luz de Gaia por separado con respecto 
+a las de ZTF.
 
 Primero fue necesario ajustar el tiempo de superconjunción del modelo utilizando
 las curvas de luz de Gaia. Esto se debe a la presencia de un efecto sistemático

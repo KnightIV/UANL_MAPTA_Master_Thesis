@@ -87,7 +87,7 @@
 % Algunas definiciones %
 %%%%%%%%%%%%%%%%%%%%%%%%
 \def\uanl{Universidad Autónoma de Nuevo León}
-\def\fcfm{Facultad de Ciencias Físico-Matemático}
+\def\fcfm{Facultad de Ciencias Físico-Matemáticas}
 \def\pifi{Posgrado en Astrofísica Planetaria y Tecnologías Afines}
 \def\snnl{San Nicolás de los Garza, Nuevo León}
 

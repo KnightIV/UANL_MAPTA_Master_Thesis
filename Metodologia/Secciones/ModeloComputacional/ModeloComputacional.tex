@@ -4,7 +4,7 @@ Usando todas las curvas de luz disponible para \atoObjId se puede
 generar un modelo computacional cuyos parámetros físicos resultan en una curva
 de luz sintética que reproduzca de manera adecuada las curvas fotométricas
 observadas. Este método al final daría como resultado una \textit{solución
-fotométrica} del sistema, en cual se reportan los valores óptimos de cada
+fotométrica} del sistema, en la cual se reportan los valores óptimos de cada
 parámetro y la incertidumbre dada por la calidad de los datos. A continuación se
 plasma el proceso que se llevó a cabo para llegar a una solución fotométrica del
 sistema \atoObjIdNoSpace; debido a la alta dimensionalidad del problema de
@@ -94,7 +94,8 @@ los siguientes parámetros: el \textit{tiempo de conjunción superior}
 \textit{inclinación orbital} (\code{incl@binary}), el \textit{factor de relleno}
 (\textit{fillout factor} en inglés, \code{fillout\_factor}), y la \textit{razón
 de masas} (\code{q}). A pesar que dentro de PHOEBE estén implementados
-estimadores adicionales, solo se puede aplicar el estimador \textbf{EBAI-KNN};
+estimadores adicionales, en nuestro caso solo se puede aplicar el estimador 
+\textbf{EBAI-KNN};
 esto se debe a que el modelo del sistema del que parte este trabajo corresponde
 al de una binaria en contacto (elegido por la morfología aparente de la curva de
 luz de Iturbide). Para poder adoptar los valores propuestos por los estimadores
@@ -128,9 +129,9 @@ antes mencionado, acompañado de las gráficas resultantes de cada estimador.
 Una consideración importante en el proceso de modelación computacional es la
 existencia de diferentes soluciones fotométricas dado un mismo conjunto de
 datos. Esto se debe a la ortogonalidad de los parámetros en el sistema; dos o
-más parámetros pueden estar correlacionados el uno al otro, lo cual significa
-que no existe una solución única correcta del sistema. Para decidir entre los
-varios estimadores se tomó como criterio de selección el ajuste del modelo hacia
+más parámetros pueden estar correlacionados entre sí, lo cual significa que no
+existe una solución única correcta del sistema. Para decidir entre los varios
+estimadores se tomó como criterio de selección el ajuste del modelo hacia
 adelante utilizando la métrica definida en la
 \refequation{ecuacionLambdaCostoPhoebe}, $\lambda$, la cual está normalizada al
 número de puntos en las curvas de luz observadas. Estos se pueden ver en la
@@ -148,15 +149,15 @@ aproximadamente $0.692$; de este se obtiene $1/q \approx 1.444$, el cual es
 importante tener en mente ya que \code{q} en PHOEBE no está restringido al
 intervalo $(0, 1]$ como en el modelo de
 \citeyearparen{poro_investigation_of_orbital_period_mass_relations_2022}. Por lo
-tanto se eligió las estimaciones de \code{ebai\_knn\_ztf\_gaia\_solution}, el
-cual utilizó la fotometría de Gaia y ZTF.El resultado inicial del modelo se
-puede ver en la \reffigure{figuraEstimacionInicialModelo}, junto a los
-parámetros del modelo en la \reftable{ebaiKnnInitialEstimationsValues}.
+tanto se eligieron los resultados generados por el estimador
+\code{ebai\_knn\_ztf\_gaia\_solution}, el cual utilizó la fotometría de Gaia y
+ZTF. El resultado inicial del modelo se puede ver en la
+\reffigure{figuraEstimacionInicialModelo}, junto a los parámetros del modelo en
+la \reftable{ebaiKnnInitialEstimationsValues}.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.6]{Metodologia/Secciones/ModeloComputacional/Figures/EstimadoresChiResultados.png}
-
+	\includegraphics[scale=0.325]{Metodologia/Secciones/ModeloComputacional/Figures/EstimadoresChiResultados.png}
 	\caption{Resultados del ajuste ($\lambda$) de los modelos sintéticos
 		generados utilizando los parámetros dados por cada estimador. Cada
 		estadística fue calculada con respecto a todos los datos observacionales
@@ -188,7 +189,6 @@ parámetros del modelo en la \reftable{ebaiKnnInitialEstimationsValues}.
 	\label{figuraEstimacionInicialModelo}
 \end{figure}
 
-% TODO: style table
 \begin{table}[!ht]
 	\centering
 	\begin{tabular}{|l|l|}
@@ -217,8 +217,8 @@ parámetros del modelo en la \reftable{ebaiKnnInitialEstimationsValues}.
 \section{Optimización de Parámetros} \label{metodologia:modelocomputacional:optimizacion}
 
 Como se puede ver en la \reffigure{figuraEstimacionInicialModelo} el modelo
-inicial de PHOEBE no se ajusta perfectamente bien a los datos
-observacionales, visto en los residuos de cada curva de luz. En la siguiente
+inicial de PHOEBE no se ajusta perfectamente a los datos observacionales, esto
+se aprecia mejor a partir de los residuos de cada curva de luz. En la siguiente
 etapa del proyecto se emplea un muestreo MCMC, el cual en teoría es capaz de
 determinar el mínimo global del espacio de parámetros, pero a un costo
 computacional que crece exponencialmente con la distancia de los parámetros del
@@ -230,15 +230,15 @@ a una solución adecuada para otro sistema. Para el caso de
 \atoObjId primero se ajustó el tiempo de superconjunción; los
 eclipses del modelo sintético están desfasados de los eclipses de las curvas
 observadas en la \reffigure{figuraEstimacionInicialModelo}. Esto resultó en un
-nuevo valor de $0.02589 \ \mathrm{d}$. Utilizando un optimizador de Nelder Mead
-Simplex (\textit{NMS}, descrito en la
+nuevo valor de $0.02589 \ \mathrm{d}$ para el tiempo de superconjunción. 
+Utilizando un optimizador de Nelder Mead Simplex (\textit{NMS}, descrito en la
 \refthesissubsubsection{intro:phoebe:nelder_mead}) se buscó optimizar los
 parámetros configurados en la estimación inicial del modelo. Con la finalidad de
 obtener un ajuste consistente y solo utilizar datos de alta calidad se decidió 
 emplear las dos curvas de luz de ZTF para el resto del ajuste del modelo. Esto
 se debe al número de datos; son más numerosas que
 las observaciones hechas por Gaia, y son de mejor calidad que las realizadas
-desde el OAU. Al tener observaciones simultaneas en diferentes pasabandas
+desde el OAU. Además al tener observaciones simultaneas en diferentes pasabandas
 también es posible determinar las temperaturas efectivas de las componentes
 estelares. 
 
@@ -254,14 +254,12 @@ de los eclipses), y la razón de masa \code{q}. La razón de masa no es un
 parámetro que se pueda constreñir bien utilizando solo información fotométrica;
 esto se debe a las correlaciones presentes en el modelo con los demás parámetros
 del sistema. Después de 114 iteraciones el optimizador logró converger a una
-solución dada en la \reftable{tablaOptNmResultados}.
+solución mostrada en la \reftable{tablaOptNmResultados}.
 
-% TODO: style table
 \begin{table}[!ht]
 	\centering
 	\begin{tabular}{|l|l|}
 		\hline
-		% \rowcolor{blue}
 		\thead{Parámetro}                        & \thead{Valor optimizado} \\
 		\hline
 		\code{teffratio@binary}                  & 1.07991       \\
@@ -298,7 +296,7 @@ sistemas con órbitas excéntricas. El \textit{efecto O'Connell} se debe a la
 diferencia de luminosidad entre diferentes hemisferios de una estrella; puede
 ser causado por un punto caliente debido a la acreción de material en el caso de
 haber una alta tasa de transferencia de masa
-[\citeyearparen{darwish_light_curve_analysis_four_new_short_period_eclipsing_binaries_2024}],
+(\citeyearparen{darwish_light_curve_analysis_four_new_short_period_eclipsing_binaries_2024}),
 o por manchas en la superficie estelar debido a actividad en la fotósfera. Para
 llegar a un mejor ajuste de la curva fotométrica se introdujo una mancha fría en
 la estrella secundaria. Después de hacer un ajuste manual de los parámetros de
@@ -347,7 +345,7 @@ representada en la \reffigure{figuraMallaManchaNm}.
 	\label{figuraMallaManchaNm}
 \end{figure}
 
-Una vez que se haya llegado a un nivel de ajuste adecuado con los optimizadores
+Una vez que se logró un nivel de ajuste adecuado con los optimizadores
 de tipo NMS se aplicó un último ajuste utilizando correcciones diferenciales,
 los cuales funcionan mejor cuando los parámetros se encuentren lo
 suficientemente cerca del mínimo global, para evitar caer y estar atrapados
@@ -381,12 +379,10 @@ en un modelo sintético de PHOEBE.
 	\label{codigoOptimizadorDc}
 \end{figure}
 
-% TODO: style table
 \begin{table}[!ht]
 	\centering
 	\begin{tabular}{|l|l|}
 		\hline
-		% \rowcolor{blue}
 		\thead{Parámetro}                        & \thead{Valor optimizado} \\
 		\hline
 		\code{teffratio@binary}                  & 1.06676       \\
@@ -402,7 +398,7 @@ en un modelo sintético de PHOEBE.
 	\label{tablaOptDcResultados}
 \end{table}
 
-Después de 17 iteración se obtuvieron los parámetros vistos en la
+Después de 17 iteraciones se obtuvieron los parámetros vistos en la
 \reftable{tablaOptDcResultados}, de los cuales se generaron las curvas sintéticas
 vistas en la \reffigure{figuraOptDcResultadosZtf}. El optimizador de
 correcciones diferenciales no se utilizó para ajustar los parámetros de la
@@ -437,7 +433,7 @@ cual PHOEBE determina un factor de escala tal que las intensidades superficiales
 de las estrellas sean igual a la luminosidad dada. El modo
 \code{dataset-coupled} aplica el mismo factor de escala a la curva de ZTF:r que
 el factor dado a la curva ZTF:g, manteniendo información del color del sistema
-[\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}]. 
+(\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}). 
 
 Una vez que se haya establecido esta configuración del bundle se aplicó un
 optimizador de tipo NMS para ajustar los tres parámetros mencionados en el
@@ -449,12 +445,10 @@ estos parámetros principalmente afectan el factor de escala de las curvas de
 luz, los demás parámetros del sistema se mantuvieron fijos, manteniendo la forma
 de las curvas de luz.
 
-% TODO: style table
 \begin{table}[!ht]
 	\centering
 	\begin{tabular}{|l|l|}
 		\hline
-		% \rowcolor{blue}
 		\thead{Parámetro}                        & \thead{Valor optimizado} \\
 		\hline
 		\code{teff@primary}							& 4203.69115 K  \\
@@ -475,8 +469,8 @@ de las curvas de luz.
 
 \section{Muestreo MCMC} \label{metodologia:modelocomputacional:mcmc}
 
-Una vez que se haya obtenido el conjunto de parámetros que mejor ajustan el
-modelo sintético a los datos observacionales se busca obtener las incertidumbres
+Una vez que obtuvimos el conjunto de parámetros que mejor ajustan el
+modelo sintético a los datos observacionales buscamos obtener las incertidumbres
 para cada parámetro. La manera recomendada por el equipo de desarrollo de PHOEBE
 es por medio de un muestreo Bayesiano \textit{Monte Carlo Markov Chain}.
 Utilizando un muestreo MCMC es posible determinar la morfología del espacio de
@@ -503,7 +497,7 @@ la siguiente ecuación:
 Donde $\mathrm{lnpriors} = \sum_{\Pi} \ln{P(p | \pi)}$ es la probabilidad
 logarítmica de obtener los parámetros actuales del modelo $p$ de una
 distribución a priori $\pi$ sumando sobre todas las distribuciones priores $\Pi$
-[\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}]. El
+(\citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}). El
 término $\mathrm{lnlikelihood}$ es la verosimilitud, la cual está definida en
 la \refequation{ecuacionLnLikelihoodMcmc}. Tras varios experimentos corriendo
 varias instancias del muestreo MCMC se descubrió que los caminadores son
@@ -549,10 +543,6 @@ MCMC.
 	\label{figuraModeloSinMalasObservacionesZtf}
 \end{figure}
 
-% TODO: formatting new page
-\newpage
-\clearpage
-
 \subsection{Distribuciones Priores}
 
 Para poder muestrear el espacio de parámetros, el algoritmo MCMC requiere de una
@@ -560,7 +550,7 @@ región inicial a partir de cual inicializar las posiciones de cada caminador.
 Estas distribuciones iniciales también actúan como una guía; al principio del
 muestreo los caminadores en su mayoría no saldrán de las regiones de
 concentración de estas distribuciones. La forma de las priores dejará de
-importar tanto entre más iteraciones logre correr la cadena, de la cual se
+importar entre más iteraciones logre correr la cadena, de la cual se
 estimará la distribución posterior de densidad de cada parámetro.
 
 PHOEBE ofrece unas herramientas para los tipos de distribuciones más comunes en
@@ -613,8 +603,8 @@ muestra todos los priores utilizados para el proceso de MCMC.
 
 \subsection{Inicializando el Muestreo MCMC}
 
-Una vez que se hayan determinado las distribuciones priores a utilizar para
-inicializar la cadena se puede empezar el muestreo. Se emplearon 160 caminadores
+Una vez que se determinaron las distribuciones priores a utilizar para
+inicializar la cadena se pudo empezar el muestreo. Se emplearon 160 caminadores
 en total; en general, es mejor tener la mayor cantidad de caminadores posible
 tal que sea mayor que la cantidad de parámetros que se van a explorar (10
 parámetros vs. 160 caminadores). Esto también está restringido por el cómputo
@@ -659,7 +649,7 @@ $\left\{\mathbf{\Theta}_1 \rightarrow ... \rightarrow \mathbf{\Theta}_i
 probabilidad de estar correlacionado con las posiciones previas
 $\mathbf{\Theta}_{i - 1}$. Esto no es deseado, debido a que tener varias
 muestras correlacionadas nos impide obtener una estimación adecuada de la
-distribución posterior [\citeyearparen{speagle_conceptual_intro_mcmc_2020}].
+distribución posterior (\citeyearparen{speagle_conceptual_intro_mcmc_2020}).
 Para determinar el grado de correlación entre cada paso en la cadena se utiliza
 el \textbf{tiempo de autocorrelación} (\textbf{autocorrelation time} en inglés),
 el cual se mide por medio de la autocovarianza que muestra la cadena utilizando
@@ -700,7 +690,7 @@ por \citeyearparen{foreman-mackey_emcee_2013}:
 
 El término $-1$ se introduce para restar el caso de $A(0) = 1$. La integración
 se restringe solo para $t > 0$; se multiplica por 2 debido a la simetría $A(t) =
-A(-t)$ [\citeyearparen{speagle_conceptual_intro_mcmc_2020}]. 
+A(-t)$ (\citeyearparen{speagle_conceptual_intro_mcmc_2020}). 
 
 Dentro de PHOEBE existen funciones para calcular $\tau_f$ para cada parámetro en
 la muestra; por lo tanto, la \refequation{ecuacionAutocovarianza} sería evaluada
@@ -769,12 +759,12 @@ iteraciones se le conoce como la \textbf{fracción de pasos aceptados}
 (\textbf{acceptance fractions} en inglés).
 \citeyearparen{conroy_phoebe_v_framework_solving_inverse_problem_2020}
 recomiendan esta fracción esté en el rango de 0.2 a 0.5 para todos los
-caminadores en la cadena. Valores mayores a 0.5 este indican que los caminadores
+caminadores en la cadena. Valores mayores a 0.5 indican que los caminadores
 están explorando sin sentido, ya que no están siendo guiados por la función de
 costo. Al contrario, valores menores a 0.2 son indicadores de que la gran
 mayoría de los saltos propuestos han sido rechazados, lo cual resulta en un
 cadena con muy pocas muestras independientes de las cuales estimar la
-distribución posterior de densidad [\citeyearparen{foreman-mackey_emcee_2013}].
+distribución posterior de densidad (\citeyearparen{foreman-mackey_emcee_2013}).
 La \reffigure{figuraFraccionPasosAceptados} se utilizó para diagnosticar si el
 muestreo estaba explorando el espacio de parámetros de manera adecuada o si
 estaba siendo restringido por la función de costo.
@@ -798,7 +788,7 @@ resulta en un sistema físicamente imposible. Estos resultan en errores, y por
 ende PHOEBE los trata como pasos fallidos. El resolvedor de tipo MCMC de PHOEBE
 es capaz de mantener un registro de todas las muestras fallidas y mostrarlas en
 una gráfica, para poder identificar fácilmente cualquier región de interés. En
-la \reffigure{figuraMcmcMuestrasFallidas} se puede ver todas las muestras
+la \reffigure{figuraMcmcMuestrasFallidas} se pueden ver las muestras
 fallidas en la cadena de este modelo.
 
 \begin{figure}[!ht]
@@ -825,7 +815,7 @@ manera adecuada.
 
 \subsubsection{Camino Trazado por los Caminadores}
 
-PHOEBE ofrece la habilidad de ver el camino trazado por cada caminador
+PHOEBE ofrece la posibilidad de ver el camino trazado por cada caminador
 individual del muestreo. Una inspección visual nunca debería ser la única fuente
 para una conclusión del modelo; sin embargo, es especialmente útil para
 identificar problemas obvios con el muestreo, los cuales pueden ser analizados
@@ -873,9 +863,9 @@ referencia al apéndice en la
 \href{https://github.com/KnightIV/UANL_MAPTA_Observaciones/blob/main/analisis/phoebe_model/sampling/updated-data-mcmc-sampling.ipynb}{\code{updated-data-mcmc-sampling.ipynb}}).
 En estas gráficas se puede apreciar el número de iteraciones que fueron
 requeridas para llegar al espacio de parámetros más óptimo, lo cual resulta en
-un muestreo ineficiente. Esto es una consecuencia de haber escogido una
+un muestreo ineficiente. Esto es una consecuencia de haber elegido una
 distribución prior uniforme no informativa para el muestreo. El caso ideal
-hubiera sido que esta solución se haya encontrado en el proceso de optimización;
+hubiera sido que esta solución se hubiera encontrado en el proceso de optimización;
 la migración de los caminadores requirió una gran cantidad de iteraciones, y por
 lo tanto un enorme tiempo de cómputo que efectivamente se tiene que utilizar
 como periodo de quemado.
@@ -888,7 +878,7 @@ convergido con éxito a un volumen del espacio de parámetros para un modelo de 
 sistema binario estelar. Esto se debe al alto número de dimensiones involucradas
 en el modelo; esto corresponde a una disminución significativa en la fracción de
 pasos aceptados, y por ende un aumento en el tiempo de autocorrelación
-[\citeyearparen{speagle_conceptual_intro_mcmc_2020}]. Por lo tanto, por
+(\citeyearparen{speagle_conceptual_intro_mcmc_2020}). Por lo tanto, por
 cuestiones de tiempo se detuvo el muestreo de MCMC llegando a las 6413
 iteraciones, de las cuales 2200 se utilizaron de quemado antes de converger. Un
 análisis visual de los trazos de los caminadores demuestra que todos los
@@ -985,9 +975,9 @@ muestra y 2 intervalos de confianza, los cuales se reportan en la
 
 Utilizando las distribuciones posteriores es posible visualizar la dispersión en
 el modelo sintético. Esto se hace con el parámetro \code{sample\_from} del
-cómputo en uso, en el cual se puede especificar las distribuciones de las cuales
-obtener muestras individuales, calculando un modelo hacia adelante de estos
-valores obtenidos. En la \reffigure{figuraMcmcZtfModeloDispersionPosterior} se
+cómputo en uso, en el cual se pueden especificar las distribuciones de las cuales
+obtener muestras individuales, calculando un modelo hacia adelante a partir de las
+distribuciones obtenidas. En la \reffigure{figuraMcmcZtfModeloDispersionPosterior} se
 puede apreciar la dispersión (en las regions oscurecidas) del modelo promedio,
 el cual surge como resultado de las incertidumbres de cada parámetro. Este
 cálculo requiere de una gran cantidad de memoria para poder generar un alto
@@ -1008,4 +998,17 @@ $1688.85$ del último modelo optimizado de la
 	Este modelo fue calculado con 25 muestras en total de las distribuciones
 	posteriores.}
 	\label{figuraMcmcZtfModeloDispersionPosterior}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.49\linewidth]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC Mesh Modelo -0.5.png}
+	\includegraphics[width=0.49\linewidth]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC Mesh Modelo -0.25.png}
+	\includegraphics[width=0.49\linewidth]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC Mesh Modelo 0.png}
+	\includegraphics[width=0.49\linewidth]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC Mesh Modelo 0.25.png}
+	\includegraphics[width=1\linewidth]{Metodologia/Secciones/ModeloComputacional/Figures/Figura MCMC Mesh Modelo Colorbar.png}
+	\caption{Malla del modelo sintético generado utilizando los valores
+	promedios de los PDFs resultados. El color de cada elemento superficial
+	representa la temperatura efectiva local; se logra apreciar la mancha
+	estelar fría presente en la componente secundaria.}
 \end{figure}
